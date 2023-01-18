@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="locale" var="lang"/>
+
+<%@include file="/jsp/nav_manager.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
-<%@include file="/jsp/nav_manager.jsp" %>
-
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html">
     <title>All Cargo report</title>
@@ -20,26 +20,26 @@
 
 <body>
 <main class="m-3">
-    <div class="row col-md-6">
+    <div class="col-md-auto">
         <table class="table table-striped table-bordered table-sm">
             <tr>
-                <th>id</th>
-                <th>type</th>
-                <th>userName</th>
-                <th>receiverFullname</th>
-                <th>departureBranchName</th>
-                <th>destinationBranchName</th>
-                <th>price</th>
-                <th>weight</th>
-                <th>length</th>
-                <th>height</th>
-                <th>width</th>
-                <th>creationDate</th>
-                <th>deliveryDate</th>
-                <th>deliveryStatus</th>
-                <th>invoiceStatus</th>
-                <th>changeStatus</th>
-                <th>createInvoice</th>
+                <th><fmt:message key="l.id" bundle="${lang}"/></th>
+                <th><fmt:message key="l.type" bundle="${lang}"/></th>
+                <th><fmt:message key="l.sender" bundle="${lang}"/></th>
+                <th><fmt:message key="l.receiver.fullname" bundle="${lang}"/></th>
+                <th><fmt:message key="l.departureBranchName" bundle="${lang}"/></th>
+                <th><fmt:message key="l.destinationBranchName" bundle="${lang}"/></th>
+                <th><fmt:message key="l.price" bundle="${lang}"/></th>
+                <th><fmt:message key="l.weight" bundle="${lang}"/></th>
+                <th><fmt:message key="l.length" bundle="${lang}"/></th>
+                <th><fmt:message key="l.height" bundle="${lang}"/></th>
+                <th><fmt:message key="l.width" bundle="${lang}"/></th>
+                <th><fmt:message key="l.creationDate" bundle="${lang}"/></th>
+                <th><fmt:message key="l.deliveryDate" bundle="${lang}"/></th>
+                <th><fmt:message key="l.delivery.status" bundle="${lang}"/></th>
+                <th><fmt:message key="l.invoiceStatus" bundle="${lang}"/></th>
+                <th><fmt:message key="l.edit.cargo" bundle="${lang}"/></th>
+                <th><fmt:message key="l.createInvoice" bundle="${lang}"/></th>
             </tr>
 
             <c:forEach var="cargo" items="${cargoList}">
@@ -63,10 +63,10 @@
                     <td>${cargo.invoiceStatus}</td>
                     <td>
                     <form action="controller?action=editcargopage" method="post">
-                            <button type="submit" name="id" value=${cargo.getId()}>EDIT</button>
+                            <button type="submit" name="id" value=${cargo.getId()}><fmt:message key="l.edit" bundle="${lang}"/></button>
                         </form>
                     </td>
-                    <td>CreateInvoice</td>
+                    <td><fmt:message key="l.createInvoice" bundle="${lang}"/></td>
                 </tr>
             </c:forEach>
         </table>
@@ -77,7 +77,7 @@
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
                 <li class="page-item">
-                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage - 1}">Previous</a>
+                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage - 1}"><fmt:message key="l.previous" bundle="${lang}"/></a>
                 </li>
             </c:if>
 
@@ -102,7 +102,7 @@
             <%--For displaying Next link --%>
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item">
-                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage + 1}">Next</a>
+                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage + 1}"><fmt:message key="l.next" bundle="${lang}"/></a>
                 </li>
             </c:if>
 

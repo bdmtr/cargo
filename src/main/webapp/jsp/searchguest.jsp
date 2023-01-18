@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="locale" var="lang"/>
+
+<%@include file="/jsp/nav_guest.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
-
-<%@include file="/jsp/nav_guest.jsp" %>
 <html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html">
-    <title>All Guest Cargo</title>
+    <title><fmt:message key="l.guest.cargo" bundle="${lang}"/></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous">
@@ -22,7 +23,7 @@
     <form method="post" action="controller?action=SearchCityGuest">
         <input name="command" value="SearchCityGuest" type="hidden">
         <div>
-            <label>Destination branch</label>
+            <label><fmt:message key="l.destination.branch" bundle="${lang}"/></label>
             <input type="text" name="search_branch" id="search_branch">
         </div>
         <div>
@@ -33,13 +34,13 @@
     </form>
 </div>
 <main class="m-3">
-    <div class="row col-md-6">
+    <div class="col-md-auto">
         <table class="table table-striped table-bordered table-sm">
             <tr>
-                <th>departureBranchName</th>
-                <th>destinationBranchName</th>
-                <th>deliveryDate</th>
-                <th>deliveryStatus</th>
+                <th><fmt:message key="l.departureBranchName" bundle="${lang}"/></th>
+                <th><fmt:message key="l.destinationBranchName" bundle="${lang}"/></th>
+                <th><fmt:message key="l.deliveryDate" bundle="${lang}"/></th>
+                <th><fmt:message key="l.delivery.status" bundle="${lang}"/></th>
             </tr>
 
             <c:forEach var="cargo" items="${cargoList}">
@@ -88,7 +89,7 @@
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item">
                     <a class="page-link"
-                       href="controller?action=SearchCityGuest&page=${currentPage + 1}">Next</a>
+                       href="controller?action=SearchCityGuest&page=${currentPage + 1}"><fmt:message key="l.next" bundle="${lang}"/></a>
                 </li>
             </c:if>
 

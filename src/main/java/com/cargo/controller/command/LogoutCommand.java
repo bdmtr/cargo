@@ -14,7 +14,8 @@ public class LogoutCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate();
+            session.setAttribute("currentUserId", null);
+            session.setAttribute("role", null);
         }
         return Path.PAGE_LOGIN;
     }

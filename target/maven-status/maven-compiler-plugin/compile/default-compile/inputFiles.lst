@@ -12,6 +12,7 @@ K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\Calc
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\CargoDao.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\Path.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\enums\InvoiceStatus.java
+K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\filter\LocaleFilter.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\entity\User.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\RegisterCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\entity\Model.java

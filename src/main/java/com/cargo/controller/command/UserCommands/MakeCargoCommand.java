@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import static com.cargo.controller.Validation.Validator.isIncorrectCargoInfo;
+import static com.cargo.util.Validator.isIncorrectCargoInfo;
 
 public class MakeCargoCommand extends Command {
 

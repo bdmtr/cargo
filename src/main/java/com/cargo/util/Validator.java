@@ -1,4 +1,4 @@
-package com.cargo.controller.Validation;
+package com.cargo.util;
 
 import com.cargo.model.BranchDao;
 import com.cargo.model.UserDao;
@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 public class Validator {
+    private static final String PASSWORD_REGEX = "(?=.*\\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).{4,}";
+    private static final String EMAIL_REGEX = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
+    private static final String NAME_REGEX = "^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\\- ]{1,20}";
 
     public static boolean isIncorrectLoginInfo(HttpServletRequest request, String username) {
         return username == null || username.isEmpty();
@@ -27,10 +30,14 @@ public class Validator {
             return true;
         }
 
-        if (email.isEmpty() || !email.matches("^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+        if (email.isEmpty() || !email.matches(EMAIL_REGEX)) {
             return true;
         }
-        if (password.length() < 4 || password.length() > 20) {
+        if (!username.matches(NAME_REGEX)) {
+            return true;
+        }
+
+        if(password.matches(PASSWORD_REGEX)) {
             return true;
         }
 

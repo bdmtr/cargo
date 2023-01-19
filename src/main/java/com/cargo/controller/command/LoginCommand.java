@@ -3,13 +3,14 @@ package com.cargo.controller.command;
 import com.cargo.controller.Path;
 import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.cargo.controller.Validation.Validator.isIncorrectLoginInfo;
+import static com.cargo.util.Validator.isIncorrectLoginInfo;
 
 public class LoginCommand extends Command {
 
@@ -32,16 +33,25 @@ public class LoginCommand extends Command {
         }
 
         session.setAttribute("currentUserId", user.getId());
-        session.setAttribute("role", user.getRole());
+        session.setAttribute("role", user.getRole().toString());
         session.setAttribute("currentUser", user);
+        session.setAttribute("session_order", "");
+        session.setAttribute("session_branch_id", "");
+
+        //вот тут для манагера
+        session.setAttribute("session_branch_dep","");
+        session.setAttribute("session_branch_des", "");
+        session.setAttribute("session_delivery_date", "2023");
+
 
         String userRole = String.valueOf(user.getRole());
 
-        session.setAttribute("session_order", "ASC");
-        session.setAttribute("session_branch_id", "");
-
         if (userRole.equals("MANAGER")) {
             return "redirect:controller?action=showmanagerpage";
+        }
+
+        if (userRole.equals("USER")) {
+            return "redirect:controller?action=showcargospage";
         }
 
         return "redirect:controller?action=showcargospage";

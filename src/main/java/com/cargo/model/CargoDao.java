@@ -53,6 +53,8 @@ public class CargoDao {
     static final String sortByCityQuery = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, " +
             "delivery_date, delivery_status from cargo where delivery_status='TRANSIT' ";
 
+    static final String sortByCityManagerQuery = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
+
     public List<Cargo> getAllCargo() throws SQLException {
         List<Cargo> cargoList = new ArrayList<>();
         try (Connection connection = DataSourceUtil.getConnection();
@@ -289,43 +291,6 @@ public class CargoDao {
         return cargo;
     }
 
-    public Cargo getCargoByUserId(int id) throws SQLException {
-        Cargo cargo = null;
-
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findCargoByUserIdQuery);
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                cargo = new Cargo();
-                cargo.setId(resultSet.getInt("id"));
-                cargo.setType(resultSet.getString("type"));
-                cargo.setUserId(resultSet.getInt("user_id"));
-                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
-                cargo.setReceiverFullname(resultSet.getString("recipient_fullname"));
-                cargo.setDepartureBranchId(resultSet.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(resultSet.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getUserId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getUserId()));
-                cargo.setPrice(resultSet.getInt("price"));
-                cargo.setWeight(resultSet.getInt("weight"));
-                cargo.setLength(resultSet.getInt("length"));
-                cargo.setHeight(resultSet.getInt("height"));
-                cargo.setWidth(resultSet.getInt("width"));
-                cargo.setCreationDate(resultSet.getTimestamp("creation_date"));
-                cargo.setDeliveryDate(resultSet.getTimestamp("delivery_date"));
-                cargo.setDeliveryStatus(DeliveryStatus.valueOf(resultSet.getString("delivery_status")));
-                cargo.setInvoiceStatus(InvoiceStatus.valueOf(resultSet.getString("invoice_status")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-        return cargo;
-    }
-
     public void addCargo(Cargo cargo) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(addCargoQuery, Statement.RETURN_GENERATED_KEYS);
@@ -352,32 +317,6 @@ public class CargoDao {
         }
     }
 
-
-    public void updateCargoInvoiceStatusById(InvoiceStatus invoiceStatus, int id) throws SQLException {
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateCargoInvoiceStatusByIdQuery, Statement.RETURN_GENERATED_KEYS);
-        ) {
-            preparedStatement.setString(1, invoiceStatus.toString());
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateCargoDeliveryStatusById(DeliveryStatus deliveryStatus, int id) throws SQLException {
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateCargoDeliveryStatusByIdQuery, Statement.RETURN_GENERATED_KEYS);
-        ) {
-            preparedStatement.setString(1, deliveryStatus.toString());
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void deleteCargoById(int id) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
@@ -431,17 +370,25 @@ public class CargoDao {
         }
     }
 
+    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
+        StringBuilder preQuery = new StringBuilder(sortByCityQuery);
+        String id;
 
-    public List<Cargo> searchGuestCargos(int offset, int noOfRecords, int destinationBranchId) throws SQLException {
-        StringBuilder preQuery = new StringBuilder(getAllGuestWithLimitQuery);
+        BranchDao branchDao = new BranchDao();
+        Branch branch = branchDao.getBranchByCity(branchCity);
 
-        if (destinationBranchId > 0) {
-            preQuery.append(" AND destination_branch_id=").append(destinationBranchId);
+        if (branch != null) {
+            id = String.valueOf(branch.getId());
+            preQuery.append(" AND destination_branch_id=").append(id);
         }
 
-        preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
+        if (order != null && !order.isEmpty()) {
+            preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
+        } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
 
-        List<Cargo> list = new ArrayList<Cargo>();
+        System.out.println(preQuery);
+
+        List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;
         try (
                 Connection connection = DataSourceUtil.getConnection();
@@ -473,23 +420,28 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
-        StringBuilder preQuery = new StringBuilder(sortByCityQuery);
-        String id;
+    public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String departmentBrId, String destinationBrId, String date, String order) throws SQLException {
+        StringBuilder preQuery = new StringBuilder(sortByCityManagerQuery);
 
-        BranchDao branchDao = new BranchDao();
-        Branch branch = branchDao.getBranchByCity(branchCity);
+        if (departmentBrId != null && !departmentBrId.isEmpty()) {
+            preQuery.append(" AND departure_branch_id=").append(departmentBrId);
+        }
 
-        if (branch != null) {
-            id = String.valueOf(branch.getId());
-            preQuery.append(" AND destination_branch_id=").append(id);
+        if (destinationBrId != null && !destinationBrId.isEmpty()) {
+            preQuery.append(" AND destination_branch_id=").append(destinationBrId);
+        }
+
+        if (date != null) {
+            preQuery.append(" AND delivery_date like '%" + date + "%' ");
         }
 
         if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
 
-        List<Cargo> list = new ArrayList<Cargo>();
+        System.out.println(preQuery);
+
+        List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;
         try (
                 Connection connection = DataSourceUtil.getConnection();
@@ -499,12 +451,25 @@ public class CargoDao {
 
             while (rs.next()) {
                 cargo = new Cargo();
+
+                cargo.setId(rs.getInt("id"));
+                cargo.setType(rs.getString("type"));
+                cargo.setUserId(rs.getInt("user_id"));
+                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
+                cargo.setReceiverFullname(rs.getString("receiver_fullname"));
                 cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
                 cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
                 cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
                 cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
+                cargo.setPrice(rs.getInt("price"));
+                cargo.setWeight(rs.getInt("weight"));
+                cargo.setLength(rs.getInt("length"));
+                cargo.setHeight(rs.getInt("height"));
+                cargo.setWidth(rs.getInt("width"));
+                cargo.setCreationDate(rs.getTimestamp("creation_date"));
                 cargo.setDeliveryDate(rs.getTimestamp("delivery_date"));
                 cargo.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
+                cargo.setInvoiceStatus(InvoiceStatus.valueOf(rs.getString("invoice_status")));
 
                 list.add(cargo);
             }

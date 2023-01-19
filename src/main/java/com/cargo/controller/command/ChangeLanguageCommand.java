@@ -1,6 +1,9 @@
 package com.cargo.controller.command;
 
 
+import com.cargo.controller.Path;
+import com.cargo.model.entity.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,14 +36,23 @@ public class ChangeLanguageCommand extends Command {
             session.setAttribute(SESSION_LOCALE, locale);
         }
 
-        if (session.getAttribute("role") == null) {
-            return "redirect:controller?action=login";
+        String userRole = String.valueOf(session.getAttribute("role"));
+
+        if (userRole == null) {
+            assert false;
+            if (userRole.isEmpty()) {
+                return Path.PAGE_LOGIN;
+            }
         }
 
-        if (session.getAttribute("role").equals("MANAGER")) {
-            return "redirect:controller?action=showmanagerpage";
+        if (userRole.equals("MANAGER")) {
+            return Path.PAGE_MANAGER;
         }
 
-        return "redirect:controller?action=showcargospage";
+        if (userRole.equals("USER")) {
+            return Path.PAGE_SHOW_CARGOS;
+        }
+
+        return Path.PAGE_LOGIN;
     }
 }

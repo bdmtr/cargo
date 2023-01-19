@@ -19,6 +19,59 @@
 </head>
 
 <body>
+
+
+<div>
+    <form method="post" action="controller?action=showmanagerpage">
+        <input name="command" value="showmanagerpage" type="hidden">
+
+        <table cellspacing="10" cellpadding="10">
+            <tr>
+                <th>
+                    <div class="form-group">
+                        <select name="req_branch_dep">
+                            <option value=1><fmt:message key="l.Kyiv1" bundle="${lang}"/></option>
+                            <option value=2><fmt:message key="l.Lviv2" bundle="${lang}"/></option>
+                            <option value=3><fmt:message key="l.Dnipro3" bundle="${lang}"/></option>
+                            <option value=4><fmt:message key="l.Kharkiv4" bundle="${lang}"/></option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <select name="req_branch_des">
+                            <option value=1><fmt:message key="l.Kyiv1" bundle="${lang}"/></option>
+                            <option value=2><fmt:message key="l.Lviv2" bundle="${lang}"/></option>
+                            <option value=3><fmt:message key="l.Dnipro3" bundle="${lang}"/></option>
+                            <option value=4><fmt:message key="l.Kharkiv4" bundle="${lang}"/></option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" name="req_delivery_date" id="req_delivery_date">
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <select name="req_order" id="req_order">
+                            <option value="ASC">ASC</option>
+                            <option value="DESC">DESC</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </th>
+
+            <tr>
+        </table>
+    </form>
+</div>
+
 <main class="m-3">
     <div class="col-md-auto">
         <table class="table table-striped table-bordered table-sm">
@@ -62,8 +115,9 @@
                     <td>${cargo.deliveryStatus}</td>
                     <td>${cargo.invoiceStatus}</td>
                     <td>
-                    <form action="controller?action=editcargopage" method="post">
-                            <button type="submit" name="id" value=${cargo.getId()}><fmt:message key="l.edit" bundle="${lang}"/></button>
+                        <form action="controller?action=editcargopage" method="post">
+                            <button type="submit" name="id" value=${cargo.getId()}><fmt:message key="l.edit"
+                                                                                                bundle="${lang}"/></button>
                         </form>
                     </td>
                     <td><fmt:message key="l.createInvoice" bundle="${lang}"/></td>
@@ -77,7 +131,8 @@
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
                 <li class="page-item">
-                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage - 1}"><fmt:message key="l.previous" bundle="${lang}"/></a>
+                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage - 1}"><fmt:message
+                            key="l.previous" bundle="${lang}"/></a>
                 </li>
             </c:if>
 
@@ -92,7 +147,8 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="controller?action=showmanagerpage&page=${i}">${i}</a></li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="controller?action=showmanagerpage&page=${i}">${i}</a></li>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
@@ -102,7 +158,8 @@
             <%--For displaying Next link --%>
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item">
-                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage + 1}"><fmt:message key="l.next" bundle="${lang}"/></a>
+                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage + 1}"><fmt:message
+                            key="l.next" bundle="${lang}"/></a>
                 </li>
             </c:if>
 

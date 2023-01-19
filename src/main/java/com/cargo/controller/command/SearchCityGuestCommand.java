@@ -1,9 +1,7 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.model.BranchDao;
 import com.cargo.model.CargoDao;
-import com.cargo.model.entity.Branch;
 import com.cargo.model.entity.Cargo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +22,6 @@ public class SearchCityGuestCommand extends Command {
 
         CargoDao cargoDao = new CargoDao();
 
-/*        session.setAttribute("session_order", "ASC");
-        session.setAttribute("session_branch_id", "");*/
-
         String searchBranchId = request.getParameter("req_branch_id");
         if (searchBranchId == null || searchBranchId.isEmpty()) {
             searchBranchId = (String) session.getAttribute("session_branch_id");
@@ -34,7 +29,6 @@ public class SearchCityGuestCommand extends Command {
 
         String searchOrder = request.getParameter("req_order");
         if (searchOrder== null || searchOrder.isEmpty()) {
-
             searchOrder = (String) session.getAttribute("session_order");
         }
 

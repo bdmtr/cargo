@@ -1,7 +1,7 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.controller.Validation.Validator;
+import com.cargo.util.Validator;
 import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;

@@ -41,7 +41,7 @@
                         </select>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">l.edit.cargo</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="l.edit.cargo" bundle="${lang}"/></button>
                 </div>
             </form>
         </div>

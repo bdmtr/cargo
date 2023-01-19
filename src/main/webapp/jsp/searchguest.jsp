@@ -63,12 +63,12 @@
 
         <%--For displaying Previous link except for the 1st page --%>
         <ul class="pagination">
-            <%--      <c:if test="${currentPage != 1}">
+                  <c:if test="${currentPage != 1}">
                     <li class="page-item">
                       <a class="page-link"
-                         href="controller?action=SearchCityGuestt&page=${currentPage - 1}">Previous</a>
+                         href="controller?action=SearchCityGuest&page=${currentPage - 1}"><fmt:message key="l.previous" bundle="${lang}"/></a>
                     </li>
-                  </c:if>--%>
+                  </c:if>
 
             <%--For displaying Page numbers. The when condition does not display
                         a link for the current page--%>

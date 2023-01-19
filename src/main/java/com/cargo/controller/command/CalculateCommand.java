@@ -2,11 +2,7 @@ package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
 import com.cargo.model.BranchDao;
-import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Branch;
-import com.cargo.model.entity.Cargo;
-import com.cargo.model.enums.DeliveryStatus;
-import com.cargo.model.enums.InvoiceStatus;
 import com.cargo.util.PriceMaker;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.cargo.controller.Validation.Validator.isIncorrectCalculateInfo;
+import static com.cargo.util.Validator.isIncorrectCalculateInfo;
 
 public class CalculateCommand extends Command {
 

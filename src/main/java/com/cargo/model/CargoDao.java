@@ -1,6 +1,7 @@
 package com.cargo.model;
 
 
+import com.cargo.model.entity.Branch;
 import com.cargo.model.entity.Cargo;
 
 import com.cargo.model.enums.DeliveryStatus;
@@ -49,6 +50,8 @@ public class CargoDao {
 
     static final String deleteCargoByUserIdQuery = "DELETE FROM cargo WHERE cargo.user_id=?";
 
+    static final String sortByCityQuery = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, " +
+            "delivery_date, delivery_status from cargo where delivery_status='TRANSIT' ";
 
     public List<Cargo> getAllCargo() throws SQLException {
         List<Cargo> cargoList = new ArrayList<>();
@@ -469,6 +472,55 @@ public class CargoDao {
         }
         return list;
     }
+
+    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
+        StringBuilder preQuery = new StringBuilder(sortByCityQuery);
+        String id;
+
+        BranchDao branchDao = new BranchDao();
+        Branch branch = branchDao.getBranchByCity(branchCity);
+
+        if (branch != null) {
+            id = String.valueOf(branch.getId());
+            preQuery.append(" AND destination_branch_id=").append(id);
+        }
+
+        if (order != null && !order.isEmpty()) {
+            preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
+        } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
+
+        List<Cargo> list = new ArrayList<Cargo>();
+        Cargo cargo = null;
+        try (
+                Connection connection = DataSourceUtil.getConnection();
+                Statement stmt = connection.createStatement();
+        ) {
+            ResultSet rs = stmt.executeQuery(String.valueOf(preQuery));
+
+            while (rs.next()) {
+                cargo = new Cargo();
+                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
+                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
+                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
+                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
+                cargo.setDeliveryDate(rs.getTimestamp("delivery_date"));
+                cargo.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
+
+                list.add(cargo);
+            }
+
+            rs.close();
+            rs = stmt.executeQuery("SELECT FOUND_ROWS()");
+
+            if (rs.next()) {
+                this.noOfRecords = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
     public int getNoOfRecords() {
         return noOfRecords;

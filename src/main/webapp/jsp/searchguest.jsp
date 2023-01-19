@@ -24,8 +24,13 @@
         <input name="command" value="SearchCityGuest" type="hidden">
         <div>
             <label><fmt:message key="l.destination.branch" bundle="${lang}"/></label>
-            <input type="text" name="search_branch" id="search_branch">
+            <input type="text" name="req_branch_id" id="req_branch_id">
         </div>
+        <select name="req_order" id="req_order">
+            <option value="ASC">ASC</option>
+            <option value="DESC">DESC</option>
+        </select>
+
         <div>
             <div>
                 <button type="submit" class="btn btn-primary">Search</button>

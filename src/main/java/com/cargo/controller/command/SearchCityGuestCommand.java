@@ -8,6 +8,7 @@ import com.cargo.model.entity.Cargo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,27 +17,35 @@ public class SearchCityGuestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        HttpSession session = request.getSession();
+
         int page = 1;
         int recordsPerPage = 10;
-        int destinationBranchId = 0;
-        Branch branch = null;
+
+        CargoDao cargoDao = new CargoDao();
+
+/*        session.setAttribute("session_order", "ASC");
+        session.setAttribute("session_branch_id", "");*/
+
+        String searchBranchId = request.getParameter("req_branch_id");
+        if (searchBranchId == null || searchBranchId.isEmpty()) {
+            searchBranchId = (String) session.getAttribute("session_branch_id");
+        }
+
+        String searchOrder = request.getParameter("req_order");
+        if (searchOrder== null || searchOrder.isEmpty()) {
+
+            searchOrder = (String) session.getAttribute("session_order");
+        }
+
+        session.setAttribute("session_order", searchOrder);
+        session.setAttribute("session_branch_id", searchBranchId);
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        BranchDao branchDao = new BranchDao();
-
-        String search_city = request.getParameter("search_branch");
-        if (search_city!=null) {
-            branch = branchDao.getBranchByCity(search_city);
-        }
-        if (branch != null) {
-            destinationBranchId = branch.getId();
-        }
-
-        CargoDao cargoDao = new CargoDao();
-        List<Cargo> list = cargoDao.searchGuestCargos((page - 1) * recordsPerPage, recordsPerPage, destinationBranchId);
+        List<Cargo> list = cargoDao.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
         int noOfRecords = cargoDao.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 

@@ -37,6 +37,9 @@ public class LoginCommand extends Command {
 
         String userRole = String.valueOf(user.getRole());
 
+        session.setAttribute("session_order", "ASC");
+        session.setAttribute("session_branch_id", "");
+
         if (userRole.equals("MANAGER")) {
             return "redirect:controller?action=showmanagerpage";
         }

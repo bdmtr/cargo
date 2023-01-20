@@ -2,6 +2,7 @@ package com.cargo.controller.command.UserCommands;
 
 import com.cargo.controller.Path;
 import com.cargo.controller.command.Command;
+import com.cargo.controller.command.PageCommands.MakeCargoPageCommand;
 import com.cargo.model.BranchDao;
 import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Branch;
@@ -9,6 +10,7 @@ import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
 import com.cargo.util.PriceMaker;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,7 @@ import java.sql.Timestamp;
 import static com.cargo.util.Validator.isIncorrectCargoInfo;
 
 public class MakeCargoCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(MakeCargoCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -73,7 +76,9 @@ public class MakeCargoCommand extends Command {
         CargoDao cargoDao = new CargoDao();
         cargoDao.addCargo(cargo);
 
-       // return Path.PAGE_SHOW_CARGOS;
+        LOGGER.info("Cargo created");
+
+        // return Path.PAGE_SHOW_CARGOS;
         return "redirect:controller?action=showcargospage";
     }
 }

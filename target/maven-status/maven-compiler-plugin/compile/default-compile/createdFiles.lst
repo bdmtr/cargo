@@ -1,10 +1,10 @@
 com\cargo\controller\command\LoginCommand.class
 com\cargo\controller\command\CommandContainer.class
 com\cargo\model\CargoDao.class
-com\cargo\controller\Validation\Validator.class
 com\cargo\controller\command\ManagerCommands\ManagerActions\EditCargoCommand.class
 com\cargo\model\entity\User.class
 com\cargo\controller\command\PageCommands\ShowManagerPageCommand.class
+com\cargo\util\Validator.class
 com\cargo\controller\filter\EncodingFilter.class
 com\cargo\controller\command\PageCommands\ShowCargosPageCommand.class
 com\cargo\model\entity\Branch.class
@@ -27,7 +27,6 @@ com\cargo\controller\command\SearchCityGuestCommand.class
 com\cargo\controller\command\ChangeLanguageCommand.class
 com\cargo\model\entity\Model.class
 com\cargo\controller\command\EditProfileCommand.class
-com\cargo\controller\command\PageCommands\SearchGuestCityCommand.class
 com\cargo\controller\command\CalculateCommand.class
 com\cargo\controller\command\PageCommands\LoginPageCommand.class
 com\cargo\controller\command\RegisterCommand.class

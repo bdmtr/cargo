@@ -1,9 +1,11 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
+import com.cargo.controller.command.PageCommands.CalculatePageCommand;
 import com.cargo.model.BranchDao;
 import com.cargo.model.entity.Branch;
 import com.cargo.util.PriceMaker;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 import static com.cargo.util.Validator.isIncorrectCalculateInfo;
 
 public class CalculateCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(CalculateCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -50,6 +53,8 @@ public class CalculateCommand extends Command {
         session.setAttribute("width", width);
         session.setAttribute("price", price);
 
+
+        LOGGER.info("Caculated successfully");
         return Path.PAGE_PRICE;
     }
 }

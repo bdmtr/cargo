@@ -4,6 +4,7 @@ import com.cargo.controller.Path;
 import com.cargo.controller.command.Command;
 import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ShowManagerPageCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ShowManagerPageCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -31,28 +33,21 @@ public class ShowManagerPageCommand extends Command {
             searchBranchDep = (String) session.getAttribute("session_branch_dep");
         }
 
-        System.out.println(searchBranchDep);
-
         String searchBranchDes = request.getParameter("req_branch_des");
         if (searchBranchDes == null || searchBranchDes.isEmpty()) {
             searchBranchDes = (String) session.getAttribute("session_branch_des");
         }
-
-        System.out.println(searchBranchDes);
 
         String searchDeliveryDate = request.getParameter("req_delivery_date");
         if (searchDeliveryDate == null || searchDeliveryDate.isEmpty()) {
             searchDeliveryDate = (String) session.getAttribute("session_delivery_date");
         }
 
-        System.out.println(searchDeliveryDate);
-
         String searchOrder = request.getParameter("req_order");
         if (searchOrder == null || searchOrder.isEmpty()) {
 
             searchOrder = (String) session.getAttribute("session_order");
         }
-
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
@@ -71,7 +66,9 @@ public class ShowManagerPageCommand extends Command {
         request.setAttribute("session_branch_des", searchBranchDep);
         request.setAttribute("session_delivery_date", searchDeliveryDate);
 
-        return Path.PAGE_MANAGER;
 
+        LOGGER.info("Manager page loaded successfully");
+
+        return Path.PAGE_MANAGER;
     }
 }

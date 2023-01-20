@@ -20,7 +20,6 @@ public class CommandContainer {
         commands.put("makeCargo", new MakeCargoCommand());
         commands.put("makecargopage", new MakeCargoPageCommand());
         commands.put("showmanagerpage", new ShowManagerPageCommand());
-        commands.put("showoguestcargospage", new SearchGuestCityCommand());
         commands.put("calculate", new CalculateCommand());
         commands.put("calculatorpage", new CalculatePageCommand());
         commands.put("changeprofile", new EditProfileCommand());
@@ -28,11 +27,7 @@ public class CommandContainer {
         commands.put("editcargo", new EditCargoCommand());
         commands.put("editcargopage", new EditCargoPageCommand());
         commands.put("SearchCityGuest",new SearchCityGuestCommand());
-
-
         commands.put("changeLanguage", new ChangeLanguageCommand());
-
-
     }
 
     public static Command getCommand(String commandName) {

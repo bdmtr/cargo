@@ -5,6 +5,7 @@ import com.cargo.util.Validator;
 import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import static com.cargo.controller.Path.PAGE_REGISTER;
 
 public class RegisterCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
@@ -35,6 +38,8 @@ public class RegisterCommand extends Command {
         UserDao userDao = new UserDao();
         userDao.addUser(user);
 
+
+        LOGGER.info("Register new user: " + username);
         return Path.PAGE_LOGIN;
     }
 }

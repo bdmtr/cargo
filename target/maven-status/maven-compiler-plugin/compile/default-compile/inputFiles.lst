@@ -1,8 +1,8 @@
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\util\DataSourceUtil.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\PageCommands\ShowCargosPageCommand.java
-K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\PageCommands\SearchGuestCityCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\PageCommands\EditProfilePageCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\UserDao.java
+K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\util\Validator.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\Controller.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\EditProfileCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\BranchDao.java
@@ -16,7 +16,6 @@ K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\filter\Local
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\entity\User.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\RegisterCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\entity\Model.java
-K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\Validation\Validator.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\CommandContainer.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\PageCommands\ShowManagerPageCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\util\PriceMaker.java

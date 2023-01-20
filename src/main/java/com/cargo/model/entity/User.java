@@ -5,7 +5,7 @@ import com.cargo.model.enums.Role;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable {
+public class User extends Model implements Serializable {
     private int id;
     private String username;
     private String fullname;

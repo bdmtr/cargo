@@ -4,6 +4,7 @@ import com.cargo.controller.Path;
 import com.cargo.controller.command.Command;
 import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ShowCargosPageCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ShowCargosPageCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -34,6 +36,8 @@ public class ShowCargosPageCommand extends Command {
         request.setAttribute("cargoList", list);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
+
+        LOGGER.info("Show cargos page loaded successfully");
 
         return Path.PAGE_SHOW_CARGOS;
     }

@@ -3,12 +3,15 @@ package com.cargo.model;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
 import com.cargo.util.DataSourceUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    private static final Logger LOGGER = Logger.getLogger(UserDao.class);
+
     private static UserDao instance;
 
     public static synchronized UserDao getInstance() {
@@ -41,7 +44,7 @@ public class UserDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant add user");
         }
     }
 
@@ -65,11 +68,11 @@ public class UserDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant delete user by id");
         }
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers(){
         List<User> userList = new ArrayList<>();
 
         try (
@@ -87,6 +90,9 @@ public class UserDao {
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 userList.add(user);
             }
+        }
+        catch (SQLException e){
+            LOGGER.error("Cant get all users");
         }
         return userList;
     }
@@ -110,12 +116,12 @@ public class UserDao {
             }
             resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant find user by id");
         }
         return user;
     }
 
-    public User findUserByFullname(String fullname) throws SQLException {
+    public User findUserByFullname(String fullname){
         ResultSet resultSet = null;
         User user = null;
         try (Connection connection = DataSourceUtil.getConnection();
@@ -134,12 +140,12 @@ public class UserDao {
             }
             resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant find user by  full name");
         }
         return user;
     }
 
-    public User findUserByUsername(String username) throws SQLException {
+    public User findUserByUsername(String username){
         User user = null;
         try (
                 Connection connection = DataSourceUtil.getConnection();
@@ -158,7 +164,7 @@ public class UserDao {
             }
             resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant find user by username");
         }
         return user;
     }
@@ -183,7 +189,7 @@ public class UserDao {
             }
             resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant find user by username and password");
         }
         return user;
     }
@@ -213,7 +219,7 @@ public class UserDao {
             ) {
                 pst.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Cant update user profile");
             }
         }
     }

@@ -5,7 +5,7 @@ import com.cargo.model.enums.City;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Branch implements Serializable {
+public class Branch extends  Model implements Serializable {
     private int id;
     private City city;
     private String address;

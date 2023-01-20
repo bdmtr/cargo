@@ -3,13 +3,16 @@ package com.cargo.model;
 import com.cargo.model.entity.Branch;
 import com.cargo.model.enums.City;
 import com.cargo.util.DataSourceUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BranchDao {
-    static final String getAllBranchesQuery = "SELECT id, city, adress FROM branch";
+    private static final Logger LOGGER = Logger.getLogger(BranchDao.class);
+
+    static final String getAllBranchesQuery = "SELECT id, city, address FROM branch";
     static final String findBranchByIdQuery = "SELECT * FROM branch where branch.id=?";
     static final String findBranchByCityQuery = "SELECT * FROM branch where branch.city=?";
     private static BranchDao instance;
@@ -34,7 +37,7 @@ public class BranchDao {
                 branchList.add(branch);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get all branches", e);
         }
         return branchList;
     }
@@ -54,7 +57,7 @@ public class BranchDao {
                 branch.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get branch by id", e);
         }
         return branch;
     }
@@ -74,7 +77,7 @@ public class BranchDao {
                 branch.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get abranch by city", e);
         }
         return branch;
     }

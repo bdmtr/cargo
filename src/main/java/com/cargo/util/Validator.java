@@ -18,6 +18,7 @@ public class Validator {
 
     public static boolean isIncorrectRegisterInfo(HttpServletRequest request, String username, String fullName, String email, String password) throws SQLException {
         UserDao userDao = new UserDao();
+
         if (username == null || username.isEmpty()) {
             return true;
         }
@@ -37,7 +38,7 @@ public class Validator {
             return true;
         }
 
-        if(password.matches(PASSWORD_REGEX)) {
+        if (password.matches(PASSWORD_REGEX)) {
             return true;
         }
 

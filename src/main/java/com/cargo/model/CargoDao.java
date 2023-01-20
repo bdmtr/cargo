@@ -7,12 +7,15 @@ import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
 import com.cargo.util.DataSourceUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CargoDao {
+    private static final Logger LOGGER = Logger.getLogger(CargoDao.class);
+
     private int noOfRecords;
 
     static final String getAllCargoQuery = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
@@ -82,9 +85,8 @@ public class CargoDao {
                 cargoList.add(cargo);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get all cargo.");
         }
-
 
         return cargoList;
     }
@@ -123,7 +125,7 @@ public class CargoDao {
                 list.add(cargo);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get all cargo for user by id");
         }
         return list;
     }
@@ -169,7 +171,7 @@ public class CargoDao {
                 this.noOfRecords = rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get all cargo for user by id with limit");
         }
 
         return list;
@@ -216,7 +218,7 @@ public class CargoDao {
                 this.noOfRecords = rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get all cargo with limit");
         }
 
         return list;
@@ -251,7 +253,7 @@ public class CargoDao {
                 this.noOfRecords = rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get all guest cargo with limit");
         }
         return list;
     }
@@ -286,7 +288,7 @@ public class CargoDao {
                 cargo.setInvoiceStatus(InvoiceStatus.valueOf(rs.getString("invoice_status")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant get cargo by id");
         }
         return cargo;
     }
@@ -313,7 +315,7 @@ public class CargoDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant add cargo");
         }
     }
 
@@ -326,7 +328,7 @@ public class CargoDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Cant delete cargo");
         }
     }
 
@@ -338,7 +340,7 @@ public class CargoDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant delete cargo by user id");
         }
     }
 
@@ -365,7 +367,7 @@ public class CargoDao {
             ) {
                 pst.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Cant update cargo profile");
             }
         }
     }
@@ -386,7 +388,6 @@ public class CargoDao {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
 
-        System.out.println(preQuery);
 
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;
@@ -415,7 +416,7 @@ public class CargoDao {
                 this.noOfRecords = rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant sort by city and date");
         }
         return list;
     }
@@ -438,8 +439,6 @@ public class CargoDao {
         if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
-
-        System.out.println(preQuery);
 
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;
@@ -481,7 +480,7 @@ public class CargoDao {
                 this.noOfRecords = rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant sort cargo for manager");
         }
         return list;
     }

@@ -2,6 +2,7 @@ package com.cargo.controller.command;
 
 import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 
 
 public class EditProfileCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(EditProfileCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -36,6 +38,8 @@ public class EditProfileCommand extends Command {
             return "redirect:controller?action=showmanagerpage";
         }
 
+
+        LOGGER.info("Editing profile: " + username);
         return "redirect:controller?action=showcargospage";
     }
 }

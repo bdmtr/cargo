@@ -3,6 +3,7 @@ package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
 import com.cargo.model.entity.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChangeLanguageCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ChangeLanguageCommand.class);
     private static final String LOCALE = "lang";
     private static final String SESSION_LOCALE = "lang";
     private static final String UKRAINE = "ua";
@@ -53,6 +55,8 @@ public class ChangeLanguageCommand extends Command {
             return Path.PAGE_SHOW_CARGOS;
         }
 
+
+        LOGGER.info("Language changed");
         return Path.PAGE_LOGIN;
     }
 }

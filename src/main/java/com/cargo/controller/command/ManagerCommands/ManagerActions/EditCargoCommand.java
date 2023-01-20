@@ -5,6 +5,7 @@ import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
+import org.apache.log4j.Logger;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class EditCargoCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(EditCargoCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -30,7 +32,7 @@ public class EditCargoCommand extends Command {
 
         cargoDao.updateCargoProfile(cargo);
 
-
+        LOGGER.info("Editing cargo");
         return "redirect:controller?action=showmanagerpage";
 
     }

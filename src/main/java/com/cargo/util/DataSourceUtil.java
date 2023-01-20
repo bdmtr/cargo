@@ -2,12 +2,15 @@ package com.cargo.util;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DataSourceUtil {
+    private static final Logger LOGGER = Logger.getLogger(DataSourceUtil.class);
+
     private static final HikariConfig config = new HikariConfig();
     private static HikariDataSource dataSource;
 
@@ -24,7 +27,7 @@ public class DataSourceUtil {
             dataSource = new HikariDataSource(config);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Could not connect with hickary");
         }
 
     }

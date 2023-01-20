@@ -56,14 +56,14 @@
                 <th>
                     <div class="form-group">
                         <select name="req_order" id="req_order">
-                            <option value="ASC">ASC</option>
-                            <option value="DESC">DESC</option>
+                            <option value="ASC"><fmt:message key="l.asc" bundle="${lang}"/></option>
+                            <option value="DESC"><fmt:message key="l.desc" bundle="${lang}"/></option>
                         </select>
                     </div>
                 </th>
                 <th>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary"><fmt:message key="l.search" bundle="${lang}"/></button>
                     </div>
                 </th>
 

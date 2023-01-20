@@ -3,6 +3,7 @@ package com.cargo.controller.command;
 import com.cargo.controller.Path;
 import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SearchCityGuestCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(SearchCityGuestCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -47,6 +49,7 @@ public class SearchCityGuestCommand extends Command {
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
 
+        LOGGER.info("Search cities for guest");
         return Path.PAGE_SHOW_SEARCH;
     }
 }

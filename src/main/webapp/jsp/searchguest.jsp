@@ -22,20 +22,30 @@
 <div>
     <form method="post" action="controller?action=SearchCityGuest">
         <input name="command" value="SearchCityGuest" type="hidden">
-        <div>
-            <label><fmt:message key="l.destination.branch" bundle="${lang}"/></label>
-            <input type="text" name="req_branch_id" id="req_branch_id">
-        </div>
-        <select name="req_order" id="req_order">
-            <option value="ASC">ASC</option>
-            <option value="DESC">DESC</option>
-        </select>
 
-        <div>
-            <div>
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </div>
+        <table cellspacing="10" cellpadding="10">
+            <tr>
+                <th>
+                    <div class="form-group">
+                        <label><fmt:message key="l.destination.branch" bundle="${lang}"/></label>
+                        <input type="text" name="req_branch_id" id="req_branch_id">
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <select name="req_order" id="req_order">
+                            <option value="ASC"><fmt:message key="l.asc" bundle="${lang}"/></option>
+                            <option value="DESC"><fmt:message key="l.desc" bundle="${lang}"/></option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><fmt:message key="l.search" bundle="${lang}"/></button>
+                    </div>
+                </th>
+            <tr>
+        </table>
     </form>
 </div>
 <main class="m-3">
@@ -63,12 +73,13 @@
 
         <%--For displaying Previous link except for the 1st page --%>
         <ul class="pagination">
-                  <c:if test="${currentPage != 1}">
-                    <li class="page-item">
-                      <a class="page-link"
-                         href="controller?action=SearchCityGuest&page=${currentPage - 1}"><fmt:message key="l.previous" bundle="${lang}"/></a>
-                    </li>
-                  </c:if>
+            <c:if test="${currentPage != 1}">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="controller?action=SearchCityGuest&page=${currentPage - 1}"><fmt:message key="l.previous"
+                                                                                                     bundle="${lang}"/></a>
+                </li>
+            </c:if>
 
             <%--For displaying Page numbers. The when condition does not display
                         a link for the current page--%>
@@ -94,7 +105,8 @@
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item">
                     <a class="page-link"
-                       href="controller?action=SearchCityGuest&page=${currentPage + 1}"><fmt:message key="l.next" bundle="${lang}"/></a>
+                       href="controller?action=SearchCityGuest&page=${currentPage + 1}"><fmt:message key="l.next"
+                                                                                                     bundle="${lang}"/></a>
                 </li>
             </c:if>
 

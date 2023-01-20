@@ -3,6 +3,7 @@ package com.cargo.controller.command;
 import com.cargo.controller.Path;
 import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import static com.cargo.util.Validator.isIncorrectLoginInfo;
 
 public class LoginCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -39,7 +42,7 @@ public class LoginCommand extends Command {
         session.setAttribute("session_branch_id", "");
 
         //вот тут для манагера
-        session.setAttribute("session_branch_dep","");
+        session.setAttribute("session_branch_dep", "");
         session.setAttribute("session_branch_des", "");
         session.setAttribute("session_delivery_date", "2023");
 
@@ -47,10 +50,12 @@ public class LoginCommand extends Command {
         String userRole = String.valueOf(user.getRole());
 
         if (userRole.equals("MANAGER")) {
+            LOGGER.info("Manager logged: " + username);
             return "redirect:controller?action=showmanagerpage";
         }
 
         if (userRole.equals("USER")) {
+            LOGGER.info("User logged: " + username);
             return "redirect:controller?action=showcargospage";
         }
 

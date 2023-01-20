@@ -18,7 +18,6 @@ K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\Regi
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\model\entity\Model.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\CommandContainer.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\PageCommands\ShowManagerPageCommand.java
-K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\util\PriceMaker.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\LogoutCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\PageCommands\EditCargoPageCommand.java
 K:\EPAM SUMMER 2022\source\cargo\src\main\java\com\cargo\controller\command\LoginCommand.java

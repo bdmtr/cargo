@@ -4,7 +4,11 @@
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
-/target
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 # dependencies
 /node_modules

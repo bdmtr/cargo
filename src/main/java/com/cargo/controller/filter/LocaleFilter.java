@@ -6,11 +6,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LocaleFilter implements Filter {
-    public void init(FilterConfig config) {
-    }
-
-    public void destroy() {
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws ServletException, IOException {
@@ -27,4 +22,11 @@ public class LocaleFilter implements Filter {
         }
         chain.doFilter(servletRequest, servletResponse);
     }
+
+    public void init(FilterConfig config) {
+    }
+
+    public void destroy() {
+    }
+
 }

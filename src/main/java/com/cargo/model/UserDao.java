@@ -19,14 +19,14 @@ public class UserDao {
         return instance;
     }
 
-    static final String addUserQuery = "INSERT INTO user (username, fullname, email, password, role) VALUES(?, ?, ?, ?, ?)";
-    static final String updateUserPasswordByIdQuery = "UPDATE user SET password=? WHERE user.id=?";
-    static final String deleteUserByIdQuery = "DELETE FROM user WHERE user.id = ?";
-    static final String findUserByIdQuery = "SELECT id, username, fullname, email, password, role FROM user where user.id = ?";
-    static final String findUserByFullnameQuery = "SELECT id, username, fullname, email, password, role FROM user where user.fullname = ?";
-    static final String getAllUsersQuery = "SELECT * FROM user";
-    static final String findUserByUsernamePasswordQuery = "SELECT id, username, fullname, email, password, role FROM user where user.username = ? and user.password = ?";
-    static final String findUserByUsernameQuery = "SELECT id, username, fullname, email, password, role FROM user where user.username = ?";
+    static final String ADD_USER = "INSERT INTO user (username, fullname, email, password, role) VALUES(?, ?, ?, ?, ?)";
+    static final String UPDATE_USER_PASSWORD_BY_ID = "UPDATE user SET password=? WHERE user.id=?";
+    static final String DELETE_FROM_USER_WHERE_USER_ID = "DELETE FROM user WHERE user.id = ?";
+    static final String FIND_USER_BY_ID = "SELECT id, username, fullname, email, password, role FROM user where user.id = ?";
+    static final String FIND_USER_BY_FULLNAME = "SELECT id, username, fullname, email, password, role FROM user where user.fullname = ?";
+    static final String GET_ALL_USERS = "SELECT * FROM user";
+    static final String FIND_USER_BY_USERNAME_PASSWORD = "SELECT id, username, fullname, email, password, role FROM user where user.username = ? and user.password = ?";
+    static final String FIND_USER_BY_USERNAME = "SELECT id, username, fullname, email, password, role FROM user where user.username = ?";
 
     public UserDao() {
     }
@@ -34,7 +34,7 @@ public class UserDao {
     public void addUser(User user) throws SQLException {
         try (
                 Connection connection = DataSourceUtil.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(addUserQuery, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
         ) {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getFullname());
@@ -50,7 +50,7 @@ public class UserDao {
 
     public void UpdateUserPasswordById(String password, int id) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateUserPasswordByIdQuery, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD_BY_ID, Statement.RETURN_GENERATED_KEYS);
         ) {
             preparedStatement.setString(1, password);
             preparedStatement.setInt(2, id);
@@ -62,7 +62,7 @@ public class UserDao {
 
     public void deleteUserById(int id) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(deleteUserByIdQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FROM_USER_WHERE_USER_ID);
         ) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -78,7 +78,7 @@ public class UserDao {
         try (
                 Connection connection = DataSourceUtil.getConnection();
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(getAllUsersQuery);
+                ResultSet resultSet = statement.executeQuery(GET_ALL_USERS);
         ) {
             while (resultSet.next()) {
                 User user = new User();
@@ -101,7 +101,7 @@ public class UserDao {
         ResultSet resultSet = null;
         User user = null;
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findUserByIdQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID);
         ) {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -125,7 +125,7 @@ public class UserDao {
         ResultSet resultSet = null;
         User user = null;
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findUserByFullnameQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_FULLNAME);
         ) {
             preparedStatement.setString(1, fullname);
             resultSet = preparedStatement.executeQuery();
@@ -149,7 +149,7 @@ public class UserDao {
         User user = null;
         try (
                 Connection connection = DataSourceUtil.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(findUserByUsernameQuery);
+                PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME);
         ) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -173,7 +173,7 @@ public class UserDao {
         ResultSet resultSet = null;
         User user = null;
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findUserByUsernamePasswordQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME_PASSWORD);
         ) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);

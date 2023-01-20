@@ -18,51 +18,50 @@ public class CargoDao {
 
     private int noOfRecords;
 
-    static final String getAllCargoQuery = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
+    static final String GET_ALL_CARGO = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
             " destination_branch_id, price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo";
 
-
-    static final String getAllCargosForUserQuery = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
+    static final String GET_ALL_CARGO_FOR_USER_BY_ID = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
             " destination_branch_id, price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo " +
             "WHERE user_id = ? ORDER BY creation_date";
 
-    static final String getAllForIdWithLimitQuery = "select SQL_CALC_FOUND_ROWS * from cargo where cargo.user_id=";
+    static final String GET_ALL_CARGO_WITH_LIMIT_BY_USER_ID = "select SQL_CALC_FOUND_ROWS * from cargo where cargo.user_id=";
 
-    static final String getAllWithLimitQuery = "select SQL_CALC_FOUND_ROWS * from cargo";
+    static final String GET_ALL_CARGO_WITH_LIMIT = "select SQL_CALC_FOUND_ROWS * from cargo";
 
-    static final String getAllGuestWithLimitQuery = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, delivery_date, " +
+    static final String GET_ALL_GUEST_WITH_LIMIT_QUERY = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, delivery_date, " +
             "delivery_status from cargo where delivery_status='TRANSIT' ";
 
-    static final String findCargoByIdQuery = "SELECT * FROM cargo where cargo.id = ?";
+    static final String FIND_CARGO_BY_ID = "SELECT * FROM cargo where cargo.id = ?";
 
-    static final String findCargoByUserIdQuery = "SELECT  id, type, user_id, receiver_fullname, departure_branch_id, destination_branch_id," +
+    static final String FIND_CARGO_BY_USER_ID = "SELECT  id, type, user_id, receiver_fullname, departure_branch_id, destination_branch_id," +
             " price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo where cargo.user_id = ?";
 
-    static final String addCargoQuery = "INSERT INTO cargo (type, user_id, receiver_fullname, departure_branch_id,destination_branch_id, price, weight, " +
+    static final String ADD_CARGO = "INSERT INTO cargo (type, user_id, receiver_fullname, departure_branch_id,destination_branch_id, price, weight, " +
             "length, height, width, creation_date, delivery_date, delivery_status, invoice_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    static final String updateCargoQuery = "UPDATE cargo SET type=?, user_id=?, receiver_fullname=?, departure_branch_id=?," +
+    static final String UPDATE_CARGO = "UPDATE cargo SET type=?, user_id=?, receiver_fullname=?, departure_branch_id=?," +
             "destination_branch_id=?, price=?, weight=?, length=?, height=?, width=?, creation_date=?," +
             "delivery_date=?, delivery_status=?, invoice_status=? WHERE cargo.id=?";
 
-    static final String updateCargoInvoiceStatusByIdQuery = "UPDATE cargo SET invoice_status=? WHERE cargo.id=?";
+    static final String UPDATE_CARGO_INVOICE_BY_ID = "UPDATE cargo SET invoice_status=? WHERE cargo.id=?";
 
-    static final String updateCargoDeliveryStatusByIdQuery = "UPDATE cargo SET delivery_status=? WHERE cargo.id=?";
+    static final String UPDATE_CARGO_DELIVERY_STATUS_BY_ID = "UPDATE cargo SET delivery_status=? WHERE cargo.id=?";
 
-    static final String deleteCargoByIdQuery = "DELETE FROM cargo WHERE cargo.id=?";
+    static final String DELETE_CARGO = "DELETE FROM cargo WHERE cargo.id=?";
 
-    static final String deleteCargoByUserIdQuery = "DELETE FROM cargo WHERE cargo.user_id=?";
+    static final String DELETE_CARGO_BY_USER_ID = "DELETE FROM cargo WHERE cargo.user_id=?";
 
-    static final String sortByCityQuery = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, " +
+    static final String SORT_CARGO_BY_CITY = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, " +
             "delivery_date, delivery_status from cargo where delivery_status='TRANSIT' ";
 
-    static final String sortByCityManagerQuery = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
+    static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
 
     public List<Cargo> getAllCargo() throws SQLException {
         List<Cargo> cargoList = new ArrayList<>();
         try (Connection connection = DataSourceUtil.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(getAllCargoQuery);
+             ResultSet resultSet = statement.executeQuery(GET_ALL_CARGO);
         ) {
             while (resultSet.next()) {
                 Cargo cargo = new Cargo();
@@ -96,7 +95,7 @@ public class CargoDao {
         Cargo cargo = null;
 
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(getAllCargosForUserQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_CARGO_FOR_USER_BY_ID);
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -138,7 +137,7 @@ public class CargoDao {
                 Connection connection = DataSourceUtil.getConnection();
                 Statement stmt = connection.createStatement();
         ) {
-            ResultSet rs = stmt.executeQuery(getAllForIdWithLimitQuery + id + " LIMIT " + offset + ", " + noOfRecords);
+            ResultSet rs = stmt.executeQuery(GET_ALL_CARGO_WITH_LIMIT_BY_USER_ID + id + " LIMIT " + offset + ", " + noOfRecords);
 
             while (rs.next()) {
                 cargo = new Cargo();
@@ -185,7 +184,7 @@ public class CargoDao {
                 Connection connection = DataSourceUtil.getConnection();
                 Statement stmt = connection.createStatement();
         ) {
-            ResultSet rs = stmt.executeQuery(getAllWithLimitQuery + " LIMIT " + offset + ", " + noOfRecords);
+            ResultSet rs = stmt.executeQuery(GET_ALL_CARGO_WITH_LIMIT + " LIMIT " + offset + ", " + noOfRecords);
 
             while (rs.next()) {
                 cargo = new Cargo();
@@ -232,7 +231,7 @@ public class CargoDao {
                 Connection connection = DataSourceUtil.getConnection();
                 Statement stmt = connection.createStatement();
         ) {
-            ResultSet rs = stmt.executeQuery(getAllGuestWithLimitQuery + " LIMIT " + offset + ", " + noOfRecords);
+            ResultSet rs = stmt.executeQuery(GET_ALL_GUEST_WITH_LIMIT_QUERY + " LIMIT " + offset + ", " + noOfRecords);
 
             while (rs.next()) {
                 cargo = new Cargo();
@@ -262,7 +261,7 @@ public class CargoDao {
         Cargo cargo = null;
 
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findCargoByIdQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_CARGO_BY_ID);
         ) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -295,7 +294,7 @@ public class CargoDao {
 
     public void addCargo(Cargo cargo) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(addCargoQuery, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CARGO, Statement.RETURN_GENERATED_KEYS);
         ) {
             preparedStatement.setString(1, cargo.getType());
             preparedStatement.setInt(2, cargo.getUserId());
@@ -322,7 +321,7 @@ public class CargoDao {
 
     public void deleteCargoById(int id) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(deleteCargoByIdQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARGO);
         ) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -334,7 +333,7 @@ public class CargoDao {
 
     public void deleteCargoByUserId(int id) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(deleteCargoByUserIdQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARGO_BY_USER_ID);
         ) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -373,7 +372,7 @@ public class CargoDao {
     }
 
     public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
-        StringBuilder preQuery = new StringBuilder(sortByCityQuery);
+        StringBuilder preQuery = new StringBuilder(SORT_CARGO_BY_CITY);
         String id;
 
         BranchDao branchDao = new BranchDao();
@@ -422,7 +421,7 @@ public class CargoDao {
     }
 
     public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String departmentBrId, String destinationBrId, String date, String order) throws SQLException {
-        StringBuilder preQuery = new StringBuilder(sortByCityManagerQuery);
+        StringBuilder preQuery = new StringBuilder(SORT_FOR_MANAGER);
 
         if (departmentBrId != null && !departmentBrId.isEmpty()) {
             preQuery.append(" AND departure_branch_id=").append(departmentBrId);
@@ -484,7 +483,6 @@ public class CargoDao {
         }
         return list;
     }
-
 
     public int getNoOfRecords() {
         return noOfRecords;

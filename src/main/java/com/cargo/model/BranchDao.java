@@ -12,9 +12,9 @@ import java.util.List;
 public class BranchDao {
     private static final Logger LOGGER = Logger.getLogger(BranchDao.class);
 
-    static final String getAllBranchesQuery = "SELECT id, city, address FROM branch";
-    static final String findBranchByIdQuery = "SELECT * FROM branch where branch.id=?";
-    static final String findBranchByCityQuery = "SELECT * FROM branch where branch.city=?";
+    static final String GET_ALL_BRANCHES = "SELECT id, city, address FROM branch";
+    static final String FIND_BRANCH_BY_ID = "SELECT * FROM branch where branch.id=?";
+    static final String FIND_BRANCH_BY_CITY = "SELECT * FROM branch where branch.city=?";
     private static BranchDao instance;
 
     public static synchronized BranchDao getInstance() {
@@ -27,7 +27,7 @@ public class BranchDao {
 
         try (Connection connection = DataSourceUtil.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(getAllBranchesQuery);
+             ResultSet resultSet = statement.executeQuery(GET_ALL_BRANCHES);
         ) {
             while (resultSet.next()) {
                 Branch branch = new Branch();
@@ -46,7 +46,7 @@ public class BranchDao {
         Branch branch = null;
 
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findBranchByIdQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BRANCH_BY_ID);
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,7 +66,7 @@ public class BranchDao {
         Branch branch = null;
 
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findBranchByCityQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BRANCH_BY_CITY);
         ) {
             preparedStatement.setString(1, city);
             ResultSet resultSet = preparedStatement.executeQuery();

@@ -1,12 +1,10 @@
-package com.cargo.controller.command.ManagerCommands.ManagerActions;
+package com.cargo.controller.command;
 
-import com.cargo.controller.command.Command;
 import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
 import org.apache.log4j.Logger;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

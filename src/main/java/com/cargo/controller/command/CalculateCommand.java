@@ -44,17 +44,16 @@ public class CalculateCommand extends Command {
         int distance = priceMaker.getDistance(originsName, destinationsName);
         int price = priceMaker.getPrice(distance, weight, length, height, width);
 
+        request.setAttribute("departureBranch", departureBranch);
+        request.setAttribute("destinationBranch", destinationBranch);
+        request.setAttribute("weight", weight);
+        request.setAttribute("length", length);
+        request.setAttribute("height", height);
+        request.setAttribute("width", width);
+        request.setAttribute("price", price);
 
-        session.setAttribute("departureBranch", departureBranch);
-        session.setAttribute("destinationBranch", destinationBranch);
-        session.setAttribute("weight", weight);
-        session.setAttribute("length", length);
-        session.setAttribute("height", height);
-        session.setAttribute("width", width);
-        session.setAttribute("price", price);
 
-
-        LOGGER.info("Caculated successfully");
+        LOGGER.info("Calculated successfully");
         return Path.PAGE_PRICE;
     }
 }

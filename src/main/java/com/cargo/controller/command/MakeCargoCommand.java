@@ -1,8 +1,6 @@
-package com.cargo.controller.command.UserCommands;
+package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.controller.command.Command;
-import com.cargo.controller.command.PageCommands.MakeCargoPageCommand;
 import com.cargo.model.BranchDao;
 import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Branch;

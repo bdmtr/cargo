@@ -41,7 +41,6 @@ public class LoginCommand extends Command {
         session.setAttribute("session_order", "");
         session.setAttribute("session_branch_id", "");
 
-        //вот тут для манагера
         session.setAttribute("session_branch_dep", "");
         session.setAttribute("session_branch_des", "");
         session.setAttribute("session_delivery_date", "2023");

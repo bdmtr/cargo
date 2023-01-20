@@ -1,8 +1,6 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.command.PageCommands.*;
-import com.cargo.controller.command.ManagerCommands.ManagerActions.EditCargoCommand;
-import com.cargo.controller.command.UserCommands.MakeCargoCommand;
 
 import java.util.Map;
 import java.util.TreeMap;

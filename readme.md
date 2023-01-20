@@ -17,4 +17,5 @@ destinations).
 An authorized user in his account can pay for the delivery invoice.
 
 
+![Image alt](https://github.com/bdmtr/cargo/blob/master/dbimg.png)
 

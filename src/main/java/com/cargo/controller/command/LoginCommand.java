@@ -1,8 +1,9 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
+import com.cargo.model.service.CargoService;
+import com.cargo.model.service.UserService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,21 +16,23 @@ import static com.cargo.util.Validator.isIncorrectLoginInfo;
 
 public class LoginCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
+    private final UserService userService;
 
+    public LoginCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (isIncorrectLoginInfo(request, username)) {
+        if (isIncorrectLoginInfo(username)) {
             return Path.PAGE_LOGIN;
         }
 
         HttpSession session = request.getSession();
-
-        UserDao userDao = new UserDao();
-        User user = userDao.findUserByUsernamePassword(username, password);
+        User user = userService.findUserByUsernamePassword(username, password);
 
         if (user == null) {
             return Path.PAGE_LOGIN;

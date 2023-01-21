@@ -2,8 +2,8 @@ package com.cargo.controller.command.PageCommands;
 
 import com.cargo.controller.Path;
 import com.cargo.controller.command.Command;
-import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
+import com.cargo.model.service.CargoService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,11 @@ import java.util.List;
 
 public class ShowCargosPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(ShowCargosPageCommand.class);
+    private final CargoService cargoService;
+
+    public ShowCargosPageCommand(CargoService cargoService) {
+        this.cargoService = cargoService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -27,10 +32,9 @@ public class ShowCargosPageCommand extends Command {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        CargoDao cargoDao = new CargoDao();
-        List<Cargo> list = cargoDao.getAllCargoForUserByIdWithLimit(userId, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Cargo> list = cargoService.getAllCargoForUserByIdWithLimit(userId, (page - 1) * recordsPerPage, recordsPerPage);
 
-        int noOfRecords = cargoDao.getNoOfRecords();
+        int noOfRecords = cargoService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
         request.setAttribute("cargoList", list);

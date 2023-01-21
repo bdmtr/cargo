@@ -1,7 +1,8 @@
 package com.cargo.controller.command;
 
-import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
+import com.cargo.model.service.CargoService;
+import com.cargo.model.service.UserService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +14,17 @@ import java.sql.SQLException;
 
 public class EditProfileCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(EditProfileCommand.class);
+    private final UserService userService;
+
+    public EditProfileCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
-        UserDao userDao = new UserDao();
         int userID = (int) session.getAttribute("currentUserId");
-        User user = userDao.findUserById(userID);
+        User user = userService.findUserById(userID);
 
         String username = request.getParameter("username");
         String fullname = request.getParameter("fullname");
@@ -28,13 +33,13 @@ public class EditProfileCommand extends Command {
         user.setUsername(username);
         user.setFullname(fullname);
         user.setPassword(password);
-        userDao.updateUserProfile(user);
+        userService.updateUserProfile(user);
 
         session.setAttribute("currentUserId", userID);
-        session.setAttribute("username", userDao.findUserById(userID).getUsername());
-        session.setAttribute("currentUser", userDao.findUserById(userID));
+        session.setAttribute("username", userService.findUserById(userID).getUsername());
+        session.setAttribute("currentUser", userService.findUserById(userID));
 
-        if (userDao.findUserById(userID).getRole().toString().equals("MANAGER")) {
+        if (userService.findUserById(userID).getRole().toString().equals("MANAGER")) {
             return "redirect:controller?action=showmanagerpage";
         }
 

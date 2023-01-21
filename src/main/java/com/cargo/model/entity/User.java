@@ -38,10 +38,12 @@ public class User extends Model implements Serializable {
     public User() {
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }

@@ -1,4 +1,4 @@
-package com.cargo.model;
+package com.cargo.model.dao;
 
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
@@ -48,7 +48,7 @@ public class UserDao {
         }
     }
 
-    public void UpdateUserPasswordById(String password, int id) throws SQLException {
+    public void updateUserPasswordById(String password, int id) {
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD_BY_ID, Statement.RETURN_GENERATED_KEYS);
         ) {
@@ -60,7 +60,7 @@ public class UserDao {
         }
     }
 
-    public void deleteUserById(int id) throws SQLException {
+    public void deleteUserById(int id){
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FROM_USER_WHERE_USER_ID);
         ) {
@@ -72,7 +72,7 @@ public class UserDao {
         }
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
 
         try (
@@ -90,8 +90,7 @@ public class UserDao {
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 userList.add(user);
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.error("Cant get all users");
         }
         return userList;
@@ -121,7 +120,7 @@ public class UserDao {
         return user;
     }
 
-    public User findUserByFullname(String fullname){
+    public User findUserByFullname(String fullname) {
         ResultSet resultSet = null;
         User user = null;
         try (Connection connection = DataSourceUtil.getConnection();
@@ -145,7 +144,7 @@ public class UserDao {
         return user;
     }
 
-    public User findUserByUsername(String username){
+    public User findUserByUsername(String username) throws SQLException {
         User user = null;
         try (
                 Connection connection = DataSourceUtil.getConnection();

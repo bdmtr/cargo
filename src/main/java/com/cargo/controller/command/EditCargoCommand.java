@@ -1,9 +1,9 @@
 package com.cargo.controller.command;
 
-import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
+import com.cargo.model.service.CargoService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +14,17 @@ import java.sql.SQLException;
 
 public class EditCargoCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(EditCargoCommand.class);
+    private final CargoService cargoService;
+
+    public EditCargoCommand(CargoService cargoService) {
+        this.cargoService = cargoService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
-        CargoDao cargoDao = new CargoDao();
         int cargoID = (int) session.getAttribute("currentCargoId");
-        Cargo cargo = cargoDao.getCargoById(cargoID);
+        Cargo cargo = cargoService.getCargoById(cargoID);
         String receiverFullname = request.getParameter("receiverFullname");
         String deliveryStatus = request.getParameter("deliveryStatus");
         String invoiceStatus = request.getParameter("invoiceStatus");
@@ -28,7 +32,7 @@ public class EditCargoCommand extends Command {
         cargo.setDeliveryStatus(DeliveryStatus.valueOf(deliveryStatus));
         cargo.setInvoiceStatus(InvoiceStatus.valueOf(invoiceStatus));
 
-        cargoDao.updateCargoProfile(cargo);
+        cargoService.updateCargoProfile(cargo);
 
         LOGGER.info("Editing cargo");
         return "redirect:controller?action=showmanagerpage";

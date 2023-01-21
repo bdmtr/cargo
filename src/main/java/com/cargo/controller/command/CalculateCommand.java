@@ -1,15 +1,13 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.controller.command.PageCommands.CalculatePageCommand;
-import com.cargo.model.BranchDao;
 import com.cargo.model.entity.Branch;
+import com.cargo.model.service.BranchService;
 import com.cargo.util.PriceMaker;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -17,16 +15,19 @@ import static com.cargo.util.Validator.isIncorrectCalculateInfo;
 
 public class CalculateCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(CalculateCommand.class);
+    private final BranchService branchService;
+
+    public CalculateCommand(BranchService branchService) {
+        this.branchService = branchService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        HttpSession session = request.getSession();
-
         int departureBranchId = Integer.parseInt(request.getParameter("departureBranchId"));
         int destinationBranchId = Integer.parseInt(request.getParameter("destinationBranchId"));
 
-        Branch departureBranch = BranchDao.getInstance().getBranchById(departureBranchId);
-        Branch destinationBranch = BranchDao.getInstance().getBranchById(destinationBranchId);
+                Branch departureBranch = branchService.getBranchById(departureBranchId);
+        Branch destinationBranch = branchService.getBranchById(destinationBranchId);
 
         int weight = Integer.parseInt((request.getParameter("weight")));
         int length = Integer.parseInt((request.getParameter("height")));

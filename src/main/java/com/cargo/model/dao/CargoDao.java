@@ -1,4 +1,4 @@
-package com.cargo.model;
+package com.cargo.model.dao;
 
 
 import com.cargo.model.entity.Branch;
@@ -14,7 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CargoDao {
+
     private static final Logger LOGGER = Logger.getLogger(CargoDao.class);
+
+    private static CargoDao instance;
+
+    public static synchronized CargoDao getInstance() {
+        if (instance == null) instance = new CargoDao();
+        return instance;
+    }
 
     private int noOfRecords;
 
@@ -57,7 +65,7 @@ public class CargoDao {
 
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
 
-    public List<Cargo> getAllCargo() throws SQLException {
+    public List<Cargo> getAllCargo(){
         List<Cargo> cargoList = new ArrayList<>();
         try (Connection connection = DataSourceUtil.getConnection();
              Statement statement = connection.createStatement();
@@ -90,7 +98,7 @@ public class CargoDao {
         return cargoList;
     }
 
-    public List<Cargo> getAllCargoForUserById(int id) throws SQLException {
+    public List<Cargo> getAllCargoForUserById(int id){
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;
 
@@ -129,7 +137,7 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords) throws SQLException {
+    public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords){
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
 
@@ -176,7 +184,7 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> getAllCargoWithLimit(int offset, int noOfRecords) throws SQLException {
+    public List<Cargo> getAllCargoWithLimit(int offset, int noOfRecords){
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
 

@@ -1,4 +1,4 @@
-package com.cargo.model;
+package com.cargo.model.dao;
 
 import com.cargo.model.entity.Branch;
 import com.cargo.model.enums.City;

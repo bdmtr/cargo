@@ -105,10 +105,12 @@ public class Cargo extends Model implements Serializable {
         this.deliveryStatus = deliveryStatus;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }

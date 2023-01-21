@@ -1,8 +1,8 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Cargo;
+import com.cargo.model.service.CargoService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +14,17 @@ import java.util.List;
 
 public class SearchCityGuestCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(SearchCityGuestCommand.class);
+    private final CargoService cargoService;
+
+    public SearchCityGuestCommand(CargoService cargoService) {
+        this.cargoService = cargoService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
-
         int page = 1;
         int recordsPerPage = 10;
-
-        CargoDao cargoDao = new CargoDao();
 
         String searchBranchId = request.getParameter("req_branch_id");
         if (searchBranchId == null || searchBranchId.isEmpty()) {
@@ -41,8 +43,8 @@ public class SearchCityGuestCommand extends Command {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        List<Cargo> list = cargoDao.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
-        int noOfRecords = cargoDao.getNoOfRecords();
+        List<Cargo> list = cargoService.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
+        int noOfRecords = cargoService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
         request.setAttribute("cargoList", list);

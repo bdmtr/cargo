@@ -1,8 +1,9 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
+import com.cargo.model.service.CargoService;
+import com.cargo.model.service.UserService;
 import com.cargo.util.Validator;
-import com.cargo.model.UserDao;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
 import org.apache.log4j.Logger;
@@ -15,6 +16,11 @@ import static com.cargo.controller.Path.PAGE_REGISTER;
 
 public class RegisterCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
+    private final UserService userService;
+
+    public RegisterCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -31,13 +37,13 @@ public class RegisterCommand extends Command {
         user.setPassword(password);
         user.setRole(Role.USER);
 
-        if (Validator.isIncorrectRegisterInfo(request, username, fullname, email, password)) {
+        if (Validator.isIncorrectRegisterInfo(username, fullname, email, password)) {
+
+            LOGGER.warn("Registration failed");
             return PAGE_REGISTER;
         }
 
-        UserDao userDao = new UserDao();
-        userDao.addUser(user);
-
+        userService.addUser(user);
 
         LOGGER.info("Register new user: " + username);
         return Path.PAGE_LOGIN;

@@ -1,12 +1,12 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.model.BranchDao;
-import com.cargo.model.CargoDao;
 import com.cargo.model.entity.Branch;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
+import com.cargo.model.service.BranchService;
+import com.cargo.model.service.CargoService;
 import com.cargo.util.PriceMaker;
 import org.apache.log4j.Logger;
 
@@ -21,6 +21,13 @@ import static com.cargo.util.Validator.isIncorrectCargoInfo;
 
 public class MakeCargoCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(MakeCargoCommand.class);
+    private final CargoService cargoService;
+    private final BranchService branchService;
+
+    public MakeCargoCommand(CargoService cargoService, BranchService branchService) {
+        this.cargoService = cargoService;
+        this.branchService = branchService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -41,8 +48,9 @@ public class MakeCargoCommand extends Command {
             return Path.PAGE_MAKE_CARGO;
         }
 
-        Branch originsBranch = BranchDao.getInstance().getBranchById(departureBranchId);
-        Branch destinationsBranch = BranchDao.getInstance().getBranchById(destinationBranchId);
+
+        Branch originsBranch = branchService.getBranchById(departureBranchId);
+        Branch destinationsBranch = branchService.getBranchById(destinationBranchId);
         String originsName = String.valueOf(originsBranch.getCity());
         String destinationsName = String.valueOf(destinationsBranch.getCity());
         PriceMaker priceMaker = new PriceMaker();
@@ -71,8 +79,7 @@ public class MakeCargoCommand extends Command {
         cargo.setDeliveryStatus(deliveryStatus);
         cargo.setInvoiceStatus(invoiceStatus);
 
-        CargoDao cargoDao = new CargoDao();
-        cargoDao.addCargo(cargo);
+        cargoService.addCargo(cargo);
 
         LOGGER.info("Cargo created");
 

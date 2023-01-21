@@ -1,23 +1,25 @@
 package com.cargo.util;
 
-import com.cargo.model.BranchDao;
-import com.cargo.model.UserDao;
+import com.cargo.model.dao.BranchDao;
+import com.cargo.model.dao.UserDao;
+import com.cargo.model.service.BranchService;
+import com.cargo.model.service.UserService;
 
-
-import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 public class Validator {
-    private static final String PASSWORD_REGEX = "(?=.*\\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).{4,}";
-    private static final String EMAIL_REGEX = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
-    private static final String NAME_REGEX = "^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\\- ]{1,20}";
 
-    public static boolean isIncorrectLoginInfo(HttpServletRequest request, String username) {
+    private static final String FULLNAME_REGEX = "^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє'\\- ]{1,20}";
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{5,20}$";
+
+
+    public static boolean isIncorrectLoginInfo(String username) {
         return username == null || username.isEmpty();
     }
 
-    public static boolean isIncorrectRegisterInfo(HttpServletRequest request, String username, String fullName, String email, String password) throws SQLException {
-        UserDao userDao = new UserDao();
+    public static boolean isIncorrectRegisterInfo(String username, String fullName, String email, String password) throws SQLException {
+        UserService userService = new UserService(UserDao.getInstance());
 
         if (username == null || username.isEmpty()) {
             return true;
@@ -34,22 +36,20 @@ public class Validator {
         if (email.isEmpty() || !email.matches(EMAIL_REGEX)) {
             return true;
         }
-        if (!username.matches(NAME_REGEX)) {
+        if (!fullName.matches(FULLNAME_REGEX)) {
             return true;
         }
 
-        if (password.matches(PASSWORD_REGEX)) {
+        if (!password.matches(PASSWORD_REGEX)) {
             return true;
         }
 
-        if (userDao.findUserByUsername(username) != null) {
-            return true;
-        }
-        return userDao.findUserByUsername(username).getEmail().equals(email);
+        return userService.findUserByUsername(username) != null;
     }
 
     public static boolean isIncorrectEditInfo(String username, String fullName, String password) throws SQLException {
-        UserDao userDao = new UserDao();
+        UserService userService = new UserService(UserDao.getInstance());
+
         if (username == null || username.isEmpty()) {
             return true;
         }
@@ -66,7 +66,7 @@ public class Validator {
             return true;
         }
 
-        return userDao.findUserByUsername(username) != null;
+        return userService.findUserByUsername(username) != null;
     }
 
 
@@ -79,16 +79,10 @@ public class Validator {
         if (receiverFullname.isEmpty()) {
             return true;
         }
-        if (Integer.parseInt(weight) < 1) {
+        if (Integer.parseInt(weight) < 1 || Integer.parseInt(height) < 1 || Integer.parseInt(length) < 1 || Integer.parseInt(width) < 1) {
             return true;
         }
-        if (Integer.parseInt(height) < 1) {
-            return true;
-        }
-        if (Integer.parseInt(length) < 1) {
-            return true;
-        }
-        if (Integer.parseInt(width) < 1) {
+        if (Integer.parseInt(weight) > 1000 || Integer.parseInt(height) > 1000 || Integer.parseInt(length) > 1000 || Integer.parseInt(width) > 1000) {
             return true;
         }
 
@@ -96,23 +90,17 @@ public class Validator {
             return true;
         }
 
-        BranchDao branchDao = new BranchDao();
+        BranchService branchService = new BranchService(BranchDao.getInstance());
 
-        return branchDao.getBranchById(departureBranchId) == null || branchDao.getBranchById(destinationBranchId) == null;
+        return branchService.getBranchById(departureBranchId) == null || branchService.getBranchById(destinationBranchId) == null;
     }
 
     public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, String weight, String height, String length, String width) throws SQLException {
 
-        if (Integer.parseInt(weight) < 1) {
+        if (Integer.parseInt(weight) < 1 || Integer.parseInt(height) < 1 || Integer.parseInt(length) < 1 || Integer.parseInt(width) < 1) {
             return true;
         }
-        if (Integer.parseInt(height) < 1) {
-            return true;
-        }
-        if (Integer.parseInt(length) < 1) {
-            return true;
-        }
-        if (Integer.parseInt(width) < 1) {
+        if (Integer.parseInt(weight) > 1000 || Integer.parseInt(height) > 1000 || Integer.parseInt(length) > 1000 || Integer.parseInt(width) > 1000) {
             return true;
         }
 
@@ -120,8 +108,8 @@ public class Validator {
             return true;
         }
 
-        BranchDao branchDao = new BranchDao();
+        BranchService branchService = new BranchService(BranchDao.getInstance());
 
-        return branchDao.getBranchById(departureBranchId) == null || branchDao.getBranchById(destinationBranchId) == null;
+        return branchService.getBranchById(departureBranchId) == null || branchService.getBranchById(destinationBranchId) == null;
     }
 }

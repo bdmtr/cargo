@@ -19,7 +19,7 @@ public class UserDao {
         return instance;
     }
 
-    static final String ADD_USER = "INSERT INTO user (username, fullname, email, password, role) VALUES(?, ?, ?, ?, ?)";
+    static final String ADD_USER = "INSERT INTO user (username, fullname, email, password, role, balance) VALUES(?, ?, ?, ?, ?, 0)";
     static final String UPDATE_USER_PASSWORD_BY_ID = "UPDATE user SET password=? WHERE user.id=?";
     static final String DELETE_FROM_USER_WHERE_USER_ID = "DELETE FROM user WHERE user.id = ?";
     static final String FIND_USER_BY_ID = "SELECT id, username, fullname, email, password, role FROM user where user.id = ?";

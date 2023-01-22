@@ -19,7 +19,6 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             process(request, response);
-            LOGGER.info("do get");
         } catch (SQLException | ServletException | IOException e) {
             LOGGER.error("doGet Fails");
         }
@@ -29,7 +28,6 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         try {
             process(request, response);
-            LOGGER.info("do post");
         } catch (SQLException | ServletException | IOException e) {
             LOGGER.error("doPost Fails");
         }

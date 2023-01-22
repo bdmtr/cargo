@@ -15,5 +15,4 @@ public class SessionListener implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent sessionEvent) {
         LOGGER.info("Session Destroyed:: ID=" + sessionEvent.getSession().getId());
     }
-
 }

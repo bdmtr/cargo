@@ -26,7 +26,7 @@ public class ShowManagerPageCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
         int page = 1;
-        int recordsPerPage = 2;
+        int recordsPerPage = 10;
 
         String searchBranchId = request.getParameter("req_branch_id");
 

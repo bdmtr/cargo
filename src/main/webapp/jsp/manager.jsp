@@ -24,7 +24,6 @@
 <div>
     <form method="post" action="controller?action=showmanagerpage">
         <input name="command" value="showmanagerpage" type="hidden">
-
         <table cellspacing="10" cellpadding="10">
             <tr>
                 <th>
@@ -111,7 +110,21 @@
                                                                                                 bundle="${lang}"/></button>
                         </form>
                     </td>
-                    <td><fmt:message key="l.createInvoice" bundle="${lang}"/></td>
+                    <td>
+
+                        <form action="controller?action=invoice" method="post">
+                            <button type="submit" name="invoice_id" value=${cargo.getId()}> <fmt:message key="l.createInvoice" bundle="${lang}"/></button>
+                        </form>
+
+
+
+
+
+
+
+
+
+                    </td>
                 </tr>
             </c:forEach>
         </table>

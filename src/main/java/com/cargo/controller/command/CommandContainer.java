@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class CommandContainer {
     private static final Map<String, Command> commands = new TreeMap<>();
 
-     static {
+    static {
         commands.put("register", new RegisterCommand(new UserService(UserDao.getInstance())));
         commands.put("registerpage", new RegisterPageCommand());
         commands.put("login", new LoginCommand(new UserService(UserDao.getInstance())));
@@ -32,6 +32,9 @@ public class CommandContainer {
         commands.put("editcargopage", new EditCargoPageCommand(new CargoService(CargoDao.getInstance())));
         commands.put("SearchCityGuest", new SearchCityGuestCommand(new CargoService(CargoDao.getInstance())));
         commands.put("changeLanguage", new ChangeLanguageCommand());
+        commands.put("invoice", new CreateInvoiceCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance()), new BranchService(BranchDao.getInstance())));
+
+
     }
 
     public static Command getCommand(String commandName) {

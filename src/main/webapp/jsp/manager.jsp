@@ -29,7 +29,8 @@
             <tr>
                 <th>
                     <div class="form-group">
-                        <select name="req_branch_dep">
+                        <select name="req_branch_id" id="req_branch_id">
+                            <option value="0">ALL</option>
                             <option value=1><fmt:message key="l.Kyiv1" bundle="${lang}"/></option>
                             <option value=2><fmt:message key="l.Lviv2" bundle="${lang}"/></option>
                             <option value=3><fmt:message key="l.Dnipro3" bundle="${lang}"/></option>
@@ -39,17 +40,7 @@
                 </th>
                 <th>
                     <div class="form-group">
-                        <select name="req_branch_des">
-                            <option value=1><fmt:message key="l.Kyiv1" bundle="${lang}"/></option>
-                            <option value=2><fmt:message key="l.Lviv2" bundle="${lang}"/></option>
-                            <option value=3><fmt:message key="l.Dnipro3" bundle="${lang}"/></option>
-                            <option value=4><fmt:message key="l.Kharkiv4" bundle="${lang}"/></option>
-                        </select>
-                    </div>
-                </th>
-                <th>
-                    <div class="form-group">
-                        <label>Date</label>
+                        <label name="session_date" id="session_date">Date</label>
                         <input type="text" name="req_delivery_date" id="req_delivery_date">
                     </div>
                 </th>
@@ -112,8 +103,8 @@
                     <td>${String.format("%1$TD %1$TT", cargo.creationDate)}</td>
                         <%--<td>${cargo.deliveryDate}</td>--%>
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
-                    <td>${cargo.deliveryStatus}</td>
-                    <td>${cargo.invoiceStatus}</td>
+                    <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
+                    <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>
                     <td>
                         <form action="controller?action=editcargopage" method="post">
                             <button type="submit" name="id" value=${cargo.getId()}><fmt:message key="l.edit"

@@ -63,7 +63,7 @@
                     <td>${cargo.departureBranch.city}</td>
                     <td>${cargo.destinationBranch.city}</td>
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
-                    <td>${cargo.deliveryStatus}</td>
+                    <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
                 </tr>
             </c:forEach>
         </table>

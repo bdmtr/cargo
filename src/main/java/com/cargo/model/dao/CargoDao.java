@@ -65,7 +65,7 @@ public class CargoDao {
 
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
 
-    public List<Cargo> getAllCargo(){
+    public List<Cargo> getAllCargo() {
         List<Cargo> cargoList = new ArrayList<>();
         try (Connection connection = DataSourceUtil.getConnection();
              Statement statement = connection.createStatement();
@@ -98,7 +98,7 @@ public class CargoDao {
         return cargoList;
     }
 
-    public List<Cargo> getAllCargoForUserById(int id){
+    public List<Cargo> getAllCargoForUserById(int id) {
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;
 
@@ -137,7 +137,7 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords){
+    public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords) {
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
 
@@ -184,7 +184,7 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> getAllCargoWithLimit(int offset, int noOfRecords){
+    public List<Cargo> getAllCargoWithLimit(int offset, int noOfRecords) {
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
 
@@ -386,6 +386,10 @@ public class CargoDao {
         BranchDao branchDao = new BranchDao();
         Branch branch = branchDao.getBranchByCity(branchCity);
 
+       if(branchCity==null){
+            preQuery.append(" AND destination_branch_id>0");
+        }
+
         if (branch != null) {
             id = String.valueOf(branch.getId());
             preQuery.append(" AND destination_branch_id=").append(id);
@@ -428,15 +432,14 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String departmentBrId, String destinationBrId, String date, String order) throws SQLException {
+    public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String destinationBrId, String date, String order) throws SQLException {
         StringBuilder preQuery = new StringBuilder(SORT_FOR_MANAGER);
 
-        if (departmentBrId != null && !departmentBrId.isEmpty()) {
-            preQuery.append(" AND departure_branch_id=").append(departmentBrId);
-        }
 
         if (destinationBrId != null && !destinationBrId.isEmpty()) {
-            preQuery.append(" AND destination_branch_id=").append(destinationBrId);
+            if (destinationBrId.equals("0")) {
+                preQuery.append(" AND destination_branch_id>0");
+            } else preQuery.append(" AND destination_branch_id=").append(destinationBrId);
         }
 
         if (date != null) {

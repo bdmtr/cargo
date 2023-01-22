@@ -58,8 +58,8 @@ public class CargoService {
         return cargoDao.sortByCityDate(offset, noOfRecords, branchCity, order);
     }
 
-    public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String departmentBrId, String destinationBrId, String date, String order) throws SQLException {
-        return cargoDao.sortByCityDateManager(offset, noOfRecords, departmentBrId, destinationBrId, date, order);
+    public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String destinationBrId, String date, String order) throws SQLException {
+        return cargoDao.sortByCityDateManager(offset, noOfRecords,destinationBrId, date, order);
     }
 
     public int getNoOfRecords() {

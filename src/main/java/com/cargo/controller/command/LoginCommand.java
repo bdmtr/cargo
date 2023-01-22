@@ -43,10 +43,7 @@ public class LoginCommand extends Command {
         session.setAttribute("currentUser", user);
         session.setAttribute("session_order", "");
         session.setAttribute("session_branch_id", "");
-
-        session.setAttribute("session_branch_dep", "");
-        session.setAttribute("session_branch_des", "");
-        session.setAttribute("session_delivery_date", "2023");
+        session.setAttribute("session_date", "");
 
 
         String userRole = String.valueOf(user.getRole());

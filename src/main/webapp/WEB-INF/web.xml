@@ -26,6 +26,10 @@
         <error-code>505</error-code>
         <location>/jsp/error505.jsp</location>
     </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error505.jsp</location>
+    </error-page>
 
     <filter>
         <filter-name>EncodingFilter</filter-name>

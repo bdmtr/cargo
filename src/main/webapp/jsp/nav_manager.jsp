@@ -22,27 +22,12 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal"><fmt:message key="l.cargo.delivery" bundle="${lang}"/></h5>
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="controller?action=showmanagerpage"><fmt:message key="l.show.all.cargo" bundle="${lang}"/></a>
+        <a class="p-2 text-dark" href="controller?action=showmanagerpage"><fmt:message key="l.show.reports" bundle="${lang}"/></a>
         <a href="controller?action=changeLanguage&lang=en"><fmt:message key="l.en" bundle="${lang}"/></a>
         <a href="controller?action=changeLanguage&lang=ua"><fmt:message key="l.uk" bundle="${lang}"/></a>
     </nav>
     <a class="btn btn-outline-primary" href="controller?action=logout"><fmt:message key="l.logout" bundle="${lang}"/></a>
 </div>
 
-
-
-<!-- Bootstrap core JavaScript
- ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/js/bootstrap.min.js"></script></script>
-<script src="/js/bootstrap.min.js"></script>
-<script>
-    Holder.addTheme('thumb', {
-        bg: '#55595c',
-        fg: '#eceeef',
-        text: 'Thumbnail'
-    });
-</script>
 </body>
 </html>

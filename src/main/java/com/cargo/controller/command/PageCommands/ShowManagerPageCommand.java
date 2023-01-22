@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ShowManagerPageCommand extends Command {
@@ -25,22 +26,17 @@ public class ShowManagerPageCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
         int page = 1;
-        int recordsPerPage = 10;
+        int recordsPerPage = 2;
 
+        String searchBranchId = request.getParameter("req_branch_id");
 
-        String searchBranchDep = request.getParameter("req_branch_dep");
-        if (searchBranchDep == null || searchBranchDep.isEmpty()) {
-            searchBranchDep = (String) session.getAttribute("session_branch_dep");
+        if (searchBranchId == null || searchBranchId.isEmpty()) {
+            searchBranchId = (String) session.getAttribute("session_branch_id");
         }
 
-        String searchBranchDes = request.getParameter("req_branch_des");
-        if (searchBranchDes == null || searchBranchDes.isEmpty()) {
-            searchBranchDes = (String) session.getAttribute("session_branch_des");
-        }
-
-        String searchDeliveryDate = request.getParameter("req_delivery_date");
-        if (searchDeliveryDate == null || searchDeliveryDate.isEmpty()) {
-            searchDeliveryDate = (String) session.getAttribute("session_delivery_date");
+        String searchDate = request.getParameter("req_date");
+        if (searchDate == null || searchDate.isEmpty()) {
+            searchDate = (String) session.getAttribute("session_date");
         }
 
         String searchOrder = request.getParameter("req_order");
@@ -48,23 +44,21 @@ public class ShowManagerPageCommand extends Command {
             searchOrder = (String) session.getAttribute("session_order");
         }
 
+        session.setAttribute("session_branch_id", searchBranchId);
+        session.setAttribute("session_date", searchDate);
+        session.setAttribute("session_order", searchOrder);
+
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-
-        List<Cargo> list = cargoService.sortByCityDateManager((page - 1) * recordsPerPage, recordsPerPage, searchBranchDep, searchBranchDes, searchDeliveryDate, searchOrder);
+        List<Cargo> list = cargoService.sortByCityDateManager((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchDate, searchOrder);
         int noOfRecords = cargoService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
         request.setAttribute("cargoList", list);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
-
-        request.setAttribute("session_order", searchOrder);
-        request.setAttribute("session_branch_dep", searchBranchDes);
-        request.setAttribute("session_branch_des", searchBranchDep);
-        request.setAttribute("session_delivery_date", searchDeliveryDate);
 
 
         LOGGER.info("Manager page loaded successfully");

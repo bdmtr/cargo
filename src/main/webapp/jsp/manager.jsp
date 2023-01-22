@@ -40,8 +40,8 @@
                 </th>
                 <th>
                     <div class="form-group">
-                        <label name="session_date" id="session_date">Date</label>
-                        <input type="text" name="req_delivery_date" id="req_delivery_date">
+                      <%--  <label name="session_date" id="session_date">Date</label>--%>
+                        <input type="date" name="req_date" id="req__date">
                     </div>
                 </th>
                 <th>

@@ -443,12 +443,13 @@ public class CargoDao {
         }
 
         if (date != null) {
-            preQuery.append(" AND delivery_date like '%" + date + "%' ");
+            preQuery.append(" AND delivery_date like '" + date + "%' ");
         }
 
         if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
+
 
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;

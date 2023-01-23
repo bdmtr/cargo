@@ -20,7 +20,7 @@ public class CommandContainer {
         commands.put("login", new LoginCommand(new UserService(UserDao.getInstance())));
         commands.put("logout", new LogoutCommand());
         commands.put("loginpage", new LoginPageCommand());
-        commands.put("showcargospage", new ShowCargosPageCommand(new CargoService(CargoDao.getInstance())));
+        commands.put("showcargospage", new ShowUserPageCommand(new CargoService(CargoDao.getInstance())));
         commands.put("makeCargo", new MakeCargoCommand(new CargoService(CargoDao.getInstance()), new BranchService(BranchDao.getInstance())));
         commands.put("makecargopage", new MakeCargoPageCommand());
         commands.put("showmanagerpage", new ShowManagerPageCommand(new CargoService(CargoDao.getInstance())));
@@ -30,10 +30,10 @@ public class CommandContainer {
         commands.put("changeprofilepage", new EditProfilePageCommand());
         commands.put("editcargo", new EditCargoCommand(new CargoService(CargoDao.getInstance())));
         commands.put("editcargopage", new EditCargoPageCommand(new CargoService(CargoDao.getInstance())));
-        commands.put("SearchCityGuest", new SearchCityGuestCommand(new CargoService(CargoDao.getInstance())));
+        commands.put("SearchCityGuest", new ShowGuestPageCommand(new CargoService(CargoDao.getInstance())));
         commands.put("changeLanguage", new ChangeLanguageCommand());
+        commands.put("error", new ShowErrorPageCommand());
         commands.put("invoice", new CreateInvoiceCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance()), new BranchService(BranchDao.getInstance())));
-
 
     }
 

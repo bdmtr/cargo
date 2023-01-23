@@ -1,6 +1,7 @@
-package com.cargo.controller.command;
+package com.cargo.controller.command.PageCommands;
 
 import com.cargo.controller.Path;
+import com.cargo.controller.command.Command;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.service.CargoService;
 import org.apache.log4j.Logger;
@@ -12,11 +13,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SearchCityGuestCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger(SearchCityGuestCommand.class);
+public class ShowUserPageCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ShowUserPageCommand.class);
     private final CargoService cargoService;
 
-    public SearchCityGuestCommand(CargoService cargoService) {
+    public ShowUserPageCommand(CargoService cargoService) {
         this.cargoService = cargoService;
     }
 
@@ -24,26 +25,15 @@ public class SearchCityGuestCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
         int page = 1;
-        int recordsPerPage = 6;
-
-        String searchBranchId = request.getParameter("req_branch_id");
-        if (searchBranchId == null || searchBranchId.isEmpty()) {
-            searchBranchId = (String) session.getAttribute("session_branch_id");
-        }
-
-        String searchOrder = request.getParameter("req_order");
-        if (searchOrder== null || searchOrder.isEmpty()) {
-            searchOrder = (String) session.getAttribute("session_order");
-        }
-
-        session.setAttribute("session_order", searchOrder);
-        session.setAttribute("session_branch_id", searchBranchId);
+        int recordsPerPage = 5;
+        int userId = (int) session.getAttribute("currentUserId");
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        List<Cargo> list = cargoService.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
+        List<Cargo> list = cargoService.getAllCargoForUserByIdWithLimit(userId, (page - 1) * recordsPerPage, recordsPerPage);
+
         int noOfRecords = cargoService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
@@ -51,7 +41,8 @@ public class SearchCityGuestCommand extends Command {
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
 
-        LOGGER.info("Search cities for guest");
-        return Path.PAGE_SHOW_SEARCH;
+        LOGGER.info("Show cargos page loaded successfully");
+
+        return Path.PAGE_SHOW_CARGOS;
     }
 }

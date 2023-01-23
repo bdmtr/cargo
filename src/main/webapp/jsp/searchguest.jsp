@@ -26,8 +26,13 @@
             <tr>
                 <th>
                     <div class="form-group">
-                        <label><fmt:message key="l.destination.branch" bundle="${lang}"/></label>
-                        <input type="text" name="req_branch_id" id="req_branch_id">
+                        <select name="req_branch_id" id="req_branch_id">
+                            <option value=0><fmt:message key="l.show.all" bundle="${lang}"/></option>
+                            <option value="KYIV"><fmt:message key="l.Kyiv1" bundle="${lang}"/></option>
+                            <option value="LVIV"><fmt:message key="l.Lviv2" bundle="${lang}"/></option>
+                            <option value="DNIPRO"><fmt:message key="l.Dnipro3" bundle="${lang}"/></option>
+                            <option value="KHARKIV"><fmt:message key="l.Kharkiv4" bundle="${lang}"/></option>
+                        </select>
                     </div>
                 </th>
                 <th>
@@ -40,7 +45,8 @@
                 </th>
                 <th>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary"><fmt:message key="l.search" bundle="${lang}"/></button>
+                        <button type="submit" class="btn btn-primary"><fmt:message key="l.search"
+                                                                                   bundle="${lang}"/></button>
                     </div>
                 </th>
             <tr>

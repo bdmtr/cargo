@@ -26,7 +26,7 @@
                 <th>
                     <div class="form-group">
                         <select name="req_branch_id" id="req_branch_id">
-                            <option value="0">ALL</option>
+                            <option value="0"><fmt:message key="l.show.all" bundle="${lang}"/></option>
                             <option value=1><fmt:message key="l.Kyiv1" bundle="${lang}"/></option>
                             <option value=2><fmt:message key="l.Lviv2" bundle="${lang}"/></option>
                             <option value=3><fmt:message key="l.Dnipro3" bundle="${lang}"/></option>
@@ -35,8 +35,12 @@
                     </div>
                 </th>
                 <th>
+                    <div>
+                        <p><fmt:message key="l.del.date" bundle="${lang}"/></p>
+                    </div>
+                </th>
+                <th>
                     <div class="form-group">
-                        <%--  <label name="session_date" id="session_date">Date</label>--%>
                         <input type="date" name="req_date" id="req__date">
                     </div>
                 </th>

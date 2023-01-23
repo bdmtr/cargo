@@ -184,53 +184,6 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> getAllCargoWithLimit(int offset, int noOfRecords) {
-        List<Cargo> list = new ArrayList<Cargo>();
-        Cargo cargo = null;
-
-        try (
-                Connection connection = DataSourceUtil.getConnection();
-                Statement stmt = connection.createStatement();
-        ) {
-            ResultSet rs = stmt.executeQuery(GET_ALL_CARGO_WITH_LIMIT + " LIMIT " + offset + ", " + noOfRecords);
-
-            while (rs.next()) {
-                cargo = new Cargo();
-                cargo.setId(rs.getInt("id"));
-                cargo.setType(rs.getString("type"));
-                cargo.setUserId(rs.getInt("user_id"));
-                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
-                cargo.setReceiverFullname(rs.getString("receiver_fullname"));
-                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
-                cargo.setPrice(rs.getInt("price"));
-                cargo.setWeight(rs.getInt("weight"));
-                cargo.setLength(rs.getInt("length"));
-                cargo.setHeight(rs.getInt("height"));
-                cargo.setWidth(rs.getInt("width"));
-                cargo.setCreationDate(rs.getTimestamp("creation_date"));
-                cargo.setDeliveryDate(rs.getTimestamp("delivery_date"));
-                cargo.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
-                cargo.setInvoiceStatus(InvoiceStatus.valueOf(rs.getString("invoice_status")));
-
-                list.add(cargo);
-            }
-
-            rs.close();
-            rs = stmt.executeQuery("SELECT FOUND_ROWS()");
-
-            if (rs.next()) {
-                this.noOfRecords = rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Cant get all cargo with limit");
-        }
-
-        return list;
-    }
-
     public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
@@ -398,7 +351,6 @@ public class CargoDao {
         if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
-
 
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;

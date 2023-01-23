@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ShowCargosPageCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger(ShowCargosPageCommand.class);
+public class ShowGuestPageCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ShowGuestPageCommand.class);
     private final CargoService cargoService;
 
-    public ShowCargosPageCommand(CargoService cargoService) {
+    public ShowGuestPageCommand(CargoService cargoService) {
         this.cargoService = cargoService;
     }
 
@@ -25,15 +25,26 @@ public class ShowCargosPageCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
         int page = 1;
-        int recordsPerPage = 5;
-        int userId = (int) session.getAttribute("currentUserId");
+        int recordsPerPage = 6;
+
+        String searchBranchId = request.getParameter("req_branch_id");
+        if (searchBranchId == null || searchBranchId.isEmpty()) {
+            searchBranchId = (String) session.getAttribute("session_branch_id");
+        }
+
+        String searchOrder = request.getParameter("req_order");
+        if (searchOrder== null || searchOrder.isEmpty()) {
+            searchOrder = (String) session.getAttribute("session_order");
+        }
+
+        session.setAttribute("session_order", searchOrder);
+        session.setAttribute("session_branch_id", searchBranchId);
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        List<Cargo> list = cargoService.getAllCargoForUserByIdWithLimit(userId, (page - 1) * recordsPerPage, recordsPerPage);
-
+        List<Cargo> list = cargoService.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
         int noOfRecords = cargoService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
@@ -41,8 +52,7 @@ public class ShowCargosPageCommand extends Command {
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
 
-        LOGGER.info("Show cargos page loaded successfully");
-
-        return Path.PAGE_SHOW_CARGOS;
+        LOGGER.info("Search cities for guest");
+        return Path.PAGE_SHOW_SEARCH;
     }
 }

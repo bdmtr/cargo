@@ -39,7 +39,7 @@
                 </th>
                 <th>
                     <div class="form-group">
-                      <%--  <label name="session_date" id="session_date">Date</label>--%>
+                        <%--  <label name="session_date" id="session_date">Date</label>--%>
                         <input type="date" name="req_date" id="req__date">
                     </div>
                 </th>
@@ -53,7 +53,8 @@
                 </th>
                 <th>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary"><fmt:message key="l.search" bundle="${lang}"/></button>
+                        <button type="submit" class="btn btn-primary"><fmt:message key="l.search"
+                                                                                   bundle="${lang}"/></button>
                     </div>
                 </th>
 
@@ -106,24 +107,17 @@
                     <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>
                     <td>
                         <form action="controller?action=editcargopage" method="post">
-                            <button type="submit" name="id" value=${cargo.getId()}><fmt:message key="l.edit"
+                            <button type="submit" name="status_id" value=${cargo.getId()}><fmt:message key="l.edit"
                                                                                                 bundle="${lang}"/></button>
                         </form>
                     </td>
                     <td>
-
-                        <form action="controller?action=invoice" method="post">
-                            <button type="submit" name="invoice_id" value=${cargo.getId()}> <fmt:message key="l.createInvoice" bundle="${lang}"/></button>
-                        </form>
-
-
-
-
-
-
-
-
-
+                        <c:if test="${cargo.invoiceStatus == 'PENDING'}">
+                            <form action="controller?action=invoice" method="post">
+                                <button type="submit" name="invoice_id" value=${cargo.getId()}><fmt:message
+                                        key="l.createInvoice" bundle="${lang}"/></button>
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>

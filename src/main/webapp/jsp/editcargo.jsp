@@ -25,7 +25,7 @@
                            placeholder="${currentCargo.receiverFullname}">
                 </div>
                 <div class="form-group">
-                    <p><fmt:message key="l.delivery.status-" bundle="${lang}"/> ${currentCargo.deliveryStatus}</p>
+                    <p><fmt:message key="l.delivery.status-" bundle="${lang}"/> <fmt:message key="l.${currentCargo.deliveryStatus}" bundle="${lang}"/></p>
                     <select name="deliveryStatus" id="deliveryStatus">
                         <option value="TRANSIT"><fmt:message key="l.TRANSIT" bundle="${lang}"/></option>
                         <option value="DELIVERED"><fmt:message key="l.DELIVERED" bundle="${lang}"/></option>
@@ -34,7 +34,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <p><fmt:message key="l.Invoice.Status-" bundle="${lang}"/> ${currentCargo.invoiceStatus} </p>
+                    <p><fmt:message key="l.Invoice.Status-" bundle="${lang}"/> <fmt:message key="l.${currentCargo.invoiceStatus}" bundle="${lang}"/> </p>
                         <select name="invoiceStatus" id="invoiceStatus">
                             <option value="PAYED"><fmt:message key="l.PAYED" bundle="${lang}"/></option>
                             <option value="PENDING"><fmt:message key="l.PENDING" bundle="${lang}"/></option>

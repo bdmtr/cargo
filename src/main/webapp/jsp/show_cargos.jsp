@@ -62,7 +62,14 @@
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
                     <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
                     <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>
-                    <td><fmt:message key="l.pay" bundle="${lang}"/></td>
+                    <td>
+                        <c:if test="${cargo.invoiceStatus == 'PENDING'}">
+                            <form action="controller?action=invoice" method="post">
+                                <button type="submit" name="invoice_id" value=${cargo.getId()}><fmt:message key="l.pay"
+                                                                                                            bundle="${lang}"/></button>
+                            </form>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -73,7 +80,8 @@
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
                 <li class="page-item">
-                    <a class="page-link" href="controller?action=showcargospage&page=${currentPage - 1}"><fmt:message key="l.previous" bundle="${lang}"/></a>
+                    <a class="page-link" href="controller?action=showcargospage&page=${currentPage - 1}"><fmt:message
+                            key="l.previous" bundle="${lang}"/></a>
                 </li>
             </c:if>
 
@@ -88,7 +96,8 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="controller?action=showcargospage&page=${i}">${i}</a></li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="controller?action=showcargospage&page=${i}">${i}</a></li>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
@@ -98,7 +107,8 @@
             <%--For displaying Next link --%>
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item">
-                    <a class="page-link" href="controller?action=showcargospage&page=${currentPage + 1}"><fmt:message key="l.next" bundle="${lang}"/></a>
+                    <a class="page-link" href="controller?action=showcargospage&page=${currentPage + 1}"><fmt:message
+                            key="l.next" bundle="${lang}"/></a>
                 </li>
             </c:if>
 

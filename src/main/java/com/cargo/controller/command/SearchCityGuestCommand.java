@@ -24,7 +24,7 @@ public class SearchCityGuestCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
         int page = 1;
-        int recordsPerPage = 2;
+        int recordsPerPage = 6;
 
         String searchBranchId = request.getParameter("req_branch_id");
         if (searchBranchId == null || searchBranchId.isEmpty()) {

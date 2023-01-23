@@ -1,5 +1,6 @@
 package com.cargo.controller.command;
 
+import com.cargo.controller.Path;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
@@ -23,7 +24,7 @@ public class EditCargoCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
-        int cargoID = (int) session.getAttribute("currentCargoId");
+        int cargoID = (int) session.getAttribute("session_current_editId");
         Cargo cargo = cargoService.getCargoById(cargoID);
         String receiverFullname = request.getParameter("receiverFullname");
         String deliveryStatus = request.getParameter("deliveryStatus");
@@ -36,6 +37,5 @@ public class EditCargoCommand extends Command {
 
         LOGGER.info("Editing cargo");
         return "redirect:controller?action=showmanagerpage";
-
     }
 }

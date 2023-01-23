@@ -22,16 +22,15 @@ public class EditCargoPageCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("status_id"));
         HttpSession session = request.getSession();
         Cargo cargo = cargoService.getCargoById(id);
         int currentCargoId = cargo.getId();
-        session.setAttribute("currentCargoId", currentCargoId);
-        session.setAttribute("currentCargo", cargo);
+
+        session.setAttribute("session_current_editId", currentCargoId);
+        request.setAttribute("currentCargo", cargo);
 
         LOGGER.info("Edit page loaded successfully");
-
         return Path.PAGE_CHANGE_STATUS;
-
     }
 }

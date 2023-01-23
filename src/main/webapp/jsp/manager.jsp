@@ -17,10 +17,7 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous">
 </head>
-
 <body>
-
-
 <div>
     <form method="post" action="controller?action=showmanagerpage">
         <input name="command" value="showmanagerpage" type="hidden">
@@ -57,7 +54,6 @@
                                                                                    bundle="${lang}"/></button>
                     </div>
                 </th>
-
             <tr>
         </table>
     </form>
@@ -108,7 +104,7 @@
                     <td>
                         <form action="controller?action=editcargopage" method="post">
                             <button type="submit" name="status_id" value=${cargo.getId()}><fmt:message key="l.edit"
-                                                                                                bundle="${lang}"/></button>
+                                                                                                       bundle="${lang}"/></button>
                         </form>
                     </td>
                     <td>

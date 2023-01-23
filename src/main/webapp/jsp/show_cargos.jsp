@@ -48,9 +48,9 @@
                     <td>${cargo.type}</td>
                     <td>${cargo.receiverFullname}</td>
                     <td>${cargo.departureBranch.city}</td>
-                    <td>${cargo.departureBranch.address}</td>
+                    <td><fmt:message key="l.${cargo.departureBranch.address}" bundle="${lang}"/></td>
                     <td>${cargo.destinationBranch.city}</td>
-                    <td>${cargo.destinationBranch.address}</td>
+                    <td><fmt:message key="l.${cargo.destinationBranch.address}" bundle="${lang}"/></td>
                     <td>${cargo.price}</td>
                     <td>${cargo.weight}</td>
                     <td>${cargo.length}</td>

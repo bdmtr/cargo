@@ -4,7 +4,6 @@ import javax.servlet.*;
 import java.io.IOException;
 
 public class EncodingFilter implements Filter {
-
     private String encoding = "UTF-8";
 
     @Override

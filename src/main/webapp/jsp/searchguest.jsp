@@ -22,7 +22,6 @@
 <div>
     <form method="post" action="controller?action=SearchCityGuest">
         <input name="command" value="SearchCityGuest" type="hidden">
-
         <table cellspacing="10" cellpadding="10">
             <tr>
                 <th>
@@ -60,8 +59,8 @@
 
             <c:forEach var="cargo" items="${cargoList}">
                 <tr>
-                    <td>${cargo.departureBranch.city}</td>
-                    <td>${cargo.destinationBranch.city}</td>
+                    <td><fmt:message key="l.${cargo.departureBranch.city}" bundle="${lang}"/></td>
+                    <td><fmt:message key="l.${cargo.destinationBranch.city}" bundle="${lang}"/></td>
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
                     <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
                 </tr>

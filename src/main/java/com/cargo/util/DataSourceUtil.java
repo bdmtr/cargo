@@ -27,7 +27,7 @@ public class DataSourceUtil {
             dataSource = new HikariDataSource(config);
 
         } catch (Exception e) {
-            LOGGER.error("Could not connect with hickary");
+            LOGGER.error("Could not connect with hickary, " + e.getMessage());
         }
 
     }

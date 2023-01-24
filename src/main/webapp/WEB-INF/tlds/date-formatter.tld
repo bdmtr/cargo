@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.3</jsp-version>
+    <short-name>cust</short-name>
+    <tag>
+        <name>date-formatter</name>
+        <tag-class>com.cargo.controller.tag.DateTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>localDateTime</name>
+            <required>true</required>
+            <type>java.time.LocalDateTime</type>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pattern</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

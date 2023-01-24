@@ -55,7 +55,7 @@
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <!-- Left -->
         <div class="me-5 d-none d-lg-block">
-            <span>Get connected with us on social networks!</span>
+            <span><fmt:message key="l.get.connected" bundle="${lang}"/></span>
         </div>
         <!-- Left -->
 
@@ -78,10 +78,10 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i>Cargo Delivery
+                        <i class="fas fa-gem me-3"></i><fmt:message key="l.cargo.delivery" bundle="${lang}"/>
                     </h6>
                     <p>
-                        „Недавно я понял, для чего нужна электронная почта. Чтобы общаться с теми, с кем не хочешь разговаривать.“ —  Д.Карлин
+                        <fmt:message key="l.citate" bundle="${lang}"/>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -90,8 +90,8 @@
                 <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                    <p><i class="fas fa-home me-3"></i> Kyiv, Ukraine</p>
+                    <h6 class="text-uppercase fw-bold mb-4"><fmt:message key="l.contacts" bundle="${lang}"/></h6>
+                    <p><i class="fas fa-home me-3"></i><fmt:message key="l.kyiv.ulraine" bundle="${lang}"/></p>
                     <p>
                         <i class="fas fa-envelope me-3"></i>
                         gmail@gmail.com
@@ -108,7 +108,7 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        <p><span>Delivery cargo today </span><cust:date-formatter localDateTime="${LocalDateTime.now()}" pattern="dd-MM-yyyy"/></p>
+        <p><span><fmt:message key="l.delivery.today" bundle="${lang}"/> </span><cust:date-formatter localDateTime="${LocalDateTime.now()}" pattern="dd-MM-yyyy"/></p>
         <a class="text-reset fw-bold" href="localhost:8080">Cargo Delivery</a>
     </div>
     <!-- Copyright -->

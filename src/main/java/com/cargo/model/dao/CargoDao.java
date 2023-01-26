@@ -65,6 +65,8 @@ public class CargoDao {
 
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
 
+    static final String CHANGE_PRICE = "UPDATE cargo SET cargo.price=?, cargo.invoice_status='PAYED' where cargo.id=?";
+
     public List<Cargo> getAllCargo() {
         List<Cargo> cargoList = new ArrayList<>();
         try (Connection connection = DataSourceUtil.getConnection();
@@ -332,6 +334,20 @@ public class CargoDao {
         }
     }
 
+    public void changePrice(int cost, int id) {
+        try (Connection connection = DataSourceUtil.getConnection();
+             PreparedStatement pst = connection.prepareStatement(CHANGE_PRICE);
+        ) {
+            pst.setInt(1, cost);
+            pst.setInt(2, id);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
         StringBuilder preQuery = new StringBuilder(SORT_CARGO_BY_CITY);
         String id;
@@ -339,7 +355,7 @@ public class CargoDao {
         BranchDao branchDao = new BranchDao();
         Branch branch = branchDao.getBranchByCity(branchCity);
 
-       if(branchCity==null){
+        if (branchCity == null) {
             preQuery.append(" AND destination_branch_id>0");
         }
 

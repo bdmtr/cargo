@@ -67,7 +67,7 @@
         <init-param>
             <param-name>USER</param-name>
             <param-value>login logout loginpage showcargospage makeCargo makecargopage changeprofile changeprofilepage
-                changeLanguage invoice
+                invoice changeLanguage paypage pay
             </param-value>
         </init-param>
         <init-param>

@@ -21,6 +21,10 @@
 <body>
 <main class="m-3">
     <div class="col-md-auto">
+        <div>
+            <p><b><fmt:message key="l.current.balance" bundle="${lang}"/></b> ${balance}</p>
+        </div>
+
         <table class="table table-striped table-bordered table-sm">
             <tr>
                 <th><fmt:message key="l.id" bundle="${lang}"/></th>
@@ -39,7 +43,8 @@
                 <th><fmt:message key="l.deliveryDate" bundle="${lang}"/></th>
                 <th><fmt:message key="l.delivery.status" bundle="${lang}"/></th>
                 <th><fmt:message key="l.invoiceStatus" bundle="${lang}"/></th>
-                <th><fmt:message key="l.pay.link" bundle="${lang}"/></th>
+                <th><fmt:message key="l.createInvoice" bundle="${lang}"/></th>
+                <th><fmt:message key="l.pay" bundle="${lang}"/></th>
             </tr>
 
             <c:forEach var="cargo" items="${cargoList}">
@@ -62,14 +67,28 @@
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
                     <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
                     <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>
+
                     <td>
                         <c:if test="${cargo.invoiceStatus == 'PENDING'}">
                             <form action="controller?action=invoice" method="post">
-                                <button type="submit" name="invoice_id" value=${cargo.getId()}><fmt:message key="l.pay"
-                                                                                                            bundle="${lang}"/></button>
+                                <button type="submit" name="invoice_id" value=${cargo.getId()}><fmt:message
+                                        key="l.createInvoice"
+                                        bundle="${lang}"/></button>
                             </form>
                         </c:if>
                     </td>
+
+                    <td>
+                        <div>
+                            <c:if
+                                test="${cargo.invoiceStatus != 'PAYED' && sessionScope.currentUser.balance > cargo.price}">
+                            <form action="controller?action=paypage" method="post">
+                                <button type="submit" name="pay_id" value=${cargo.getId()}><fmt:message key="l.pay" bundle="${lang}"/></button>
+                            </form>
+                        </c:if>
+                        </div>
+                    </td>
+
                 </tr>
             </c:forEach>
         </table>
@@ -78,12 +97,12 @@
     <nav aria-label="Navigation">
         <%--For displaying Previous link except for the 1st page --%>
         <ul class="pagination">
-            <c:if test="${currentPage != 1}">
-                <li class="page-item">
-                    <a class="page-link" href="controller?action=showcargospage&page=${currentPage - 1}"><fmt:message
-                            key="l.previous" bundle="${lang}"/></a>
-                </li>
-            </c:if>
+            <%--            <c:if test="${currentPage != 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="controller?action=showcargospage&page=${currentPage - 1}"><fmt:message
+                                        key="l.previous" bundle="${lang}"/></a>
+                            </li>
+                        </c:if>--%>
 
             <%--For displaying Page numbers. The when condition does not display
                         a link for the current page--%>

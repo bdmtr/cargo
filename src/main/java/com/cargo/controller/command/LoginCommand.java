@@ -44,6 +44,7 @@ public class LoginCommand extends Command {
         session.setAttribute("session_order", "");
         session.setAttribute("session_branch_id", "");
         session.setAttribute("session_date", "");
+        session.setAttribute("balance", user.getBalance());
 
 
         String userRole = String.valueOf(user.getRole());

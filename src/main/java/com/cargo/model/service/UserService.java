@@ -21,7 +21,7 @@ public class UserService {
         userDao.updateUserPasswordById(password, id);
     }
 
-    public void deleteUserById(int id){
+    public void deleteUserById(int id) {
         userDao.deleteUserById(id);
     }
 
@@ -49,8 +49,7 @@ public class UserService {
         userDao.updateUserProfile(user);
     }
 
-
-
-
-
+    public void changeBalance(int cost, int id) {
+        userDao.changeBalance(cost, id);
+    }
 }

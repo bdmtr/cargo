@@ -19,14 +19,15 @@ public class UserDao {
         return instance;
     }
 
-    static final String ADD_USER = "INSERT INTO user (username, fullname, email, password, role) VALUES(?, ?, ?, ?, ?)";
+    static final String ADD_USER = "INSERT INTO user (username, fullname, email, password, role, balance) VALUES(?, ?, ?, ?, ?, 1000)";
     static final String UPDATE_USER_PASSWORD_BY_ID = "UPDATE user SET password=? WHERE user.id=?";
     static final String DELETE_FROM_USER_WHERE_USER_ID = "DELETE FROM user WHERE user.id = ?";
-    static final String FIND_USER_BY_ID = "SELECT id, username, fullname, email, password, role FROM user where user.id = ?";
+    static final String FIND_USER_BY_ID = "SELECT id, username, fullname, email, password, role, balance  FROM user where user.id = ?";
     static final String FIND_USER_BY_FULLNAME = "SELECT id, username, fullname, email, password, role FROM user where user.fullname = ?";
     static final String GET_ALL_USERS = "SELECT * FROM user";
-    static final String FIND_USER_BY_USERNAME_PASSWORD = "SELECT id, username, fullname, email, password, role FROM user where user.username = ? and user.password = ?";
+    static final String FIND_USER_BY_USERNAME_PASSWORD = "SELECT id, username, fullname, email, password, role, balance FROM user where user.username = ? and user.password = ?";
     static final String FIND_USER_BY_USERNAME = "SELECT id, username, fullname, email, password, role FROM user where user.username = ?";
+    static final String CHANGE_BALANCE = "UPDATE user SET user.balance=? where user.id=?";
 
     public UserDao() {
     }
@@ -112,6 +113,7 @@ public class UserDao {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
+                user.setBalance(resultSet.getInt("balance"));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -185,6 +187,7 @@ public class UserDao {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
+                user.setBalance(resultSet.getInt("balance"));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -222,4 +225,18 @@ public class UserDao {
             }
         }
     }
+
+    public void changeBalance(int cost, int id) {
+        try (Connection connection = DataSourceUtil.getConnection();
+             PreparedStatement pst = connection.prepareStatement(CHANGE_BALANCE);
+        ) {
+            pst.setInt(1, cost);
+            pst.setInt(2, id);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

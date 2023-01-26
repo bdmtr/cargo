@@ -34,6 +34,8 @@ public class CommandContainer {
         commands.put("changeLanguage", new ChangeLanguageCommand());
         commands.put("error", new ShowErrorPageCommand());
         commands.put("invoice", new CreateInvoiceCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance()), new BranchService(BranchDao.getInstance())));
+        commands.put("paypage", new PayPageCommand(new CargoService(CargoDao.getInstance())));
+        commands.put("pay", new PayCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance())));
 
     }
 

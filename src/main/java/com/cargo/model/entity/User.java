@@ -12,6 +12,7 @@ public class User extends Model implements Serializable {
     private String email;
     private String password;
     private Role role;
+    private int balance;
 
     public User(int id, String username, String fullname, String email, String password, Role role) {
         this.id = id;
@@ -22,12 +23,13 @@ public class User extends Model implements Serializable {
         this.role = role;
     }
 
-    public User(String username, String fullname, String email, String password, Role role) {
+    public User(String username, String fullname, String email, String password, Role role, int balance) {
         this.username = username;
         this.fullname = fullname;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.balance = balance;
     }
 
     public User(String username, String password) {
@@ -86,6 +88,14 @@ public class User extends Model implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     @Override

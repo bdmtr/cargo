@@ -25,7 +25,8 @@
         <a href="controller?action=changeLanguage&lang=en"><fmt:message key="l.en" bundle="${lang}"/></a>
         <a href="controller?action=changeLanguage&lang=ua"><fmt:message key="l.uk" bundle="${lang}"/></a>
     </nav>
-    <a class="btn btn-outline-primary" href="controller?action=logout"><fmt:message key="l.logout" bundle="${lang}"/></a>
+    <a class="btn btn-outline-primary" href="controller?action=logout"><fmt:message key="l.logout"
+                                                                                    bundle="${lang}"/></a>
 </div>
 
 </body>

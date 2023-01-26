@@ -66,4 +66,9 @@ public class CargoService {
         return cargoDao.getNoOfRecords();
     }
 
+
+    public void changePrice(int cost, int id){
+        cargoDao.changePrice(cost,id);
+    }
+
 }

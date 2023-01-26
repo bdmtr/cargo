@@ -57,7 +57,7 @@ public class UserDao {
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant update password by id");
         }
     }
 
@@ -234,7 +234,7 @@ public class UserDao {
             pst.setInt(2, id);
             pst.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant change balance");
         }
     }
 

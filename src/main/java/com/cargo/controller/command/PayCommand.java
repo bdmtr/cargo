@@ -28,6 +28,7 @@ public class PayCommand extends Command {
         HttpSession session = request.getSession();
         int cargoID = (int) session.getAttribute("session_current_pay_id");
         int userId = (int) session.getAttribute("currentUserId");
+        int sessionUserBalance = (int) session.getAttribute("balance");
 
         Cargo cargo = cargoService.getCargoById(cargoID);
         User user = userService.findUserById(userId);
@@ -37,7 +38,7 @@ public class PayCommand extends Command {
         int balance = user.getBalance();
         int price = cargo.getPrice();
 
-        if (balance >= price && invoiceStatus.equals("PENDING")) {
+        if (sessionUserBalance == balance && balance >= price && invoiceStatus.equals("PENDING")) {
             int difBalance = balance-price;
             cargoService.changeInvoiceStatus(cargoID);
             userService.changeBalance((difBalance), userId);
@@ -49,8 +50,8 @@ public class PayCommand extends Command {
             LOGGER.info("cant pay " + (balance - price));
         }
 
-        return Path.PAGE_SHOW_CARGOS;
+        //return Path.PAGE_SHOW_CARGOS;
 
-        //return "redirect:controller?action=showcargospage";
+        return "redirect:controller?action=showcargospage";
     }
 }

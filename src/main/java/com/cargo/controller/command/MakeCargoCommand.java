@@ -83,7 +83,7 @@ public class MakeCargoCommand extends Command {
 
         LOGGER.info("Cargo created");
 
-        // return Path.PAGE_SHOW_CARGOS;
-        return "redirect:controller?action=showcargospage";
+      //  return Path.PAGE_SHOW_CARGOS;
+       return "redirect:controller?action=showcargospage";
     }
 }

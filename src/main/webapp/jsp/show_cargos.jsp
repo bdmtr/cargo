@@ -89,17 +89,8 @@
     </div>
 
     <nav aria-label="Navigation">
-        <%--For displaying Previous link except for the 1st page --%>
         <ul class="pagination">
-            <%--            <c:if test="${currentPage != 1}">
-                            <li class="page-item">
-                                <a class="page-link" href="controller?action=showcargospage&page=${currentPage - 1}"><fmt:message
-                                        key="l.previous" bundle="${lang}"/></a>
-                            </li>
-                        </c:if>--%>
 
-            <%--For displaying Page numbers. The when condition does not display
-                        a link for the current page--%>
             <tr>
                 <c:forEach begin="1" end="${noOfPages}" var="i">
                     <c:choose>

@@ -1,8 +1,6 @@
 package com.cargo.controller.command;
 
-
 import com.cargo.controller.Path;
-import com.cargo.model.entity.User;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,21 +38,13 @@ public class ChangeLanguageCommand extends Command {
 
         String userRole = String.valueOf(session.getAttribute("role"));
 
-        if (userRole == null) {
-            assert false;
-            if (userRole.isEmpty()) {
-                return Path.PAGE_LOGIN;
-            }
-        }
-
-        if (userRole.equals("MANAGER")) {
+        if (userRole != null && userRole.equals("MANAGER")) {
             return Path.PAGE_MANAGER;
         }
 
-        if (userRole.equals("USER")) {
+        if (userRole != null && userRole.equals("USER")) {
             return Path.PAGE_SHOW_CARGOS;
         }
-
 
         LOGGER.info("Language changed");
         return Path.PAGE_LOGIN;

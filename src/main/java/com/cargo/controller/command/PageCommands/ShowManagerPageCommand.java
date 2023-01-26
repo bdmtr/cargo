@@ -39,6 +39,7 @@ public class ShowManagerPageCommand extends Command {
             searchDate = (String) session.getAttribute("session_date");
         }
 
+
         String searchOrder = request.getParameter("req_order");
         if (searchOrder == null || searchOrder.isEmpty()) {
             searchOrder = (String) session.getAttribute("session_order");

@@ -28,6 +28,7 @@
                     <input type="text" name="username" id="username" class="form-control" required
                            placeholder="<fmt:message key="l.enter.username" bundle="${lang}"/>">
                 </div>
+                <br>
                 <div class="form-group">
                     <label><fmt:message key="l.password" bundle="${lang}"/></label>
                     <input type="password" name="password" id="password" class="form-control" required
@@ -36,6 +37,7 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary"><fmt:message key="l.login" bundle="${lang}"/></button>
                 </div>
+                <br>
                 <div>
                     <a href="controller?action=registerpage"><fmt:message key="l.register" bundle="${lang}"/></a>
                 </div>
@@ -47,8 +49,6 @@
 <br>
 <br>
 <br>
-<br>
-
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->

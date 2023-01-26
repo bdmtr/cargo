@@ -47,29 +47,6 @@ public class Validator {
         return userService.findUserByUsername(username) != null;
     }
 
-    public static boolean isIncorrectEditInfo(String username, String fullName, String password) throws SQLException {
-        UserService userService = new UserService(UserDao.getInstance());
-
-        if (username == null || username.isEmpty()) {
-            return true;
-        }
-
-        if (username.length() > 15) {
-            return true;
-        }
-
-        if (fullName == null || fullName.isEmpty()) {
-            return true;
-        }
-
-        if (password.length() < 4 || password.length() > 20) {
-            return true;
-        }
-
-        return userService.findUserByUsername(username) != null;
-    }
-
-
     public static boolean isIncorrectCargoInfo(String type, String receiverFullname, int departureBranchId,
                                                int destinationBranchId, String weight, String height, String length, String width)
             throws SQLException {

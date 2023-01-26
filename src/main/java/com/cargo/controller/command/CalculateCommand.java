@@ -26,7 +26,7 @@ public class CalculateCommand extends Command {
         int departureBranchId = Integer.parseInt(request.getParameter("departureBranchId"));
         int destinationBranchId = Integer.parseInt(request.getParameter("destinationBranchId"));
 
-                Branch departureBranch = branchService.getBranchById(departureBranchId);
+        Branch departureBranch = branchService.getBranchById(departureBranchId);
         Branch destinationBranch = branchService.getBranchById(destinationBranchId);
 
         int weight = Integer.parseInt((request.getParameter("weight")));
@@ -52,7 +52,6 @@ public class CalculateCommand extends Command {
         request.setAttribute("height", height);
         request.setAttribute("width", width);
         request.setAttribute("price", price);
-
 
         LOGGER.info("Calculated successfully");
         return Path.PAGE_PRICE;

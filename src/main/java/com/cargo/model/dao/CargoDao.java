@@ -341,7 +341,7 @@ public class CargoDao {
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cant change invoice stsus");
         }
 
 
@@ -413,10 +413,9 @@ public class CargoDao {
             preQuery.append(" AND delivery_date like '" + date + "%' ");
         }
 
-        if (order != null && !order.isEmpty()) {
+       if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
-
 
         List<Cargo> list = new ArrayList<>();
         Cargo cargo = null;

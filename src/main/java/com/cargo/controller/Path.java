@@ -13,5 +13,4 @@ public class Path {
     public static final String PAGE_CHANGE_STATUS = "/jsp/editcargo.jsp";
     public static final String PAGE_ERROR404 = "/jsp/error404.jsp";
     public static final String PAGE_PAY = "/jsp/pay.jsp";
-    public static final String done = "/jsp/done.jsp";
 }

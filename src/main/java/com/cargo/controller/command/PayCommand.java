@@ -38,8 +38,11 @@ public class PayCommand extends Command {
         int price = cargo.getPrice();
 
         if (balance >= price && invoiceStatus.equals("PENDING")) {
-            cargoService.changePrice((balance - price), cargoID);
-            userService.changeBalance((balance - price), userId);
+            int difBalance = balance-price;
+            cargoService.changeInvoiceStatus(cargoID);
+            userService.changeBalance((difBalance), userId);
+
+            session.setAttribute("balance", difBalance);
 
             LOGGER.info("Pay for cargo " + cargoID);
         } else {
@@ -47,6 +50,7 @@ public class PayCommand extends Command {
         }
 
         return Path.PAGE_SHOW_CARGOS;
-       // return "redirect:controller?action=showcargospage";
+
+        //return "redirect:controller?action=showcargospage";
     }
 }

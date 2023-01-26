@@ -65,7 +65,7 @@ public class CargoDao {
 
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
 
-    static final String CHANGE_PRICE = "UPDATE cargo SET cargo.price=?, cargo.invoice_status='PAYED' where cargo.id=?";
+    static final String CHANGE_INVOICE_STATUS = "UPDATE cargo SET cargo.invoice_status='PAYED' where cargo.id=?";
 
     public List<Cargo> getAllCargo() {
         List<Cargo> cargoList = new ArrayList<>();
@@ -334,12 +334,11 @@ public class CargoDao {
         }
     }
 
-    public void changePrice(int cost, int id) {
+    public void changeInvoiceStatus(int id) {
         try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement pst = connection.prepareStatement(CHANGE_PRICE);
+             PreparedStatement pst = connection.prepareStatement(CHANGE_INVOICE_STATUS);
         ) {
-            pst.setInt(1, cost);
-            pst.setInt(2, id);
+            pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

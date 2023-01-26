@@ -19,7 +19,7 @@
         <div class="card-header text-center"><fmt:message key="l.pay" bundle="${lang}"/></div>
         <div class="card-body">
             <div>
-                <p><b><fmt:message key="l.current.balance" bundle="${lang}"/></b> ${currentUser.balance}</p>
+                <p><b><fmt:message key="l.current.balance" bundle="${lang}"/></b> ${balance}</p>
             </div>
             <form method="post" action="controller?action=pay">
                 <div class="form-group">

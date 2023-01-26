@@ -1,6 +1,5 @@
 package com.cargo.model.service;
 
-import com.cargo.model.dao.BranchDao;
 import com.cargo.model.dao.CargoDao;
 import com.cargo.model.entity.Cargo;
 
@@ -67,8 +66,8 @@ public class CargoService {
     }
 
 
-    public void changePrice(int cost, int id){
-        cargoDao.changePrice(cost,id);
+    public void changeInvoiceStatus(int id){
+        cargoDao.changeInvoiceStatus(id);
     }
 
 }

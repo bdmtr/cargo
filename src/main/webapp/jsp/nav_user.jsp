@@ -16,6 +16,8 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal"><fmt:message key="l.cargo.delivery" bundle="${lang}"/></h5>
     <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark"><b><fmt:message key="l.current.balance" bundle="${lang}"/></b> ${balance}</a>
+
         <a class="p-2 text-dark" href="controller?action=makecargopage"><fmt:message key="l.cargo"
                                                                                      bundle="${lang}"/></a>
         <a class="p-2 text-dark" href="controller?action=showcargospage"><fmt:message key="l.show.all.cargo"

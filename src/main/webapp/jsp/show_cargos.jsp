@@ -21,10 +21,6 @@
 <body>
 <main class="m-3">
     <div class="col-md-auto">
-        <div>
-            <p><b><fmt:message key="l.current.balance" bundle="${lang}"/></b> ${balance}</p>
-        </div>
-
         <table class="table table-striped table-bordered table-sm">
             <tr>
                 <th><fmt:message key="l.id" bundle="${lang}"/></th>
@@ -61,9 +57,7 @@
                     <td>${cargo.length}</td>
                     <td>${cargo.height}</td>
                     <td>${cargo.width}</td>
-                        <%--<td>${cargo.creationDate}</td>--%>
                     <td>${String.format("%1$TD %1$TT", cargo.creationDate)}</td>
-                        <%--<td>${cargo.deliveryDate}</td>--%>
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
                     <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
                     <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>

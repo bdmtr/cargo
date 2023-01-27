@@ -282,30 +282,6 @@ public class CargoDao {
     }
 
 
-    public void deleteCargoById(int id) throws SQLException {
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARGO);
-        ) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-
-        } catch (Exception e) {
-            LOGGER.error("Cant delete cargo");
-        }
-    }
-
-    public void deleteCargoByUserId(int id) throws SQLException {
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARGO_BY_USER_ID);
-        ) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            LOGGER.error("Cant delete cargo by user id");
-        }
-    }
-
     public void updateCargoProfile(Cargo cargo) {
         StringBuilder preQuery = new StringBuilder();
         String cargoId = String.valueOf(cargo.getId());
@@ -413,7 +389,9 @@ public class CargoDao {
             preQuery.append(" AND delivery_date like '" + date + "%' ");
         }
 
-       if (order != null && !order.isEmpty()) {
+        System.out.println(preQuery);
+
+        if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
 

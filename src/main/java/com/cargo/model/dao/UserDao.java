@@ -6,8 +6,6 @@ import com.cargo.util.DataSourceUtil;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
@@ -49,53 +47,7 @@ public class UserDao {
         }
     }
 
-    public void updateUserPasswordById(String password, int id) {
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD_BY_ID, Statement.RETURN_GENERATED_KEYS);
-        ) {
-            preparedStatement.setString(1, password);
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error("Cant update password by id");
-        }
-    }
 
-    public void deleteUserById(int id){
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FROM_USER_WHERE_USER_ID);
-        ) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            LOGGER.error("Cant delete user by id");
-        }
-    }
-
-    public List<User> getAllUsers() {
-        List<User> userList = new ArrayList<>();
-
-        try (
-                Connection connection = DataSourceUtil.getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(GET_ALL_USERS);
-        ) {
-            while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setUsername(resultSet.getString("username"));
-                user.setFullname(resultSet.getString("fullname"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setRole(Role.valueOf(resultSet.getString("role")));
-                userList.add(user);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Cant get all users");
-        }
-        return userList;
-    }
 
     public User findUserById(int id) throws SQLException {
         ResultSet resultSet = null;
@@ -122,29 +74,6 @@ public class UserDao {
         return user;
     }
 
-    public User findUserByFullname(String fullname) {
-        ResultSet resultSet = null;
-        User user = null;
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_FULLNAME);
-        ) {
-            preparedStatement.setString(1, fullname);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setUsername(resultSet.getString("username"));
-                user.setFullname(resultSet.getString("fullname"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setRole(Role.valueOf(resultSet.getString("role")));
-            }
-            resultSet.close();
-        } catch (SQLException e) {
-            LOGGER.error("Cant find user by  full name");
-        }
-        return user;
-    }
 
     public User findUserByUsername(String username) throws SQLException {
         User user = null;

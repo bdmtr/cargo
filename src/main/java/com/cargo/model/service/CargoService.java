@@ -25,10 +25,6 @@ public class CargoService {
         return cargoDao.getAllCargoForUserByIdWithLimit(id, offset, noOfRecords);
     }
 
-    public List<Cargo> getAllCargoWithLimit(int offset, int noOfRecords) {
-        return getAllCargoWithLimit(offset, noOfRecords);
-    }
-
     public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
         return cargoDao.getAllGuestCargoWithLimit(offset, noOfRecords);
     }
@@ -41,13 +37,6 @@ public class CargoService {
         cargoDao.addCargo(cargo);
     }
 
-    public void deleteCargoById(int id) throws SQLException {
-        cargoDao.deleteCargoById(id);
-    }
-
-    public void deleteCargoByUserId(int id) throws SQLException {
-        cargoDao.deleteCargoByUserId(id);
-    }
 
     public void updateCargoProfile(Cargo cargo) {
         cargoDao.updateCargoProfile(cargo);

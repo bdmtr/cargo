@@ -17,24 +17,9 @@ public class UserService {
         userDao.addUser(user);
     }
 
-    public void updateUserPasswordById(String password, int id) {
-        userDao.updateUserPasswordById(password, id);
-    }
-
-    public void deleteUserById(int id) {
-        userDao.deleteUserById(id);
-    }
-
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
-    }
 
     public User findUserById(int id) throws SQLException {
         return userDao.findUserById(id);
-    }
-
-    public User findUserByFullname(String fullname) {
-        return userDao.findUserByFullname(fullname);
     }
 
     public User findUserByUsername(String username) throws SQLException {

@@ -41,7 +41,7 @@
                 </th>
                 <th>
                     <div class="form-group">
-                        <input type="date" name="req_date" id="req__date">
+                        <input type="date" name="req_date" id="req_date" value="${session_date}">
                     </div>
                 </th>
                 <th>
@@ -61,6 +61,21 @@
             <tr>
         </table>
     </form>
+    <table cellspacing="10" cellpadding="10">
+        <form method="post" action="controller?action=showmanagerpage">
+            <input name="command" value="showmanagerpage" type="hidden">
+            <input name="req_branch_id" value="0" type="hidden">
+            <input name="req_date" value="2023" type="hidden">
+
+            <th>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Clear all filters</button>
+                </div>
+            </th>
+
+
+        </form>
+    </table>
 </div>
 
 <main class="m-3">

@@ -75,8 +75,8 @@
     </div>
 
     <nav aria-label="Navigation">
-            <%--For displaying Page numbers. The when condition does not display
-                        a link for the current page--%>
+
+        <ul class="pagination">
             <tr>
                 <c:forEach begin="1" end="${noOfPages}" var="i">
                     <c:choose>
@@ -93,9 +93,6 @@
                     </c:choose>
                 </c:forEach>
             </tr>
-
-
-            <%--For displaying Next link --%>
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item">
                     <a class="page-link"

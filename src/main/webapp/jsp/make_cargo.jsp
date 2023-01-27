@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label><fmt:message key="l.receiver.fullname" bundle="${lang}"/><b style="color: red">*</b> </label>
                     <input type="text" name="receiverFullname" id="receiverFullname" class="form-control" required
-                           placeholder=<fmt:message key="l.write.receiver.fullname" bundle="${lang}"/>">
+                           placeholder="<fmt:message key="l.write.receiver.fullname" bundle="${lang}"/>">
                 </div>
 
                 <div class="form-group">

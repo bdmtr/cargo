@@ -35,7 +35,7 @@ public class ShowManagerPageCommand extends Command {
         }
 
         String searchDate = request.getParameter("req_date");
-        if (searchDate == null || searchDate.isEmpty()) {
+        if (searchDate == null || searchDate.length()<1) {
             searchDate = (String) session.getAttribute("session_date");
         }
 

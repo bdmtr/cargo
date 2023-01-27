@@ -67,12 +67,12 @@
         <init-param>
             <param-name>USER</param-name>
             <param-value>login logout loginpage showcargospage makeCargo makecargopage changeprofile changeprofilepage
-                invoice changeLanguage paypage done pay show_cargos
+                invoice changeLanguage paypage done pay show_cargos nav_user
             </param-value>
         </init-param>
         <init-param>
             <param-name>MANAGER</param-name>
-            <param-value>login logout loginpage showmanagerpage editcargo editcargopage changeLanguage invoice
+            <param-value>login logout loginpage showmanagerpage editcargo editcargopage changeLanguage invoice nav_manager
             </param-value>
         </init-param>
         <init-param>

@@ -25,9 +25,9 @@ public class CargoService {
         return cargoDao.getAllCargoForUserByIdWithLimit(id, offset, noOfRecords);
     }
 
-    public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
+/*    public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
         return cargoDao.getAllGuestCargoWithLimit(offset, noOfRecords);
-    }
+    }*/
 
     public Cargo getCargoById(int id) throws SQLException {
         return cargoDao.getCargoById(id);

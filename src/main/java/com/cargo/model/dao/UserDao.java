@@ -27,8 +27,6 @@ public class UserDao {
     static final String FIND_USER_BY_USERNAME = "SELECT id, username, fullname, email, password, role FROM user where user.username = ?";
     static final String CHANGE_BALANCE = "UPDATE user SET user.balance=? where user.id=?";
 
-    public UserDao() {
-    }
 
     public void addUser(User user) throws SQLException {
         try (
@@ -46,8 +44,6 @@ public class UserDao {
             LOGGER.error("Cant add user");
         }
     }
-
-
 
     public User findUserById(int id) throws SQLException {
         ResultSet resultSet = null;
@@ -73,7 +69,6 @@ public class UserDao {
         }
         return user;
     }
-
 
     public User findUserByUsername(String username) throws SQLException {
         User user = null;
@@ -166,6 +161,4 @@ public class UserDao {
             LOGGER.error("Cant change balance");
         }
     }
-
-
 }

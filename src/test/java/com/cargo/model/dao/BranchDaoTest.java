@@ -52,6 +52,4 @@ class BranchDaoTest {
 
         assertEquals(expected, actual);
     }
-
-
 }

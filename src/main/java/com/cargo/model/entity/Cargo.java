@@ -27,7 +27,6 @@ public class Cargo extends Model implements Serializable {
     private DeliveryStatus deliveryStatus;
     private InvoiceStatus invoiceStatus;
 
-
     public Cargo(int id, String type, int userId, String receiverFullname, int departureBranchId,
                  int destinationBranchId, int price, int weight, int length, int height, int width,
                  Timestamp creationDate, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {

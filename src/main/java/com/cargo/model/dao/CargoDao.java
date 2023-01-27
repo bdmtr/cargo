@@ -186,7 +186,7 @@ public class CargoDao {
         return list;
     }
 
-    public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
+    /*public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
 
@@ -218,7 +218,7 @@ public class CargoDao {
             LOGGER.error("Cant get all guest cargo with limit");
         }
         return list;
-    }
+    }*/
 
     public Cargo getCargoById(int id) throws SQLException {
         Cargo cargo = null;

@@ -154,10 +154,14 @@ public class UserDao {
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement pst = connection.prepareStatement(CHANGE_BALANCE);
         ) {
+            connection.setAutoCommit(false);
             pst.setInt(1, cost);
             pst.setInt(2, id);
             pst.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
+
             LOGGER.error("Cant change balance");
         }
     }

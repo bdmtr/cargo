@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="locale" var="lang"/>
 
-<%@include file="/jsp/nav_manager.jsp" %>
+<%@include file="/jsp/nav_user.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,6 @@
     <div class="card w-50 mx-auto my-5">
         <div class="card-header text-center"><fmt:message key="l.pay" bundle="${lang}"/></div>
         <div class="card-body">
-            <div>
-                <p><b><fmt:message key="l.current.balance" bundle="${lang}"/></b> ${balance}</p>
-            </div>
             <form method="post" action="controller?action=pay">
                 <div class="form-group">
                     <p><b><fmt:message key="l.current.cargo.id" bundle="${lang}"/> </b> ${currentCargo.id}</p>

@@ -75,7 +75,7 @@
                     <td>
                         <div>
                             <c:if
-                                test="${cargo.invoiceStatus != 'PAYED' && sessionScope.currentUser.balance > cargo.price}">
+                                test="${cargo.invoiceStatus != 'PAYED' && sessionScope.balance > cargo.price}">
                             <form action="controller?action=paypage" method="post">
                                 <button type="submit" name="pay_id" value=${cargo.getId()}><fmt:message key="l.pay" bundle="${lang}"/></button>
                             </form>

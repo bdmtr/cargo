@@ -1,6 +1,5 @@
 package com.cargo.controller.command;
 
-import com.cargo.controller.Path;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.entity.User;
 import com.cargo.model.service.CargoService;
@@ -38,19 +37,22 @@ public class PayCommand extends Command {
         int balance = user.getBalance();
         int price = cargo.getPrice();
 
-        if (sessionUserBalance == balance && balance >= price && invoiceStatus.equals("PENDING")) {
-            int difBalance = balance-price;
-            cargoService.changeInvoiceStatus(cargoID);
-            userService.changeBalance((difBalance), userId);
+        try {
+            if (sessionUserBalance == balance && balance >= price && invoiceStatus.equals("PENDING")) {
+                int difBalance = balance - price;
+                userService.changeBalance((difBalance), userId);
+                cargoService.changeInvoiceStatus(cargoID);
 
-            session.setAttribute("balance", difBalance);
+                session.setAttribute("balance", difBalance);
 
-            LOGGER.info("Pay for cargo " + cargoID);
-        } else {
-            LOGGER.info("cant pay " + (balance - price));
+                LOGGER.info("Pay for cargo " + cargoID);
+            } else {
+                LOGGER.info("Cant pay for " + cargoID + ", not enough balance to pay: " + balance);
+            }
+        } catch (Exception e) {
+            LOGGER.info("Cant pay for " + cargoID + ", not enough balance to pay: " + balance);
         }
 
-        //return Path.PAGE_SHOW_CARGOS;
 
         return "redirect:controller?action=showcargospage";
     }

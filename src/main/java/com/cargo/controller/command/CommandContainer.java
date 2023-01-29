@@ -20,7 +20,7 @@ public class CommandContainer {
         commands.put("login", new LoginCommand(new UserService(UserDao.getInstance())));
         commands.put("logout", new LogoutCommand());
         commands.put("loginpage", new LoginPageCommand());
-        commands.put("showcargospage", new ShowUserPageCommand(new CargoService(CargoDao.getInstance())));
+        commands.put("showcargospage", new ShowUserPageCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance())));
         commands.put("makeCargo", new MakeCargoCommand(new CargoService(CargoDao.getInstance()), new BranchService(BranchDao.getInstance())));
         commands.put("makecargopage", new MakeCargoPageCommand());
         commands.put("showmanagerpage", new ShowManagerPageCommand(new CargoService(CargoDao.getInstance())));
@@ -34,7 +34,7 @@ public class CommandContainer {
         commands.put("changeLanguage", new ChangeLanguageCommand());
         commands.put("error", new ShowErrorPageCommand());
         commands.put("invoice", new CreateInvoiceCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance()), new BranchService(BranchDao.getInstance())));
-        commands.put("paypage", new PayPageCommand(new CargoService(CargoDao.getInstance())));
+        commands.put("paypage", new PayPageCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance())));
         commands.put("pay", new PayCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance())));
 
     }

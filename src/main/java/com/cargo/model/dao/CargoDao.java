@@ -14,57 +14,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CargoDao {
-
     private static final Logger LOGGER = Logger.getLogger(CargoDao.class);
-
     private static CargoDao instance;
+    private int noOfRecords;
 
     public static synchronized CargoDao getInstance() {
         if (instance == null) instance = new CargoDao();
         return instance;
     }
 
-    private int noOfRecords;
-
     static final String GET_ALL_CARGO = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
             " destination_branch_id, price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo";
-
     static final String GET_ALL_CARGO_FOR_USER_BY_ID = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
             " destination_branch_id, price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo " +
             "WHERE user_id = ? ORDER BY creation_date";
-
     static final String GET_ALL_CARGO_WITH_LIMIT_BY_USER_ID = "select SQL_CALC_FOUND_ROWS * from cargo where cargo.user_id=";
-
-    static final String GET_ALL_CARGO_WITH_LIMIT = "select SQL_CALC_FOUND_ROWS * from cargo";
-
-    static final String GET_ALL_GUEST_WITH_LIMIT_QUERY = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, delivery_date, " +
-            "delivery_status from cargo where delivery_status='TRANSIT' ";
-
     static final String FIND_CARGO_BY_ID = "SELECT * FROM cargo where cargo.id = ?";
-
     static final String FIND_CARGO_BY_USER_ID = "SELECT  id, type, user_id, receiver_fullname, departure_branch_id, destination_branch_id," +
             " price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo where cargo.user_id = ?";
-
     static final String ADD_CARGO = "INSERT INTO cargo (type, user_id, receiver_fullname, departure_branch_id,destination_branch_id, price, weight, " +
             "length, height, width, creation_date, delivery_date, delivery_status, invoice_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
     static final String UPDATE_CARGO = "UPDATE cargo SET type=?, user_id=?, receiver_fullname=?, departure_branch_id=?," +
             "destination_branch_id=?, price=?, weight=?, length=?, height=?, width=?, creation_date=?," +
             "delivery_date=?, delivery_status=?, invoice_status=? WHERE cargo.id=?";
-
-    static final String UPDATE_CARGO_INVOICE_BY_ID = "UPDATE cargo SET invoice_status=? WHERE cargo.id=?";
-
-    static final String UPDATE_CARGO_DELIVERY_STATUS_BY_ID = "UPDATE cargo SET delivery_status=? WHERE cargo.id=?";
-
-    static final String DELETE_CARGO = "DELETE FROM cargo WHERE cargo.id=?";
-
-    static final String DELETE_CARGO_BY_USER_ID = "DELETE FROM cargo WHERE cargo.user_id=?";
-
     static final String SORT_CARGO_BY_CITY = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, " +
             "delivery_date, delivery_status from cargo where delivery_status='TRANSIT' ";
-
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
-
     static final String CHANGE_INVOICE_STATUS = "UPDATE cargo SET cargo.invoice_status='PAYED' where cargo.id=?";
 
     public List<Cargo> getAllCargo() {
@@ -186,40 +161,6 @@ public class CargoDao {
         return list;
     }
 
-    /*public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
-        List<Cargo> list = new ArrayList<Cargo>();
-        Cargo cargo = null;
-
-        try (
-                Connection connection = DataSourceUtil.getConnection();
-                Statement stmt = connection.createStatement();
-        ) {
-            ResultSet rs = stmt.executeQuery(GET_ALL_GUEST_WITH_LIMIT_QUERY + " LIMIT " + offset + ", " + noOfRecords);
-
-            while (rs.next()) {
-                cargo = new Cargo();
-                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
-                cargo.setDeliveryDate(rs.getTimestamp("delivery_date"));
-                cargo.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
-
-                list.add(cargo);
-            }
-
-            rs.close();
-            rs = stmt.executeQuery("SELECT FOUND_ROWS()");
-
-            if (rs.next()) {
-                this.noOfRecords = rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Cant get all guest cargo with limit");
-        }
-        return list;
-    }*/
-
     public Cargo getCargoById(int id) throws SQLException {
         Cargo cargo = null;
 
@@ -281,7 +222,6 @@ public class CargoDao {
         }
     }
 
-
     public void updateCargoProfile(Cargo cargo) {
         StringBuilder preQuery = new StringBuilder();
         String cargoId = String.valueOf(cargo.getId());
@@ -319,8 +259,6 @@ public class CargoDao {
         } catch (SQLException e) {
             LOGGER.error("Cant change invoice stsus");
         }
-
-
     }
 
     public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {

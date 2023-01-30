@@ -77,7 +77,7 @@ public class BranchDao {
                 branch.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
-            LOGGER.error("Cant get abranch by city", e);
+            LOGGER.error("Cant get branch by city", e);
         }
         return branch;
     }

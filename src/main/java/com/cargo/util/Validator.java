@@ -72,12 +72,12 @@ public class Validator {
         return branchService.getBranchById(departureBranchId) == null || branchService.getBranchById(destinationBranchId) == null;
     }
 
-    public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, String weight, String height, String length, String width) throws SQLException {
+    public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, int weight, int height, int length, int width) throws SQLException {
 
-        if (Integer.parseInt(weight) < 1 || Integer.parseInt(height) < 1 || Integer.parseInt(length) < 1 || Integer.parseInt(width) < 1) {
+        if (weight < 1 || height < 1 || length < 1 || width < 1) {
             return true;
         }
-        if (Integer.parseInt(weight) > 1000 || Integer.parseInt(height) > 1000 || Integer.parseInt(length) > 1000 || Integer.parseInt(width) > 1000) {
+        if (weight > 1000 || height > 1000 || length > 1000 || width > 1000) {
             return true;
         }
 

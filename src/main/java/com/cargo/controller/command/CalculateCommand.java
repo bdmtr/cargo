@@ -34,8 +34,8 @@ public class CalculateCommand extends Command {
         int height = Integer.parseInt((request.getParameter("length")));
         int width = Integer.parseInt((request.getParameter("width")));
 
-        if (isIncorrectCalculateInfo(departureBranchId, destinationBranchId, String.valueOf(weight), String.valueOf(height),
-                String.valueOf(length), String.valueOf(width))) {
+        if (isIncorrectCalculateInfo(departureBranchId, destinationBranchId, weight, height,
+                length, width)) {
             return Path.PAGE_CALCULATOR;
         }
 

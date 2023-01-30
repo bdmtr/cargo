@@ -48,9 +48,9 @@
                     <td>${cargo.id}</td>
                     <td>${cargo.type}</td>
                     <td>${cargo.receiverFullname}</td>
-                    <td>${cargo.departureBranch.city}</td>
+                    <td><fmt:message key="l.${cargo.departureBranch.city}" bundle="${lang}"/></td>
                     <td><fmt:message key="l.${cargo.departureBranch.address}" bundle="${lang}"/></td>
-                    <td>${cargo.destinationBranch.city}</td>
+                    <td><fmt:message key="l.${cargo.destinationBranch.city}" bundle="${lang}"/></td>
                     <td><fmt:message key="l.${cargo.destinationBranch.address}" bundle="${lang}"/></td>
                     <td>${cargo.price}</td>
                     <td>${cargo.weight}</td>
@@ -106,16 +106,6 @@
                     </c:choose>
                 </c:forEach>
             </tr>
-
-
-            <%--For displaying Next link --%>
-            <c:if test="${currentPage lt noOfPages}">
-                <li class="page-item">
-                    <a class="page-link" href="controller?action=showcargospage&page=${currentPage + 1}"><fmt:message
-                            key="l.next" bundle="${lang}"/></a>
-                </li>
-            </c:if>
-
         </ul>
     </nav>
 </main>

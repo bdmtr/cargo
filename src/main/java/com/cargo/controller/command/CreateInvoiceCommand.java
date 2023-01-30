@@ -37,8 +37,8 @@ public class CreateInvoiceCommand extends Command {
         int senderId = cargo.getUser().getId();
         String sender = userService.findUserById(senderId).getFullname();
         String type = cargo.getType();
-        String cityDeparture = String.valueOf(branchService.getBranchById(cargo.getDepartureBranchId()).getCity());
-        String cityDestination = String.valueOf(branchService.getBranchById(cargo.getDestinationBranchId()).getCity());
+        String cityDeparture = String.valueOf(branchService.getBranchById(cargo.getDepartureBranch().getId()).getCity());
+        String cityDestination = String.valueOf(branchService.getBranchById(cargo.getDestinationBranch().getId()).getCity());
         Timestamp ts = cargo.getCreationDate();
         Date date = new Date();
         date.setTime(ts.getTime());

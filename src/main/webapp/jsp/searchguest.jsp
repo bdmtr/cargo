@@ -93,14 +93,6 @@
                     </c:choose>
                 </c:forEach>
             </tr>
-            <c:if test="${currentPage lt noOfPages}">
-                <li class="page-item">
-                    <a class="page-link"
-                       href="controller?action=SearchCityGuest&page=${currentPage + 1}"><fmt:message key="l.next"
-                                                                                                     bundle="${lang}"/></a>
-                </li>
-            </c:if>
-
         </ul>
     </nav>
 </main>

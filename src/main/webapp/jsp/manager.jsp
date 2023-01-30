@@ -107,16 +107,14 @@
                     <td>${cargo.type}</td>
                     <td>${cargo.user.fullname}</td>
                     <td>${cargo.receiverFullname}</td>
-                    <td>${cargo.departureBranch.city}</td>
-                    <td>${cargo.destinationBranch.city}</td>
+                    <td><fmt:message key="l.${cargo.departureBranch.city}" bundle="${lang}"/></td>
+                    <td><fmt:message key="l.${cargo.destinationBranch.city}" bundle="${lang}"/></td>
                     <td>${cargo.price}</td>
                     <td>${cargo.weight}</td>
                     <td>${cargo.length}</td>
                     <td>${cargo.height}</td>
                     <td>${cargo.width}</td>
-                        <%--<td>${cargo.creationDate}</td>--%>
                     <td>${String.format("%1$TD %1$TT", cargo.creationDate)}</td>
-                        <%--<td>${cargo.deliveryDate}</td>--%>
                     <td>${String.format("%1$TD %1$TT", cargo.deliveryDate)}</td>
                     <td><fmt:message key="l.${cargo.deliveryStatus}" bundle="${lang}"/></td>
                     <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>
@@ -158,15 +156,6 @@
                     </c:choose>
                 </c:forEach>
             </tr>
-
-            <%--For displaying Next link --%>
-            <c:if test="${currentPage lt noOfPages}">
-                <li class="page-item">
-                    <a class="page-link" href="controller?action=showmanagerpage&page=${currentPage + 1}"><fmt:message
-                            key="l.next" bundle="${lang}"/></a>
-                </li>
-            </c:if>
-
         </ul>
     </nav>
 </main>

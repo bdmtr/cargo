@@ -58,10 +58,8 @@ public class CargoDao {
                 cargo.setType(rs.getString("type"));
                 cargo.setUser(UserDao.getInstance().findUserById(rs.getInt("user_id")));
                 cargo.setReceiverFullname(rs.getString("receiver_fullname"));
-                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
+                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(rs.getInt("departure_branch_id")));
+                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(rs.getInt("destination_branch_id")));
                 cargo.setPrice(rs.getInt("price"));
                 cargo.setWeight(rs.getInt("weight"));
                 cargo.setLength(rs.getInt("length"));
@@ -102,10 +100,8 @@ public class CargoDao {
                 cargo.setType(rs.getString("type"));
                 cargo.setUser(UserDao.getInstance().findUserById(rs.getInt("user_id")));
                 cargo.setReceiverFullname(rs.getString("receiver_fullname"));
-                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
+                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(rs.getInt("departure_branch_id")));
+                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(rs.getInt("destination_branch_id")));
                 cargo.setPrice(rs.getInt("price"));
                 cargo.setWeight(rs.getInt("weight"));
                 cargo.setLength(rs.getInt("length"));
@@ -129,8 +125,8 @@ public class CargoDao {
             preparedStatement.setString(1, cargo.getType());
             preparedStatement.setInt(2, cargo.getUser().getId());
             preparedStatement.setString(3, cargo.getReceiverFullname());
-            preparedStatement.setInt(4, cargo.getDepartureBranchId());
-            preparedStatement.setInt(5, cargo.getDestinationBranchId());
+            preparedStatement.setInt(4, cargo.getDepartureBranch().getId());
+            preparedStatement.setInt(5, cargo.getDestinationBranch().getId());
             preparedStatement.setInt(6, cargo.getPrice());
             preparedStatement.setInt(7, cargo.getWeight());
             preparedStatement.setInt(8, cargo.getLength());
@@ -217,10 +213,8 @@ public class CargoDao {
 
             while (rs.next()) {
                 cargo = new Cargo();
-                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
+                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(rs.getInt("departure_branch_id")));
+                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(rs.getInt("destination_branch_id")));
                 cargo.setDeliveryDate(rs.getTimestamp("delivery_date"));
                 cargo.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
 
@@ -272,10 +266,8 @@ public class CargoDao {
                 cargo.setType(rs.getString("type"));
                 cargo.setUser(UserDao.getInstance().findUserById(rs.getInt("user_id")));
                 cargo.setReceiverFullname(rs.getString("receiver_fullname"));
-                cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getDepartureBranchId()));
-                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(cargo.getDestinationBranchId()));
+                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(rs.getInt("departure_branch_id")));
+                cargo.setDestinationBranch(BranchDao.getInstance().getBranchById(rs.getInt("destination_branch_id")));
                 cargo.setPrice(rs.getInt("price"));
                 cargo.setWeight(rs.getInt("weight"));
                 cargo.setLength(rs.getInt("length"));

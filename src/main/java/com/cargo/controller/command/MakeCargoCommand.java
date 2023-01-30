@@ -50,7 +50,6 @@ public class MakeCargoCommand extends Command {    private static final Logger L
             return Path.PAGE_MAKE_CARGO;
         }
 
-
         Branch originsBranch = branchService.getBranchById(departureBranchId);
         Branch destinationsBranch = branchService.getBranchById(destinationBranchId);
         String originsName = String.valueOf(originsBranch.getCity());
@@ -69,8 +68,8 @@ public class MakeCargoCommand extends Command {    private static final Logger L
         cargo.setType(type);
         cargo.setUser(userService.findUserById((Integer)session.getAttribute("currentUserId")));
         cargo.setReceiverFullname(receiverFullname);
-        cargo.setDepartureBranchId(departureBranchId);
-        cargo.setDestinationBranchId(destinationBranchId);
+        cargo.setDepartureBranch(originsBranch);
+        cargo.setDestinationBranch(destinationsBranch);
         cargo.setPrice(price);
         cargo.setWeight(weight);
         cargo.setLength(length);

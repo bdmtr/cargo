@@ -21,7 +21,7 @@ public class CommandContainer {
         commands.put("logout", new LogoutCommand());
         commands.put("loginpage", new LoginPageCommand());
         commands.put("showcargospage", new ShowUserPageCommand(new CargoService(CargoDao.getInstance()), new UserService(UserDao.getInstance())));
-        commands.put("makeCargo", new MakeCargoCommand(new CargoService(CargoDao.getInstance()), new BranchService(BranchDao.getInstance())));
+        commands.put("makeCargo", new MakeCargoCommand(new CargoService(CargoDao.getInstance()), new BranchService(BranchDao.getInstance()), new UserService(UserDao.getInstance())));
         commands.put("makecargopage", new MakeCargoPageCommand());
         commands.put("showmanagerpage", new ShowManagerPageCommand(new CargoService(CargoDao.getInstance())));
         commands.put("calculate", new CalculateCommand(new BranchService(BranchDao.getInstance())));

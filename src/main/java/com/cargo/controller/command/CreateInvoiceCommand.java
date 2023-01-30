@@ -34,7 +34,7 @@ public class CreateInvoiceCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int cargoID = Integer.parseInt(request.getParameter("invoice_id"));
         Cargo cargo = cargoService.getCargoById(cargoID);
-        int senderId = cargo.getUserId();
+        int senderId = cargo.getUser().getId();
         String sender = userService.findUserById(senderId).getFullname();
         String type = cargo.getType();
         String cityDeparture = String.valueOf(branchService.getBranchById(cargo.getDepartureBranchId()).getCity());

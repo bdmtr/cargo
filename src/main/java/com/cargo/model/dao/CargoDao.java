@@ -42,78 +42,6 @@ public class CargoDao {
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
     static final String CHANGE_INVOICE_STATUS = "UPDATE cargo SET cargo.invoice_status='PAYED' where cargo.id=?";
 
-    public List<Cargo> getAllCargo() {
-        List<Cargo> cargoList = new ArrayList<>();
-        try (Connection connection = DataSourceUtil.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(GET_ALL_CARGO);
-        ) {
-            while (resultSet.next()) {
-                Cargo cargo = new Cargo();
-                cargo.setId(resultSet.getInt("id"));
-                cargo.setType(resultSet.getString("type"));
-                cargo.setUserId(resultSet.getInt("user_id"));
-                cargo.setReceiverFullname(resultSet.getString("receiver_fullname"));
-                cargo.setDepartureBranchId(resultSet.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(resultSet.getInt("destination_branch_id"));
-                cargo.setPrice(resultSet.getInt("price"));
-                cargo.setWeight(resultSet.getInt("weight"));
-                cargo.setLength(resultSet.getInt("length"));
-                cargo.setHeight(resultSet.getInt("height"));
-                cargo.setWidth(resultSet.getInt("width"));
-                cargo.setCreationDate(resultSet.getTimestamp("creation_date"));
-                cargo.setDeliveryDate(resultSet.getTimestamp("delivery_date"));
-                cargo.setDeliveryStatus(DeliveryStatus.valueOf(resultSet.getString("delivery_status")));
-                cargo.setInvoiceStatus(InvoiceStatus.valueOf(resultSet.getString("invoice_status")));
-
-                cargoList.add(cargo);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Cant get all cargo.");
-        }
-
-        return cargoList;
-    }
-
-    public List<Cargo> getAllCargoForUserById(int id) {
-        List<Cargo> list = new ArrayList<>();
-        Cargo cargo = null;
-
-        try (Connection connection = DataSourceUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_CARGO_FOR_USER_BY_ID);
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                cargo = new Cargo();
-                cargo.setId(resultSet.getInt("id"));
-                cargo.setType(resultSet.getString("type"));
-                cargo.setUserId(resultSet.getInt("user_id"));
-                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
-                cargo.setReceiverFullname(resultSet.getString("receiver_fullname"));
-                cargo.setDepartureBranchId(resultSet.getInt("departure_branch_id"));
-                cargo.setDestinationBranchId(resultSet.getInt("destination_branch_id"));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getUserId()));
-                cargo.setDepartureBranch(BranchDao.getInstance().getBranchById(cargo.getUserId()));
-                cargo.setPrice(resultSet.getInt("price"));
-                cargo.setWeight(resultSet.getInt("weight"));
-                cargo.setLength(resultSet.getInt("length"));
-                cargo.setHeight(resultSet.getInt("height"));
-                cargo.setWidth(resultSet.getInt("width"));
-                cargo.setCreationDate(resultSet.getTimestamp("creation_date"));
-                cargo.setDeliveryDate(resultSet.getTimestamp("delivery_date"));
-                cargo.setDeliveryStatus(DeliveryStatus.valueOf(resultSet.getString("delivery_status")));
-                cargo.setInvoiceStatus(InvoiceStatus.valueOf(resultSet.getString("invoice_status")));
-
-                list.add(cargo);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Cant get all cargo for user by id");
-        }
-        return list;
-    }
-
     public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords) {
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
@@ -128,8 +56,7 @@ public class CargoDao {
                 cargo = new Cargo();
                 cargo.setId(rs.getInt("id"));
                 cargo.setType(rs.getString("type"));
-                cargo.setUserId(rs.getInt("user_id"));
-                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
+                cargo.setUser(UserDao.getInstance().findUserById(rs.getInt("user_id")));
                 cargo.setReceiverFullname(rs.getString("receiver_fullname"));
                 cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
                 cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
@@ -173,8 +100,7 @@ public class CargoDao {
                 cargo = new Cargo();
                 cargo.setId(rs.getInt("id"));
                 cargo.setType(rs.getString("type"));
-                cargo.setUserId(rs.getInt("user_id"));
-                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
+                cargo.setUser(UserDao.getInstance().findUserById(rs.getInt("user_id")));
                 cargo.setReceiverFullname(rs.getString("receiver_fullname"));
                 cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
                 cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));
@@ -201,7 +127,7 @@ public class CargoDao {
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_CARGO, Statement.RETURN_GENERATED_KEYS);
         ) {
             preparedStatement.setString(1, cargo.getType());
-            preparedStatement.setInt(2, cargo.getUserId());
+            preparedStatement.setInt(2, cargo.getUser().getId());
             preparedStatement.setString(3, cargo.getReceiverFullname());
             preparedStatement.setInt(4, cargo.getDepartureBranchId());
             preparedStatement.setInt(5, cargo.getDestinationBranchId());
@@ -327,8 +253,6 @@ public class CargoDao {
             preQuery.append(" AND delivery_date like '" + date + "%' ");
         }
 
-        System.out.println(preQuery);
-
         if (order != null && !order.isEmpty()) {
             preQuery.append(" ORDER BY delivery_date ").append(order).append(" LIMIT ").append(offset).append(", ").append(noOfRecords);
         } else preQuery.append(" ORDER BY delivery_date ASC LIMIT ").append(offset).append(", ").append(noOfRecords);
@@ -346,8 +270,7 @@ public class CargoDao {
 
                 cargo.setId(rs.getInt("id"));
                 cargo.setType(rs.getString("type"));
-                cargo.setUserId(rs.getInt("user_id"));
-                cargo.setUser(UserDao.getInstance().findUserById(cargo.getUserId()));
+                cargo.setUser(UserDao.getInstance().findUserById(rs.getInt("user_id")));
                 cargo.setReceiverFullname(rs.getString("receiver_fullname"));
                 cargo.setDepartureBranchId(rs.getInt("departure_branch_id"));
                 cargo.setDestinationBranchId(rs.getInt("destination_branch_id"));

@@ -10,7 +10,6 @@ import java.util.Objects;
 public class Cargo extends Model implements Serializable {
     private int id;
     private String type;
-    private int userId;
     private User user;
     private String receiverFullname;
     private int departureBranchId;
@@ -27,12 +26,11 @@ public class Cargo extends Model implements Serializable {
     private DeliveryStatus deliveryStatus;
     private InvoiceStatus invoiceStatus;
 
-    public Cargo(int id, String type, int userId, String receiverFullname, int departureBranchId,
+    public Cargo(int id, String type, String receiverFullname, int departureBranchId,
                  int destinationBranchId, int price, int weight, int length, int height, int width,
                  Timestamp creationDate, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
         this.id = id;
         this.type = type;
-        this.userId = userId;
         this.receiverFullname = receiverFullname;
         this.departureBranchId = departureBranchId;
         this.destinationBranchId = destinationBranchId;
@@ -46,7 +44,6 @@ public class Cargo extends Model implements Serializable {
         this.deliveryStatus = deliveryStatus;
         this.invoiceStatus = invoiceStatus;
     }
-
 
     public Cargo(int id, String type, String receiverFullname, int destinationBranchId, int price, int weight, Timestamp creationDate, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
         this.id = id;
@@ -73,11 +70,10 @@ public class Cargo extends Model implements Serializable {
     }
 
 
-    public Cargo(String type, int userId, String receiverFullname, int departureBranchId, int destinationBranchId,
+    public Cargo(String type, String receiverFullname, int departureBranchId, int destinationBranchId,
                  int price, int weight, int length, int height, int width, Timestamp creationDate,
                  Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
         this.type = type;
-        this.userId = userId;
         this.receiverFullname = receiverFullname;
         this.departureBranchId = departureBranchId;
         this.destinationBranchId = destinationBranchId;
@@ -120,14 +116,6 @@ public class Cargo extends Model implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getReceiverFullname() {
@@ -256,12 +244,12 @@ public class Cargo extends Model implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cargo cargo = (Cargo) o;
-        return id == cargo.id && userId == cargo.userId && departureBranchId == cargo.departureBranchId && destinationBranchId == cargo.destinationBranchId && price == cargo.price && weight == cargo.weight && length == cargo.length && height == cargo.height && width == cargo.width && Objects.equals(type, cargo.type) && Objects.equals(user, cargo.user) && Objects.equals(receiverFullname, cargo.receiverFullname) && Objects.equals(departureBranch, cargo.departureBranch) && Objects.equals(destinationBranch, cargo.destinationBranch) && Objects.equals(creationDate, cargo.creationDate) && Objects.equals(deliveryDate, cargo.deliveryDate) && deliveryStatus == cargo.deliveryStatus && invoiceStatus == cargo.invoiceStatus;
+        return id == cargo.id && departureBranchId == cargo.departureBranchId && destinationBranchId == cargo.destinationBranchId && price == cargo.price && weight == cargo.weight && length == cargo.length && height == cargo.height && width == cargo.width && Objects.equals(type, cargo.type) && Objects.equals(user, cargo.user) && Objects.equals(receiverFullname, cargo.receiverFullname) && Objects.equals(departureBranch, cargo.departureBranch) && Objects.equals(destinationBranch, cargo.destinationBranch) && Objects.equals(creationDate, cargo.creationDate) && Objects.equals(deliveryDate, cargo.deliveryDate) && deliveryStatus == cargo.deliveryStatus && invoiceStatus == cargo.invoiceStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, userId, user, receiverFullname, departureBranchId, destinationBranchId, departureBranch, destinationBranch, price, weight, length, height, width, creationDate, deliveryDate, deliveryStatus, invoiceStatus);
+        return Objects.hash(id, type, user, receiverFullname, departureBranchId, destinationBranchId, departureBranch, destinationBranch, price, weight, length, height, width, creationDate, deliveryDate, deliveryStatus, invoiceStatus);
     }
 
     @Override
@@ -269,7 +257,6 @@ public class Cargo extends Model implements Serializable {
         return "Cargo{" +
                 "id=" + id +
                 ", type='" + type + '\'' +
-                ", userId=" + userId +
                 ", user=" + user +
                 ", receiverFullname='" + receiverFullname + '\'' +
                 ", departureBranchId=" + departureBranchId +

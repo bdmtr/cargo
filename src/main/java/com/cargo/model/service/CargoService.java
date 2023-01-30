@@ -13,21 +13,9 @@ public class CargoService {
         this.cargoDao = cargoDao;
     }
 
-    public List<Cargo> getAllCargo() {
-        return cargoDao.getAllCargo();
-    }
-
-    public List<Cargo> getAllCargoForUserById(int id) {
-        return cargoDao.getAllCargoForUserById(id);
-    }
-
     public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords) {
         return cargoDao.getAllCargoForUserByIdWithLimit(id, offset, noOfRecords);
     }
-
-/*    public List<Cargo> getAllGuestCargoWithLimit(int offset, int noOfRecords) throws SQLException {
-        return cargoDao.getAllGuestCargoWithLimit(offset, noOfRecords);
-    }*/
 
     public Cargo getCargoById(int id) throws SQLException {
         return cargoDao.getCargoById(id);
@@ -58,5 +46,4 @@ public class CargoService {
     public void changeInvoiceStatus(int id){
         cargoDao.changeInvoiceStatus(id);
     }
-
 }

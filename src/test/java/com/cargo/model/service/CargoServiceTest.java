@@ -35,7 +35,6 @@ class CargoServiceTest {
     public void setUp() {
         testCargo.setId(1);
         testCargo.setType("test Type");
-        testCargo.setUserId(0);
         testCargo.setUser(user);
         testCargo.setReceiverFullname(user.getFullname());
         testCargo.setDepartureBranchId(1);
@@ -115,22 +114,6 @@ class CargoServiceTest {
         assertEquals(testCargoList, service.getAllCargoForUserByIdWithLimit(1, 2, 5));
     }
 
-    @Test
-    void getALlCargoTest(){
-        assertNotNull(cargoDaoMock);
-        CargoService service = new CargoService(cargoDaoMock);
-        Mockito.when(cargoDaoMock.getAllCargo()).thenReturn(testCargoList);
-        assertEquals(testCargoList, service.getAllCargo());
-    }
-
-    @Test
-    void getAllCargoForUserByIdTest(){
-        assertNotNull(cargoDaoMock);
-        CargoService service = new CargoService(cargoDaoMock);
-        Mockito.when(cargoDaoMock.getAllCargoForUserById(1)).thenReturn(testCargoList);
-        service.getAllCargoForUserByIdWithLimit(1, 2, 5);
-        assertEquals(testCargoList, service.getAllCargoForUserById(1));
-    }
 
     @Test
      void getNoOfRecordsTest(){
@@ -139,6 +122,4 @@ class CargoServiceTest {
          service.getNoOfRecords();
          Mockito.verify(cargoDaoMock).getNoOfRecords();
      }
-
-
 }

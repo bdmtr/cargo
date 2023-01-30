@@ -7,6 +7,7 @@ import com.cargo.model.enums.DeliveryStatus;
 import com.cargo.model.enums.InvoiceStatus;
 import com.cargo.model.service.BranchService;
 import com.cargo.model.service.CargoService;
+import com.cargo.model.service.UserService;
 import com.cargo.util.PriceMaker;
 import org.apache.log4j.Logger;
 
@@ -19,14 +20,15 @@ import java.sql.Timestamp;
 
 import static com.cargo.util.Validator.isIncorrectCargoInfo;
 
-public class MakeCargoCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger(MakeCargoCommand.class);
+public class MakeCargoCommand extends Command {    private static final Logger LOGGER = Logger.getLogger(MakeCargoCommand.class);
     private final CargoService cargoService;
     private final BranchService branchService;
+    private final UserService userService;
 
-    public MakeCargoCommand(CargoService cargoService, BranchService branchService) {
+    public MakeCargoCommand(CargoService cargoService, BranchService branchService, UserService userService) {
         this.cargoService = cargoService;
         this.branchService = branchService;
+        this.userService = userService;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class MakeCargoCommand extends Command {
         Cargo cargo = new Cargo();
 
         cargo.setType(type);
-        cargo.setUserId((Integer) session.getAttribute("currentUserId"));
+        cargo.setUser(userService.findUserById((Integer)session.getAttribute("currentUserId")));
         cargo.setReceiverFullname(receiverFullname);
         cargo.setDepartureBranchId(departureBranchId);
         cargo.setDestinationBranchId(destinationBranchId);
@@ -83,7 +85,8 @@ public class MakeCargoCommand extends Command {
 
         LOGGER.info("Cargo created");
 
-      //  return Path.PAGE_SHOW_CARGOS;
-       return "redirect:controller?action=showcargospage";
+        //  return Path.PAGE_SHOW_CARGOS;
+        return "redirect:controller?action=showcargospage";
     }
+
 }

@@ -1,7 +1,6 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.model.service.CargoService;
 import com.cargo.model.service.UserService;
 import com.cargo.util.Validator;
 import com.cargo.model.entity.User;

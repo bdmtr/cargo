@@ -69,7 +69,6 @@ class UserDaoTest {
 
     @Test
     void changeBalance() throws SQLException {
-        Mockito.when(jdbcConnection.createStatement()).thenReturn(statement);
         when(jdbcConnection.prepareStatement(any())).thenReturn(statement);
         when(statement.execute()).thenReturn(true);
 

@@ -72,11 +72,9 @@ class BranchDaoTest {
     }
 
     @Test
-    void getInstanceTest() throws SQLException {
+    void getInstanceTest(){
         branchDao = BranchDao.getInstance();
         boolean exist = branchDao != null;
         assertTrue(exist);
     }
-
-
 }

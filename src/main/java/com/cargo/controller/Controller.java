@@ -20,7 +20,7 @@ public class Controller extends HttpServlet {
         try {
             process(request, response);
         } catch (SQLException | ServletException | IOException e) {
-            LOGGER.error("doGet Fails");
+            LOGGER.error("doGet Fails", e);
         }
     }
 
@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
         try {
             process(request, response);
         } catch (SQLException | ServletException | IOException e) {
-            LOGGER.error("doPost Fails");
+            LOGGER.error("doPost Fails", e);
         }
     }
 

@@ -1,5 +1,8 @@
 package com.cargo.controller;
 
+/**
+ * This class provides the constant string values for different pages in the application.
+ */
 public class Path {
     public static final String PAGE_LOGIN = "/jsp/login.jsp";
     public static final String PAGE_REGISTER = "/jsp/registration.jsp";

@@ -12,14 +12,40 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The PriceMaker class calculate the price of cargo transportation based on the distance traveled and the weight of the cargo.
+ * <p>
+ * The class also provides a method for fetching the distance between two origins using the Google Maps API.
+ *
+ * @author (your name)
+ * @version (version number or date)
+ */
 public class PriceMaker {
     private static final Logger LOGGER = Logger.getLogger(PriceMaker.class);
 
     ResourceBundle google = ResourceBundle.getBundle("application");
+
+    /**
+     * A string representing the API key for accessing the Google Maps API.
+     */
     String key = google.getString("token");
 
+    /**
+     * An integer representing the distance between the two origins in kilometers.
+     */
     private int kilometers = 0;
 
+    /**
+     * Calculates the price of cargo transportation based on the distance traveled and the weight of the cargo.
+     * The volume weight is calculated as (width * length * height) / 4000.
+     *
+     * @param distance the distance traveled in kilometers
+     * @param weight   the weight of the cargo in kilograms
+     * @param length   the length of the cargo in centimeters
+     * @param height   the height of the cargo in centimeters
+     * @param width    the width of the cargo in centimeters
+     * @return the price of the cargo transportation
+     */
     public int getPrice(int distance, int weight, int length, int height, int width) {
         int price;
 
@@ -35,6 +61,13 @@ public class PriceMaker {
         return price;
     }
 
+    /**
+     * Fetches the distance between two origins using the Google Maps API.
+     *
+     * @param origins      the origins branch
+     * @param destinations the destinations branch
+     * @return the distance between the two origins in kilometers
+     */
     public int getDistance(String origins, String destinations) {
         try {
             String googleUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=";

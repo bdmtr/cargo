@@ -5,6 +5,10 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 
+
+/**
+ * The AttributeListener class listens to the changes in the attributes of the ServletContext and logs the changes.
+ */
 public class AttributeListener implements ServletContextAttributeListener {
     private static final Logger LOGGER = Logger.getLogger(AttributeListener.class);
 

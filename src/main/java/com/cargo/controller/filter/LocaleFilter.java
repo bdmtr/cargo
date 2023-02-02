@@ -5,6 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * LocaleFilter is a Servlet Filter implementation that sets the locale for the application.
+ * It retrieves the locale from the request parameter "lang" and sets it in the session.
+ * If the "lang" parameter is not provided, it sets the default locale "en".
+ */
 public class LocaleFilter implements Filter {
 
     @Override

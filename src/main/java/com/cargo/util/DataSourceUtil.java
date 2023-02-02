@@ -8,6 +8,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class provides a database connection through HikariDataSource.
+ * The database credentials is loaded from a resource bundle file.
+ */
 public class DataSourceUtil {
     private static final Logger LOGGER = Logger.getLogger(DataSourceUtil.class);
 
@@ -35,6 +39,12 @@ public class DataSourceUtil {
     private DataSourceUtil() {
     }
 
+    /**
+     * Gets a database connection.
+     *
+     * @return Connection to the database.
+     * @throws SQLException if an error occurs while getting the connection.
+     */
     public static Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }

@@ -11,6 +11,9 @@ import com.cargo.model.service.UserService;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ *  CommandContainer, which is responsible for holding all the available commands in the application.
+ */
 public class CommandContainer {
     private static final Map<String, Command> commands = new TreeMap<>();
 

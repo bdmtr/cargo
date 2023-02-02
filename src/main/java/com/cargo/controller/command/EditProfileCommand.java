@@ -1,8 +1,6 @@
 package com.cargo.controller.command;
 
-import com.cargo.controller.Path;
 import com.cargo.model.entity.User;
-import com.cargo.model.service.CargoService;
 import com.cargo.model.service.UserService;
 import org.apache.log4j.Logger;
 
@@ -30,7 +28,6 @@ public class EditProfileCommand extends Command {
         String fullname = request.getParameter("fullname");
         String password = request.getParameter("password");
 
-
         user.setUsername(username);
         user.setFullname(fullname);
         user.setPassword(password);
@@ -39,11 +36,6 @@ public class EditProfileCommand extends Command {
         session.setAttribute("currentUserId", userID);
         session.setAttribute("username", userService.findUserById(userID).getUsername());
         session.setAttribute("currentUser", userService.findUserById(userID));
-
-        if (userService.findUserById(userID).getRole().toString().equals("MANAGER")) {
-            return "redirect:controller?action=showmanagerpage";
-        }
-
 
         LOGGER.info("Editing profile: " + username);
         return "redirect:controller?action=showcargospage";

@@ -18,6 +18,16 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Class that creates an invoice for a cargo in the form of a PDF document.
+ * <p>
+ * The invoice is generated with the use of the iText library.
+ *
+ * @see Command
+ * @see BranchService
+ * @see UserService
+ * @see CargoService
+ */
 public class CreateInvoiceCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(CreateInvoiceCommand.class);
     CargoService cargoService;
@@ -30,6 +40,15 @@ public class CreateInvoiceCommand extends Command {
         this.branchService = branchService;
     }
 
+    /**
+     * Creates the invoice PDF and sets it as the response content.
+     *
+     * @param request  HttpServletRequest to obtain the cargo id
+     * @param response HttpServletResponse to set the PDF content as the response
+     * @return String path of the page to redirect
+     * @throws IOException  if an input or output error is detected when the servlet is handling the request
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int cargoID = Integer.parseInt(request.getParameter("invoice_id"));
@@ -59,11 +78,11 @@ public class CreateInvoiceCommand extends Command {
 
             PdfPTable orderInfoTable = new PdfPTable(3);
             orderInfoTable.setWidthPercentage(100);
-            orderInfoTable.addCell(getIRHCell(""));
-            orderInfoTable.addCell(getIRHCell(""));
-            orderInfoTable.addCell(getIRHCell("Invoice"));
-            orderInfoTable.addCell(getIRHCell(""));
-            orderInfoTable.addCell(getIRHCell(""));
+            orderInfoTable.addCell(getInvoiceCell(""));
+            orderInfoTable.addCell(getInvoiceCell(""));
+            orderInfoTable.addCell(getInvoiceCell("Invoice"));
+            orderInfoTable.addCell(getInvoiceCell(""));
+            orderInfoTable.addCell(getInvoiceCell(""));
 
             Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
@@ -119,7 +138,13 @@ public class CreateInvoiceCommand extends Command {
         return Path.PAGE_MANAGER;
     }
 
-    private PdfPCell getIRHCell(String text) {
+    /**
+     * Returns a PDF PCell
+     *
+     * @param text the text to be processed and displayed in the cell
+     * @return a PDF PCell with the processed text
+     */
+    private PdfPCell getInvoiceCell(String text) {
         FontSelector fs = new FontSelector();
         Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16);
         fs.addFont(baseFont);
@@ -131,6 +156,12 @@ public class CreateInvoiceCommand extends Command {
         return cell;
     }
 
+    /**
+     * Gets the invoice header cell.
+     *
+     * @param text IRH cell text
+     * @return PdfPCell IRH cell
+     */
     private PdfPCell getHeaderCell(String text) {
         FontSelector fs = new FontSelector();
         Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
@@ -143,6 +174,12 @@ public class CreateInvoiceCommand extends Command {
         return cell;
     }
 
+    /**
+     * Gets the invoice row cell.
+     *
+     * @param text row cell text
+     * @return PdfPCell row cell
+     */
     private PdfPCell getRowCell(String text) {
         Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
         Paragraph paragraph = new Paragraph(text, baseFont);
@@ -154,6 +191,11 @@ public class CreateInvoiceCommand extends Command {
         return cell;
     }
 
+    /**
+     * Gets the invoice validity cell.
+     *
+     * @return PdfPCell validity cell
+     */
     private PdfPCell getValidityCell() {
         FontSelector fs = new FontSelector();
         Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10);
@@ -165,6 +207,11 @@ public class CreateInvoiceCommand extends Command {
         return cell;
     }
 
+    /**
+     * Gets the invoice accounts cell.
+     *
+     * @return PdfPCell accounts cell
+     */
     private PdfPCell getAccountsCell() {
         FontSelector fs = new FontSelector();
         Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10);
@@ -177,6 +224,12 @@ public class CreateInvoiceCommand extends Command {
         return cell;
     }
 
+    /**
+     * Gets the invoice accounts cell with right alignment.
+     *
+     * @param text accounts cell text
+     * @return PdfPCell accounts cell with right alignment
+     */
     private PdfPCell getAccountsCellR(String text) {
         FontSelector fs = new FontSelector();
         Font baseFont = FontFactory.getFont("dejavusans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10);

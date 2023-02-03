@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- *  CommandContainer, which is responsible for holding all the available commands in the application.
+ * CommandContainer, which is responsible for holding all the available commands in the application.
  */
 public class CommandContainer {
     private static final Map<String, Command> commands = new TreeMap<>();
@@ -42,6 +42,12 @@ public class CommandContainer {
 
     }
 
+    /**
+     * Retrieves a Command object based on the provided command name.
+     *
+     * @param commandName The name of the command.
+     * @return Command object associated with the provided command name.
+     */
     public static Command getCommand(String commandName) {
         return commands.get(commandName);
     }

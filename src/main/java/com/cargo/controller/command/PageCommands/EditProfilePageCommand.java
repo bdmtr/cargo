@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+/**
+ * EditProfilePageCommand class is responsible for loading the edit profile page.
+ */
 public class EditProfilePageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(EditProfilePageCommand.class);
     @Override

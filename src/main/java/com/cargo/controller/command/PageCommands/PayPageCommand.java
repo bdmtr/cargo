@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * PayPageCommand class is responsible for loading the pay page.
+ */
 public class PayPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(PayPageCommand.class);
     private final CargoService cargoService;
@@ -24,6 +27,16 @@ public class PayPageCommand extends Command {
         this.userService = userService;
     }
 
+    /**
+     * The method retrieves the  data to render the pay page, such as the user's balance and the cargo's price, and sets them as attributes to the request.
+     * If the user's balance is not enough to pay for the cargo, the method returns a path to the cargo list page.
+     *
+     * @param request  the HttpServletRequest object containing user's request information
+     * @param response the HttpServletResponse object for sending response to the user
+     * @return a path to the pay page or a path to the cargo list page (depends on the balance of the user)
+     * @throws IOException  if an input or output error is detected when the servlet handles the request
+     * @throws SQLException if a database access error or other errors occurred
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();

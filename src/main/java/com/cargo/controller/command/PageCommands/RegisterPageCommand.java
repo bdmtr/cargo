@@ -11,7 +11,9 @@ import java.sql.SQLException;
 
 import static com.cargo.controller.Path.PAGE_REGISTER;
 
-
+/**
+ * RegisterPageCommand class is responsible for loading the register page.
+ */
 public class RegisterPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(RegisterPageCommand.class);
 

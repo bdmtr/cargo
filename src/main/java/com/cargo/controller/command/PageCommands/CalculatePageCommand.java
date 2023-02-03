@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * CalculatePageCommand class is responsible for loading the calculator page.
+ */
 public class CalculatePageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(CalculatePageCommand.class);
 

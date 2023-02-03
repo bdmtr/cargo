@@ -13,6 +13,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The ShowGuestPageCommand class implements the Command interface and represents the command to show the search result page for the guest users.
+ *
+ * @see Command
+ * @see CargoService
+ * @see Cargo
+ */
 public class ShowGuestPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(ShowGuestPageCommand.class);
     private final CargoService cargoService;
@@ -21,6 +28,15 @@ public class ShowGuestPageCommand extends Command {
         this.cargoService = cargoService;
     }
 
+    /**
+     * Executes the command to show the search result page for the guest users.
+     *
+     * @param request  an HttpServletRequest object that contains the request the client has made of the servlet.
+     * @param response an HttpServletResponse object that contains the response the servlet sends to the client.
+     * @return a string that represents the guest page.
+     * @throws IOException  if an input or output exception occurs.
+     * @throws SQLException if a database access error occurs.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
@@ -33,7 +49,7 @@ public class ShowGuestPageCommand extends Command {
         }
 
         String searchOrder = request.getParameter("req_order");
-        if (searchOrder== null || searchOrder.isEmpty()) {
+        if (searchOrder == null || searchOrder.isEmpty()) {
             searchOrder = (String) session.getAttribute("session_order");
         }
 

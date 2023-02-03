@@ -20,7 +20,17 @@ import java.sql.Timestamp;
 
 import static com.cargo.util.Validator.isIncorrectCargoInfo;
 
-public class MakeCargoCommand extends Command {    private static final Logger LOGGER = Logger.getLogger(MakeCargoCommand.class);
+/**
+ * MakeCargoCommand handles the creation of a cargo.
+ *
+ * @see Command
+ * @see Cargo
+ * @see CargoService
+ * @see BranchService
+ * @see UserService
+ */
+public class MakeCargoCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(MakeCargoCommand.class);
     private final CargoService cargoService;
     private final BranchService branchService;
     private final UserService userService;
@@ -31,6 +41,18 @@ public class MakeCargoCommand extends Command {    private static final Logger L
         this.userService = userService;
     }
 
+    /**
+     * Handles the creation of a cargo.
+     * The method retrieves data from the request parameters such as the cargo type, receiver full name, departure and destination branches, weight, length, height, width.
+     * Then it performs validation for the provided information and calculates the distance and price for the cargo.
+     * The method then adds the cargo to the database using the cargoService.
+     *
+     * @param request  the HTTP request.
+     * @param response the HTTP response.
+     * @return the path to cargo page.
+     * @throws IOException  if an input or output exception occurs.
+     * @throws SQLException if a database exception occurs.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
@@ -66,7 +88,7 @@ public class MakeCargoCommand extends Command {    private static final Logger L
         Cargo cargo = new Cargo();
 
         cargo.setType(type);
-        cargo.setUser(userService.findUserById((Integer)session.getAttribute("currentUserId")));
+        cargo.setUser(userService.findUserById((Integer) session.getAttribute("currentUserId")));
         cargo.setReceiverFullname(receiverFullname);
         cargo.setDepartureBranch(originsBranch);
         cargo.setDestinationBranch(destinationsBranch);

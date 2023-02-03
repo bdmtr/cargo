@@ -14,6 +14,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * The class ShowManagerPageCommand is responsible for displaying the cargo data on the manager's page.
+ *
+ * @see Command
+ * @see CargoService
+ * @see Cargo
+ */
 public class ShowManagerPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(ShowManagerPageCommand.class);
     private final CargoService cargoService;
@@ -22,6 +29,17 @@ public class ShowManagerPageCommand extends Command {
         this.cargoService = cargoService;
     }
 
+    /**
+     * The method retrieves the cargo data from the database using the CargoService class
+     * The cargo data can be sorted by branch id, date, and order.
+     * The method also stores the sort criteria in the HttpSession object to preserve the sorting criteria between requests.
+     *
+     * @param request  The HttpServletRequest object that contains the request data from the user.
+     * @param response The HttpServletResponse object that will be used to send the response data to the user.
+     * @return The path to the manager's page
+     * @throws IOException  If an I/O error occurs.
+     * @throws SQLException If a database access error occurs.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();
@@ -35,10 +53,9 @@ public class ShowManagerPageCommand extends Command {
         }
 
         String searchDate = request.getParameter("req_date");
-        if (searchDate == null || searchDate.length()<1) {
+        if (searchDate == null || searchDate.length() < 1) {
             searchDate = (String) session.getAttribute("session_date");
         }
-
 
         String searchOrder = request.getParameter("req_order");
         if (searchOrder == null || searchOrder.isEmpty()) {
@@ -60,7 +77,6 @@ public class ShowManagerPageCommand extends Command {
         request.setAttribute("cargoList", list);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
-
 
         LOGGER.info("Manager page loaded successfully");
 

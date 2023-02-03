@@ -10,6 +10,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Class `EditProfileCommand` implements the `execute` method to edit the user's profile information.
+ * The method retrieves the user data from the `UserService` and updates the profile information.
+ * After updating the profile, it redirects the user to the cargo page.
+ *
+ * @see Command
+ * @see UserService
+ * @see User
+ */
 public class EditProfileCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(EditProfileCommand.class);
     private final UserService userService;
@@ -18,6 +27,17 @@ public class EditProfileCommand extends Command {
         this.userService = userService;
     }
 
+    /**
+     * Method retrieves the user information from the session, retrieves the updated user information from the request,
+     * updates the user information using the `updateUserProfile` method of the UserService, and sets the updated
+     * user information to the session.
+     *
+     * @param request  The `HttpServletRequest` instance to retrieve the user input from the request.
+     * @param response The `HttpServletResponse` instance to redirect the user to the cargo page.
+     * @return The URL to redirect the user to the cargo page.
+     * @throws IOException  If an input or output exception occurred.
+     * @throws SQLException If a database access exception occurred.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();

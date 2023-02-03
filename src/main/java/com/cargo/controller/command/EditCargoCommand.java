@@ -12,6 +12,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * EditCargoCommand updates cargo's data such - receiverFullname, deliveryStatus and invoiceStatus.
+ * It uses CargoService to perform the update action on the database.
+ *
+ * @see Command
+ * @see CargoService
+ */
 public class EditCargoCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(EditCargoCommand.class);
     private final CargoService cargoService;
@@ -20,6 +27,15 @@ public class EditCargoCommand extends Command {
         this.cargoService = cargoService;
     }
 
+    /**
+     * Updates the cargo's profile data and returns to the manager page
+     *
+     * @param request  HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @return a string representation of the page to redirect to
+     * @throws IOException      if an I/O error occurs
+     * @throws SQLException     if a database access error occurs
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();

@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Class ShowUserPageCommand show all cargo for user.
+ *
+ * @see Command
+ * @see CargoService
+ */
 public class ShowUserPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(ShowUserPageCommand.class);
     private final CargoService cargoService;
@@ -25,6 +31,15 @@ public class ShowUserPageCommand extends Command {
         this.userService = userService;
     }
 
+    /**
+     * Method to show all cargo for user
+     *
+     * @param request  HttpServletRequest object to get parameters from client
+     * @param response HttpServletResponse object to send response to client
+     * @return path to page with all cargo for user
+     * @throws IOException  in case of input/output errors
+     * @throws SQLException in case of errors with database connection
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         HttpSession session = request.getSession();

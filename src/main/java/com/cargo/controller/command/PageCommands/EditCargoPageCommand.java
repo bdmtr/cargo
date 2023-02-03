@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * EditCargoPageCommand class is responsible for loading the edit cargo page.
+ */
 public class EditCargoPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(EditCargoPageCommand.class);
     private final CargoService cargoService;
@@ -20,6 +23,15 @@ public class EditCargoPageCommand extends Command {
         this.cargoService = cargoService;
     }
 
+    /**
+     * Loads the cargo editing page.
+     *
+     * @param request  the HttpServletRequest object
+     * @param response the HttpServletResponse object
+     * @return the path to the cargo editing page
+     * @throws IOException  if an I/O error occurs
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("status_id"));

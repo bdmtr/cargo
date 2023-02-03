@@ -27,7 +27,6 @@ public class EncodingFilter implements Filter {
     /**
      * This method is called by the container each time a request/response pair is passed through the chain due to a
      * client request for a resource at the end of the chain.
-     * <p>
      * The encoding is set for the servlet request and response, and the filterChain.doFilter is called to execute
      * the next filter in the chain.
      *

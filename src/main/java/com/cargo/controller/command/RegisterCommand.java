@@ -22,7 +22,6 @@ import static com.cargo.controller.Path.PAGE_REGISTER;
  * @see Role
  * @see Validator
  */
-
 public class RegisterCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
     private final UserService userService;

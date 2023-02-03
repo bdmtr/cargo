@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+/**
+ * LoginPageCommand class is responsible for loading the login page.
+ */
 public class LoginPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(LoginPageCommand.class);
 

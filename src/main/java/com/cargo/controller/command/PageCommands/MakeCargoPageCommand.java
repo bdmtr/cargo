@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * MakeCargoPageCommand class is responsible for loading the making cargo page.
+ */
 public class MakeCargoPageCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(MakeCargoPageCommand.class);
 

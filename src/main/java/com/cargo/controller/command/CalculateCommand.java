@@ -13,6 +13,16 @@ import java.sql.SQLException;
 
 import static com.cargo.util.Validator.isIncorrectCalculateInfo;
 
+/**
+ * The CalculateCommand class is a command implementation to handle the calculation of delivery price.
+ * The class uses the {@link BranchService} for getting {@link Branch} entities by its ID.
+ * It also uses the {@link PriceMaker} for getting the distance and price for delivering.
+ *
+ * @see Command
+ * @see BranchService
+ * @see Branch
+ * @see PriceMaker
+ */
 public class CalculateCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(CalculateCommand.class);
     private final BranchService branchService;
@@ -21,6 +31,20 @@ public class CalculateCommand extends Command {
         this.branchService = branchService;
     }
 
+    /**
+     * This method {@code execute} calculates the price of a delivery by retrieving information
+     * such as departure branch, destination branch, weight, length, height, and width from
+     * the {@code HttpServletRequest} object. It uses the information to get the distance between
+     * the departure and destination branches and then calculates the price using the {@code PriceMaker} class.
+     * Finally, it sets the calculated values as attributes in the {@code HttpServletRequest} object
+     * and returns a path to the price page.
+     *
+     * @param request  an HttpServletRequest object that contains the request the client has made of the servlet
+     * @param response an HttpServletResponse object that contains the response the servlet sends to the client
+     * @return a string representation of the path to the price page
+     * @throws IOException  if an input or output exception occurred
+     * @throws SQLException if a database access error or other errors occurred
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int departureBranchId = Integer.parseInt(request.getParameter("departureBranchId"));

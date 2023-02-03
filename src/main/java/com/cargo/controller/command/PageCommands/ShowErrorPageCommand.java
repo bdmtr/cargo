@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * ShowErrorPageCommand class is responsible for loading the error page.
+ */
 public class ShowErrorPageCommand extends Command {
 
     @Override

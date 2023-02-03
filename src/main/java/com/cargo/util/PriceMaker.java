@@ -14,21 +14,17 @@ import java.util.ResourceBundle;
 
 /**
  * The PriceMaker class calculate the price of cargo transportation based on the distance traveled and the weight of the cargo.
- * <p>
  * The class also provides a method for fetching the distance between two origins using the Google Maps API.
- *
- * @author (your name)
- * @version (version number or date)
  */
 public class PriceMaker {
     private static final Logger LOGGER = Logger.getLogger(PriceMaker.class);
 
-    ResourceBundle google = ResourceBundle.getBundle("application");
+    ResourceBundle bundle = ResourceBundle.getBundle("application");
 
     /**
      * A string representing the API key for accessing the Google Maps API.
      */
-    String key = google.getString("token");
+    String key = bundle.getString("token");
 
     /**
      * An integer representing the distance between the two origins in kilometers.

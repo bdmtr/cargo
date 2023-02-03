@@ -13,14 +13,37 @@ import java.sql.SQLException;
 
 import static com.cargo.controller.Path.PAGE_REGISTER;
 
+/**
+ * The class implements the Command interface and is used to handle the registration process.
+ *
+ * @see Command
+ * @see UserService
+ * @see User
+ * @see Role
+ * @see Validator
+ */
+
 public class RegisterCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
     private final UserService userService;
 
+    /**
+     * Constructs a RegisterCommand with the specified UserService.
+     *
+     * @param userService the service for user-related operations
+     */
     public RegisterCommand(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Executes the registration process by creating a new User object from the input data, validating the data, and adding the user to the database.
+     *
+     * @param request  the HttpServletRequest object that contains the request the client has made of the servlet
+     * @param response the HttpServletResponse object that contains the response the servlet sends to the client
+     * @return the login page if the registration process is ok
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 

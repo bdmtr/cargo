@@ -7,27 +7,38 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 
+/**
+ * The {@code UserDao} class provides DAO methods for working with a User entity.
+ * It uses singleton design pattern to ensure that there is only one instance of the class created.
+ */
 public class UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
 
     private static UserDao instance;
 
+    /**
+     * Gets the instance of the class.
+     * If the instance is not yet created, it will create a new instance.
+     *
+     * @return instance of the class
+     */
     public static synchronized UserDao getInstance() {
         if (instance == null) instance = new UserDao();
         return instance;
     }
 
     static final String ADD_USER = "INSERT INTO user (username, fullname, email, password, role, balance) VALUES(?, ?, ?, ?, ?, 1000)";
-    static final String UPDATE_USER_PASSWORD_BY_ID = "UPDATE user SET password=? WHERE user.id=?";
-    static final String DELETE_FROM_USER_WHERE_USER_ID = "DELETE FROM user WHERE user.id = ?";
     static final String FIND_USER_BY_ID = "SELECT id, username, fullname, email, password, role, balance  FROM user where user.id = ?";
-    static final String FIND_USER_BY_FULLNAME = "SELECT id, username, fullname, email, password, role FROM user where user.fullname = ?";
-    static final String GET_ALL_USERS = "SELECT * FROM user";
     static final String FIND_USER_BY_USERNAME_PASSWORD = "SELECT id, username, fullname, email, password, role, balance FROM user where user.username = ? and user.password = ?";
     static final String FIND_USER_BY_USERNAME = "SELECT id, username, fullname, email, password, role FROM user where user.username = ?";
     static final String CHANGE_BALANCE = "UPDATE user SET user.balance=? where user.id=?";
 
-
+    /**
+     * Adds a new User to the database.
+     *
+     * @param user the User to add
+     * @throws SQLException if there's an error in executing the query
+     */
     public void addUser(User user) throws SQLException {
         try (
                 Connection connection = DataSourceUtil.getConnection();
@@ -45,6 +56,13 @@ public class UserDao {
         }
     }
 
+    /**
+     * Finds a User by its id.
+     *
+     * @param id the id of the User to find
+     * @return the User with the specified id
+     * @throws SQLException if there's an error in executing the query
+     */
     public User findUserById(int id) throws SQLException {
         ResultSet resultSet = null;
         User user = null;
@@ -70,6 +88,13 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * Finds a User in the database by its username.
+     *
+     * @param username the username of the User to find
+     * @return the User with the specified username or null if there is no User with the specified username
+     * @throws SQLException if a database access error occurs or this method is called on a closed connection
+     */
     public User findUserByUsername(String username) throws SQLException {
         User user = null;
         try (
@@ -94,6 +119,14 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * Finds a User in the database by its username and password.
+     *
+     * @param username the username of the User to find
+     * @param password the password of the User to find
+     * @return the User with the specified username and password or null if there is no User with the specified username and password
+     * @throws SQLException if a database access error occurs or this method is called on a closed connection
+     */
     public User findUserByUsernamePassword(String username, String password) throws SQLException {
         ResultSet resultSet = null;
         User user = null;
@@ -120,6 +153,12 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * This method updates a user profile with the provided user object.
+     * The following user fields can be updated: username, fullname, and password.
+     *
+     * @param user the user object to update the profile with
+     */
     public void updateUserProfile(User user) {
         StringBuilder preQuery = new StringBuilder();
         String userId = String.valueOf(user.getId());
@@ -150,6 +189,12 @@ public class UserDao {
         }
     }
 
+    /**
+     * Changes the balance of a User in the database.
+     *
+     * @param cost the new balance of the User
+     * @param id   the id of the User to change the balance of
+     */
     public void changeBalance(int cost, int id) {
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement pst = connection.prepareStatement(CHANGE_BALANCE);

@@ -1,6 +1,5 @@
 package com.cargo.model.dao;
 
-
 import com.cargo.model.entity.Branch;
 import com.cargo.model.entity.Cargo;
 
@@ -13,35 +12,45 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code CargoDao} class provides DAO methods for working with a Cargo entity.
+ * This class has the ability to get all cargo for a user by id with limit, get cargo by id, add cargo, update cargo,
+ * sort cargo by city, sort for manager, and change invoice status.
+ * It uses singleton design pattern to ensure that there is only one instance of the class created.
+ */
 public class CargoDao {
     private static final Logger LOGGER = Logger.getLogger(CargoDao.class);
     private static CargoDao instance;
     private int noOfRecords;
 
+    /**
+     * Gets the instance of the class.
+     * If the instance is not yet created, it will create a new instance.
+     *
+     * @return instance of the class
+     */
     public static synchronized CargoDao getInstance() {
         if (instance == null) instance = new CargoDao();
         return instance;
     }
 
-    static final String GET_ALL_CARGO = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
-            " destination_branch_id, price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo";
-    static final String GET_ALL_CARGO_FOR_USER_BY_ID = "SELECT id, type, user_id, receiver_fullname, departure_branch_id," +
-            " destination_branch_id, price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo " +
-            "WHERE user_id = ? ORDER BY creation_date";
     static final String GET_ALL_CARGO_WITH_LIMIT_BY_USER_ID = "select SQL_CALC_FOUND_ROWS * from cargo where cargo.user_id=";
     static final String FIND_CARGO_BY_ID = "SELECT * FROM cargo where cargo.id = ?";
-    static final String FIND_CARGO_BY_USER_ID = "SELECT  id, type, user_id, receiver_fullname, departure_branch_id, destination_branch_id," +
-            " price, weight, length, height, width, creation_date, delivery_date, delivery_status, invoice_status FROM cargo where cargo.user_id = ?";
     static final String ADD_CARGO = "INSERT INTO cargo (type, user_id, receiver_fullname, departure_branch_id,destination_branch_id, price, weight, " +
             "length, height, width, creation_date, delivery_date, delivery_status, invoice_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    static final String UPDATE_CARGO = "UPDATE cargo SET type=?, user_id=?, receiver_fullname=?, departure_branch_id=?," +
-            "destination_branch_id=?, price=?, weight=?, length=?, height=?, width=?, creation_date=?," +
-            "delivery_date=?, delivery_status=?, invoice_status=? WHERE cargo.id=?";
     static final String SORT_CARGO_BY_CITY = "select SQL_CALC_FOUND_ROWS departure_branch_id, destination_branch_id, " +
             "delivery_date, delivery_status from cargo where delivery_status='TRANSIT' ";
     static final String SORT_FOR_MANAGER = "select SQL_CALC_FOUND_ROWS * from cargo where id>0 ";
     static final String CHANGE_INVOICE_STATUS = "UPDATE cargo SET cargo.invoice_status='PAYED' where cargo.id=?";
 
+    /**
+     * Gets a list of all cargos for a user by id with a limit on the number of records returned.
+     *
+     * @param id          user id
+     * @param offset      number of records to skip
+     * @param noOfRecords maximum number of records to retrieve
+     * @return a list of cargos
+     */
     public List<Cargo> getAllCargoForUserByIdWithLimit(int id, int offset, int noOfRecords) {
         List<Cargo> list = new ArrayList<Cargo>();
         Cargo cargo = null;
@@ -86,6 +95,13 @@ public class CargoDao {
         return list;
     }
 
+    /**
+     * Gets a cargo by id.
+     *
+     * @param id cargo id
+     * @return a cargo with the given id
+     * @throws SQLException if there's an error in executing the query
+     */
     public Cargo getCargoById(int id) throws SQLException {
         Cargo cargo = null;
 
@@ -118,6 +134,12 @@ public class CargoDao {
         return cargo;
     }
 
+    /**
+     * Adds a new cargo to the database.
+     *
+     * @param cargo the cargo to be added
+     * @throws SQLException if there's an error in executing the query
+     */
     public void addCargo(Cargo cargo) throws SQLException {
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_CARGO, Statement.RETURN_GENERATED_KEYS);
@@ -144,6 +166,11 @@ public class CargoDao {
         }
     }
 
+    /**
+     * Updates an existing cargo in the database.
+     *
+     * @param cargo the cargo to be updated
+     */
     public void updateCargoProfile(Cargo cargo) {
         StringBuilder preQuery = new StringBuilder();
         String cargoId = String.valueOf(cargo.getId());
@@ -172,6 +199,11 @@ public class CargoDao {
         }
     }
 
+    /**
+     * Changes the status of an invoice with the given cargo id.
+     *
+     * @param id the id of the cargo to change the status for
+     */
     public void changeInvoiceStatus(int id) {
         try (Connection connection = DataSourceUtil.getConnection();
              PreparedStatement pst = connection.prepareStatement(CHANGE_INVOICE_STATUS);
@@ -183,6 +215,16 @@ public class CargoDao {
         }
     }
 
+    /**
+     * Sorts the list of {@link Cargo} objects based on their delivery city and destination date.
+     *
+     * @param offset      The starting index of the list to retrieve.
+     * @param noOfRecords The number of records to retrieve.
+     * @param branchCity  The city of the delivery branch to filter the list by.
+     * @param order       The order to sort the list by (either "ASC" or "DESC").
+     * @return A list of {@link Cargo} objects sorted by their delivery city and date.
+     * @throws SQLException If there is a problem executing the SQL query.
+     */
     public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
         StringBuilder preQuery = new StringBuilder(SORT_CARGO_BY_CITY);
         String id;
@@ -233,6 +275,17 @@ public class CargoDao {
         return list;
     }
 
+    /**
+     * Sorts the list of cargo based on the city and date specified for manager.
+     *
+     * @param offset          the starting point of the records to retrieve
+     * @param noOfRecords     the number of records to retrieve
+     * @param destinationBrId the id of the destination branch
+     * @param date            the date of the delivery
+     * @param order           the order in which the records should be sorted (ASC/DESC)
+     * @return a list of cargo sorted by the city and date specified by the manager
+     * @throws SQLException if an error occurs while sorting the cargo
+     */
     public List<Cargo> sortByCityDateManager(int offset, int noOfRecords, String destinationBrId, String date, String order) throws SQLException {
         StringBuilder preQuery = new StringBuilder(SORT_FOR_MANAGER);
 
@@ -293,6 +346,11 @@ public class CargoDao {
         return list;
     }
 
+    /**
+     * Gets the total number of records.
+     *
+     * @return the total number of records.
+     */
     public int getNoOfRecords() {
         return noOfRecords;
     }

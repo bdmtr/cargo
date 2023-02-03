@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * The AttributeListener class fix the creation and destroyinf of session
+ * The AttributeListener class fix the creation and destroying of session
  */
 public class SessionListener implements HttpSessionListener {
     private static final Logger LOGGER = Logger.getLogger(SessionListener.class);

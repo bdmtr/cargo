@@ -14,6 +14,13 @@ import java.sql.SQLException;
 
 import static com.cargo.util.Validator.isIncorrectLoginInfo;
 
+/**
+ * The LoginCommand class is used for processing user authentication and logging
+ *
+ * @see Command
+ * @see UserService
+ * @see User
+ */
 public class LoginCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
     private final UserService userService;
@@ -22,6 +29,16 @@ public class LoginCommand extends Command {
         this.userService = userService;
     }
 
+    /**
+     * Implements the abstract method {@code execute} from {@link Command}.
+     * This method is used to perform user login and validate the user credentials.
+     *
+     * @param request  the {@link HttpServletRequest} object
+     * @param response the {@link HttpServletResponse} object
+     * @return String the URL of the next page to be redirected depending on the users role
+     * @throws IOException  if there is an I/O error
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         String username = request.getParameter("username");

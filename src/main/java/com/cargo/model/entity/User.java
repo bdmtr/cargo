@@ -5,6 +5,12 @@ import com.cargo.model.enums.Role;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * The `User` class represents a user in the cargo management system.
+ * Each `User` object contains information about the user such as their id, username, full name,
+ * email address, password, role, and balance. The role attribute specifies the role of the user
+ * in the system, which can be either `GUEST`, `USER`, `ADMIN`.
+ */
 public class User extends Model implements Serializable {
     private int id;
     private String username;

@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * The Cargo class represents the cargo that is being transported.
+ * Delivery Status can be TRANSIT, DELIVERED, RECEIVED, DECLINED.
+ * Invoice Status can be PAYED, PENDING.
+ */
 public class Cargo extends Model implements Serializable {
     private int id;
     private String type;
@@ -24,51 +29,13 @@ public class Cargo extends Model implements Serializable {
     private DeliveryStatus deliveryStatus;
     private InvoiceStatus invoiceStatus;
 
-    public Cargo(int id, String type, String receiverFullname, int price, int weight, int length, int height, int width,
-                 Timestamp creationDate, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
+    public Cargo(int id, String type, User user, String receiverFullname, Branch departureBranch, Branch destinationBranch, int price, int weight, int length, int height, int width, Timestamp creationDate, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
         this.id = id;
         this.type = type;
+        this.user = user;
         this.receiverFullname = receiverFullname;
-        this.price = price;
-        this.weight = weight;
-        this.length = length;
-        this.height = height;
-        this.width = width;
-        this.creationDate = creationDate;
-        this.deliveryDate = deliveryDate;
-        this.deliveryStatus = deliveryStatus;
-        this.invoiceStatus = invoiceStatus;
-    }
-
-    public Cargo(int id, String type, String receiverFullname, int price, int weight, Timestamp creationDate, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
-        this.id = id;
-        this.type = type;
-        this.receiverFullname = receiverFullname;
-        this.price = price;
-        this.weight = weight;
-        this.creationDate = creationDate;
-        this.deliveryDate = deliveryDate;
-        this.deliveryStatus = deliveryStatus;
-        this.invoiceStatus = invoiceStatus;
-    }
-
-    public Cargo(int id, String type, String receiverFullname, int price, Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
-        this.id = id;
-        this.type = type;
-        this.receiverFullname = receiverFullname;
-        this.price = price;
-        this.deliveryDate = deliveryDate;
-        this.deliveryStatus = deliveryStatus;
-        this.invoiceStatus = invoiceStatus;
-    }
-
-
-    public Cargo(String type, String receiverFullname,
-                 int price, int weight, int length, int height, int width, Timestamp creationDate,
-                 Timestamp deliveryDate, DeliveryStatus deliveryStatus, InvoiceStatus invoiceStatus) {
-        this.type = type;
-        this.receiverFullname = receiverFullname;
-
+        this.departureBranch = departureBranch;
+        this.destinationBranch = destinationBranch;
         this.price = price;
         this.weight = weight;
         this.length = length;
@@ -81,13 +48,6 @@ public class Cargo extends Model implements Serializable {
     }
 
     public Cargo() {
-    }
-
-    public Cargo(Branch departureBranch, Branch destinationBranch, Timestamp deliveryDate, DeliveryStatus deliveryStatus) {
-        this.departureBranch = departureBranch;
-        this.destinationBranch = destinationBranch;
-        this.deliveryDate = deliveryDate;
-        this.deliveryStatus = deliveryStatus;
     }
 
     @Override
@@ -219,7 +179,7 @@ public class Cargo extends Model implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cargo cargo = (Cargo) o;
-        return id == cargo.id &&price == cargo.price && weight == cargo.weight && length == cargo.length && height == cargo.height && width == cargo.width && Objects.equals(type, cargo.type) && Objects.equals(user, cargo.user) && Objects.equals(receiverFullname, cargo.receiverFullname) && Objects.equals(departureBranch, cargo.departureBranch) && Objects.equals(destinationBranch, cargo.destinationBranch) && Objects.equals(creationDate, cargo.creationDate) && Objects.equals(deliveryDate, cargo.deliveryDate) && deliveryStatus == cargo.deliveryStatus && invoiceStatus == cargo.invoiceStatus;
+        return id == cargo.id && price == cargo.price && weight == cargo.weight && length == cargo.length && height == cargo.height && width == cargo.width && Objects.equals(type, cargo.type) && Objects.equals(user, cargo.user) && Objects.equals(receiverFullname, cargo.receiverFullname) && Objects.equals(departureBranch, cargo.departureBranch) && Objects.equals(destinationBranch, cargo.destinationBranch) && Objects.equals(creationDate, cargo.creationDate) && Objects.equals(deliveryDate, cargo.deliveryDate) && deliveryStatus == cargo.deliveryStatus && invoiceStatus == cargo.invoiceStatus;
     }
 
     @Override

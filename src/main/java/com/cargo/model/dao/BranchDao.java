@@ -17,6 +17,12 @@ public class BranchDao {
     static final String FIND_BRANCH_BY_CITY = "SELECT * FROM branch where branch.city=?";
     private static BranchDao instance;
 
+    /**
+     * Gets the instance of the class.
+     * If the instance is not yet created, it will create a new instance.
+     *
+     * @return instance of the class
+     */
     public static synchronized BranchDao getInstance() {
         if (instance == null) instance = new BranchDao();
         return instance;

@@ -19,12 +19,12 @@ import java.util.ResourceBundle;
 public class PriceMaker {
     private static final Logger LOGGER = Logger.getLogger(PriceMaker.class);
 
-    ResourceBundle bundle = ResourceBundle.getBundle("application");
+    ResourceBundle google = ResourceBundle.getBundle("application");
 
     /**
      * A string representing the API key for accessing the Google Maps API.
      */
-    String key = bundle.getString("token");
+    String key = google.getString("token");
 
     /**
      * An integer representing the distance between the two origins in kilometers.
@@ -34,6 +34,7 @@ public class PriceMaker {
     /**
      * Calculates the price of cargo transportation based on the distance traveled and the weight of the cargo.
      * The volume weight is calculated as (width * length * height) / 4000.
+     * If the volumetric weight is greater than the actual, we calculate the volumetric weight.
      *
      * @param distance the distance traveled in kilometers
      * @param weight   the weight of the cargo in kilograms
@@ -59,6 +60,7 @@ public class PriceMaker {
 
     /**
      * Fetches the distance between two origins using the Google Maps API.
+     * If the origins and destination is the same return 0 (we don`t transport delivery).
      *
      * @param origins      the origins branch
      * @param destinations the destinations branch
@@ -66,6 +68,11 @@ public class PriceMaker {
      */
     public int getDistance(String origins, String destinations) {
         try {
+            if(origins.equals(destinations)){
+                kilometers = 0;
+                return kilometers;
+            }
+
             String googleUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=";
             String url = googleUrl + destinations + "&origins=" + origins + "&key=" + key;
 

@@ -13,25 +13,25 @@ class CommandContainerTest {
     }
 
     @Test
-    void testGetCommand_RegisterCommand() {
+    void testGetCommandRegisterCommand() {
         Command command = CommandContainer.getCommand("register");
         assertEquals(command.getClass(), RegisterCommand.class);
     }
 
     @Test
-    void testGetCommand_RegisterPageCommand() {
+    void testGetCommandRegisterPageCommand() {
         Command command = CommandContainer.getCommand("registerpage");
         assertEquals(command.getClass(), RegisterPageCommand.class);
     }
 
     @Test
-    void testGetCommand_LoginCommand() {
+    void testGetCommandLoginCommand() {
         Command command = CommandContainer.getCommand("login");
         assertEquals(command.getClass(), LoginCommand.class);
     }
 
     @Test
-    void testGetCommand_LogoutCommand() {
+    void testGetCommandLogoutCommand() {
         Command command = CommandContainer.getCommand("logout");
         assertEquals(command.getClass(), LogoutCommand.class);
     }

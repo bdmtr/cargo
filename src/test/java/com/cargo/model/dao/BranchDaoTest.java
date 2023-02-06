@@ -38,7 +38,6 @@ class BranchDaoTest {
     }
 
     @Test
-    @DisplayName("Should return all branches")
     void getAllBranchesTest() throws SQLException {
         List<Branch> expected = new ArrayList<>();
         expected.add(new Branch(1, City.KYIV, "Kyiv"));
@@ -52,7 +51,6 @@ class BranchDaoTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when there are no branches")
     void getAllBranchesShouldReturnEmptyListWhenThereAreNoBranches() throws SQLException {
         when(branchDao.getAllBranches()).thenReturn(Collections.emptyList());
         List<Branch> actual = branchService.getAllBranches();
@@ -72,7 +70,7 @@ class BranchDaoTest {
     }
 
     @Test
-    void getInstanceTest(){
+    void getInstanceTest() {
         branchDao = BranchDao.getInstance();
         boolean exist = branchDao != null;
         assertTrue(exist);

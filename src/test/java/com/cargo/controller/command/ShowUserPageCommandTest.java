@@ -42,7 +42,7 @@ class ShowUserPageCommandTest {
     }
 
     @Test
-    void testExecute() throws IOException, SQLException {
+    void setShowUserPageSuccessfully() throws IOException, SQLException {
         int page = 1;
         int recordsPerPage = 10;
         int userId = 1;

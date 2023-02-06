@@ -33,7 +33,7 @@ public class PayCommand extends Command {
     }
 
     /**
-     * Themethod implements the functionality of paying for a cargo shipment.
+     * Themethod implements the functionality of paying for a cargo delivery.
      * This method retrieves the cargo id and user id from the session, retrieves the relevant cargo and user objects,
      * checks if the user has enough balance to pay for the cargo, and updates the user's balance and the invoice status of the cargo.
      *

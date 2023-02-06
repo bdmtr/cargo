@@ -37,8 +37,6 @@ class CargoServiceTest {
         testCargo.setType("test Type");
         testCargo.setUser(user);
         testCargo.setReceiverFullname(user.getFullname());
-/*        testCargo.setDepartureBranchId(1);
-        testCargo.setDestinationBranchId(1);*/
         testCargo.setPrice(100);
         testCargo.setWeight(100);
         testCargo.setLength(100);

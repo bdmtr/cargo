@@ -36,7 +36,10 @@
                 <div class="form-group">
                     <label><fmt:message key="l.password" bundle="${lang}"/><b style="color: red">*</b></label>
                     <input type="password" name="password" id="password" class="form-control" required
-                           placeholder="****">
+                           placeholder="********"  aria-describedby="passwordHelpBlock">
+                    <div id="passwordHelpBlock" class="form-text">
+                        <fmt:message key="l.password.description" bundle="${lang}"/>
+                    </div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary"><fmt:message key="l.register" bundle="${lang}"/></button>

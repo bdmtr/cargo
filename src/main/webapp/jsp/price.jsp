@@ -24,7 +24,7 @@
         <div class="card-body">
             <ul class="list-group list-group-flush text-center">
                 <li class="list-group-item">
-                    <b>${departureBranch.city}</b> - ${departureBranch.address}
+                    <b><fmt:message key="l.${departureBranch.city}" bundle="${lang}"/></b> - <fmt:message key="l.${departureBranch.address}" bundle="${lang}"/>
                     <span class="glyphicon glyphicon-ok pull-right"></span>
                 </li>
                 <li class="list-group-item">
@@ -32,7 +32,7 @@
                     <span class="glyphicon glyphicon-remove pull-right"></span>
                 </li>
                 <li class="list-group-item">
-                    <b>${destinationBranch.city}</b> -  ${destinationBranch.address}
+                    <b><fmt:message key="l.${destinationBranch.city}" bundle="${lang}"/></b> -  <fmt:message key="l.${destinationBranch.address}" bundle="${lang}"/>
                     <span class="glyphicon glyphicon-remove pull-right"></span>
                 </li>
                 <li class="list-group-item">

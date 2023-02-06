@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class DateTagTest {
 
     @Test
-    void testConstructor() {
+    void testDateTagConstructor() {
         DateTag actualDateTag = new DateTag();
         actualDateTag.setLocalDateTime(LocalDateTime.of(1, 1, 1, 1, 1));
         actualDateTag.setPattern("Pattern");

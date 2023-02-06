@@ -48,27 +48,27 @@ class UserDaoTest {
     }
 
     @Test
-    void findUserByUsername() throws SQLException {
+    void findUserByUsernameTest() throws SQLException {
         when(userDao.findUserByUsername("username")).thenReturn(user);
         assertEquals(user.getUsername(), userDao.findUserByUsername("username").getUsername());
     }
 
     @Test
-    void findUserByUsernamePassword() throws SQLException {
+    void findUserByUsernamePasswordTest() throws SQLException {
         when(userDao.findUserByUsernamePassword("username", "password")).thenReturn(user);
         assertEquals(user, userDao.findUserByUsernamePassword("username", "password"));
     }
 
 
     @Test
-    void updateUserProfile() {
+    void updateUserProfileTest() {
         userDao.updateUserProfile(user);
         verify(userDao).updateUserProfile(user);
         assertDoesNotThrow(() -> userDao.updateUserProfile(user));
     }
 
     @Test
-    void changeBalance() throws SQLException {
+    void changeBalanceTest() throws SQLException {
         when(jdbcConnection.prepareStatement(any())).thenReturn(statement);
         when(statement.execute()).thenReturn(true);
 
@@ -78,7 +78,7 @@ class UserDaoTest {
     }
 
     @Test
-    void addUser() throws SQLException {
+    void addUserTest() throws SQLException {
         userDao.addUser(user);
         verify(userDao).addUser(user);
         assertDoesNotThrow(() -> userDao.addUser(user));

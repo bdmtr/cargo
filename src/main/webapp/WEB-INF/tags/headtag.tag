@@ -9,4 +9,6 @@
 <link rel="icon" href="${pageContext.request.contextPath}/docs/4.1/assets/img/favicons/minibus.png">
 <title>Cargo delivery</title>
 <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/pricing/">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">

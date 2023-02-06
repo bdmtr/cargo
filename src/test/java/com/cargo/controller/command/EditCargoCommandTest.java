@@ -52,7 +52,7 @@ class EditCargoCommandTest {
     }
 
     @Test
-    void testEditCargoCommand() throws IOException, SQLException {
+    void shouldEditCargo() throws IOException, SQLException {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("session_current_editId")).thenReturn(CARGO_ID);
         when(request.getParameter("receiverFullname")).thenReturn(RECEIVER_FULLNAME);

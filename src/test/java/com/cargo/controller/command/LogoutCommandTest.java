@@ -23,7 +23,7 @@ class LogoutCommandTest {
     HttpSession session = Mockito.mock(HttpSession.class);
 
     @Test
-    void testExecute() throws IOException, SQLException {
+    void testLogoutSuccessfully() throws IOException, SQLException {
         when(request.getSession(false)).thenReturn(session);
 
         LogoutCommand logoutCommand = new LogoutCommand();

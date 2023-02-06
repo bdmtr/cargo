@@ -21,8 +21,8 @@
 <body>
 <main class="m-3">
     <div class="col-md-auto">
-        <table class="table table-striped table-bordered table-sm">
-            <tr>
+        <table class="table table-striped table-bordered table-sm table-hover">
+            <tr class="text-center">
                 <th><fmt:message key="l.id" bundle="${lang}"/></th>
                 <th><fmt:message key="l.type" bundle="${lang}"/></th>
                 <th><fmt:message key="l.receiver.fullname" bundle="${lang}"/></th>
@@ -65,7 +65,7 @@
                     <td>
                         <c:if test="${cargo.invoiceStatus == 'PENDING'}">
                             <form action="controller?action=invoice" method="post">
-                                <button type="submit" name="invoice_id" value=${cargo.getId()}><fmt:message
+                                <button type="submit" name="invoice_id" class="btn btn-warning btn-block" value=${cargo.getId()}><fmt:message
                                         key="l.createInvoice"
                                         bundle="${lang}"/></button>
                             </form>
@@ -77,7 +77,7 @@
                             <c:if
                                 test="${cargo.invoiceStatus != 'PAYED' && sessionScope.balance > cargo.price}">
                             <form action="controller?action=paypage" method="post">
-                                <button type="submit" name="pay_id" value=${cargo.getId()}><fmt:message key="l.pay" bundle="${lang}"/></button>
+                                <button type="submit" name="pay_id" class="btn btn-danger btn-block" value=${cargo.getId()}><fmt:message key="l.pay" bundle="${lang}"/></button>
                             </form>
                         </c:if>
                         </div>

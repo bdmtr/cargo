@@ -35,7 +35,8 @@
                            placeholder="Password">
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary"><fmt:message key="l.login" bundle="${lang}"/></button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="l.login"
+                                                                               bundle="${lang}"/></button>
                 </div>
                 <br>
                 <div>
@@ -45,10 +46,6 @@
         </div>
     </div>
 </div>
-<br>
-<br>
-<br>
-<br>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->
@@ -90,7 +87,8 @@
                 <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4"><fmt:message key="l.contacts" bundle="${lang}"/></h6>
+                    <h6 class="text-uppercase fw-bold mb-4"><fmt:message key="l.contacts"
+                                                                         bundle="${lang}"/></h6>
                     <p><i class="fas fa-home me-3"></i><fmt:message key="l.kyiv.ulraine" bundle="${lang}"/></p>
                     <p>
                         <i class="fas fa-envelope me-3"></i>
@@ -108,7 +106,8 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        <p><span><fmt:message key="l.delivery.today" bundle="${lang}"/> </span><cust:date-formatter localDateTime="${LocalDateTime.now()}" pattern="dd-MM-yyyy"/></p>
+        <p><span><fmt:message key="l.delivery.today" bundle="${lang}"/> </span><cust:date-formatter
+                localDateTime="${LocalDateTime.now()}" pattern="dd-MM-yyyy"/></p>
         <a class="text-reset fw-bold" href="localhost:8080">Cargo Delivery</a>
     </div>
     <!-- Copyright -->
@@ -118,4 +117,3 @@
 
 </body>
 </html>
-

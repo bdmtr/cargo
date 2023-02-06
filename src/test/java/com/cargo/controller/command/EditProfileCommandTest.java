@@ -53,7 +53,7 @@ class EditProfileCommandTest {
     }
 
     @Test
-    void shouldEditProfileSuccessfully() throws SQLException, IOException {
+    void testShouldEditProfileSuccessfully() throws SQLException, IOException {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("currentUserId")).thenReturn(1);
         when(userService.findUserById(1)).thenReturn(user);

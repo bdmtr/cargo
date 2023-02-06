@@ -4,6 +4,7 @@
 
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="locale" var="lang"/>
+<%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
 
 <%@include file="/jsp/nav_manager.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -69,7 +70,8 @@
 
             <th>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Clear all filters</button>
+                    <button type="submit" class="btn btn-secondary"><fmt:message key="l.сlear"
+                                                                                 bundle="${lang}"/></button>
                 </div>
             </th>
 
@@ -80,8 +82,8 @@
 
 <main class="m-3">
     <div class="col-md-auto">
-        <table class="table table-striped table-bordered table-sm">
-            <tr>
+        <table class="table table-striped table-bordered table-sm table-hover">
+            <tr class="text-center">
                 <th><fmt:message key="l.id" bundle="${lang}"/></th>
                 <th><fmt:message key="l.type" bundle="${lang}"/></th>
                 <th><fmt:message key="l.sender" bundle="${lang}"/></th>
@@ -120,14 +122,15 @@
                     <td><fmt:message key="l.${cargo.invoiceStatus}" bundle="${lang}"/></td>
                     <td>
                         <form action="controller?action=editcargopage" method="post">
-                            <button type="submit" name="status_id" value=${cargo.getId()}><fmt:message key="l.edit"
-                                                                                                       bundle="${lang}"/></button>
+                            <button type="submit" name="status_id" class="btn btn-info btn-block"
+                                    value=${cargo.getId()}><fmt:message key="l.edit" bundle="${lang}"/><tf:editicon/></button>
                         </form>
                     </td>
                     <td>
                         <c:if test="${cargo.invoiceStatus == 'PENDING'}">
                             <form action="controller?action=invoice" method="post">
-                                <button type="submit" name="invoice_id" value=${cargo.getId()}><fmt:message
+                                <button type="submit" name="invoice_id" class="btn btn-success btn-block"
+                                        value=${cargo.getId()}><fmt:message
                                         key="l.createInvoice" bundle="${lang}"/></button>
                             </form>
                         </c:if>
@@ -139,8 +142,6 @@
 
     <nav aria-label="Navigation">
         <ul class="pagination">
-            <%--For displaying Page numbers. The when condition does not display
-                        a link for the current page--%>
             <tr>
                 <c:forEach begin="1" end="${noOfPages}" var="i">
                     <c:choose>

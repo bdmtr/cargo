@@ -41,7 +41,7 @@ class LoginCommandTest {
     }
 
     @Test
-    public void testExecuteWhenUserIsNotFound() throws IOException, SQLException {
+    void testExecuteWhenUserIsNotFound() throws IOException, SQLException {
         when(request.getParameter("username")).thenReturn("user");
         when(request.getParameter("password")).thenReturn("pass");
         when(request.getSession()).thenReturn(session);
@@ -53,7 +53,7 @@ class LoginCommandTest {
     }
 
     @Test
-    public void testExecuteWhenUserIsFoundAndRoleIsManager() throws IOException, SQLException {
+    void testExecuteWhenUserIsFoundAndRoleIsManager() throws IOException, SQLException {
         when(request.getParameter("username")).thenReturn("user");
         when(request.getParameter("password")).thenReturn("pass");
         when(request.getSession()).thenReturn(session);

@@ -1,6 +1,5 @@
 package com.cargo.controller.command;
 
-import com.cargo.controller.Path;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,7 @@ public class ChangeLanguageCommand extends Command {
      * If the selected locale is not supported, the locale will be set to English by default.
      * Based on the user role, the user will be redirected to either the login page, the manager page, or the cargos page.
      *
-     * @param request the {@link HttpServletRequest} object that contains the request the client has made of the servlet.
+     * @param request  the {@link HttpServletRequest} object that contains the request the client has made of the servlet.
      * @param response the {@link HttpServletResponse} object that contains the response the servlet returns to the client.
      * @return the path to the page that the user should be redirected to.
      * @throws IOException if an input or output error is detected when the servlet handles the request.
@@ -45,6 +44,7 @@ public class ChangeLanguageCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String locale = request.getParameter(LOCALE);
+        String url = request.getHeader("Referer");
         HttpSession session = request.getSession(false);
         if (locale != null) {
             if (!supportedLanguages.contains(locale)) {
@@ -52,18 +52,7 @@ public class ChangeLanguageCommand extends Command {
             }
             session.setAttribute(SESSION_LOCALE, locale);
         }
-
-        String userRole = String.valueOf(session.getAttribute("role"));
-
-        if (userRole != null && userRole.equals("MANAGER")) {
-            return Path.PAGE_MANAGER;
-        }
-
-        if (userRole != null && userRole.equals("USER")) {
-            return Path.PAGE_SHOW_CARGOS;
-        }
-
-        LOGGER.info("Language changed");
-        return Path.PAGE_LOGIN;
+        LOGGER.info("Language changed to " + locale);
+        return "redirect:" + url.replace("http://localhost:8080/", "");
     }
 }

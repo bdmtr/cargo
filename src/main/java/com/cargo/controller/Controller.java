@@ -12,16 +12,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * The `Controller` class extends the `HttpServlet` class and provides a central point of control
- * for handling HTTP requests. The `doGet` and `doPost` methods are both overridden to delegate
- * the processing of the HTTP requests to the `process` method.
- * <p>
- * The `process` method retrieves the value of the "action" parameter from the request and uses
- * it to look up the appropriate `Command` object from the `CommandContainer`. The `execute`
- * method of the `Command` object is then called to handle the request and produce a response.
- * <p>
- * If any exceptions are thrown during the processing of the request, they are caught and logged
- * with the `LOGGER` instance.
+ * The Controller class is a servlet that acts as a central point of control for handling HTTP requests.
+ * It extends the HttpServlet class and overrides the doGet and doPost methods to delegate the processing of HTTP requests to the process method.
+ * The process method retrieves the value of the "action" parameter from the request and uses it to look up the appropriate Command object from the CommandContainer.
+ * The execute method of the Command object is then called to handle the request and produce a response.
+ * If any exceptions are thrown during the processing of the request, they are caught and logged with the LOGGER instance.
+ * This class is responsible for controlling the flow of the application and invoking the appropriate command to handle the request.
  */
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -31,7 +27,7 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             process(request, response);
-        } catch (SQLException | ServletException | IOException e) {
+        } catch (Exception e) {
             LOGGER.error("doGet Fails", e);
         }
     }
@@ -40,21 +36,22 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         try {
             process(request, response);
-        } catch (SQLException | ServletException | IOException e) {
+        } catch (Exception e) {
             LOGGER.error("doPost Fails", e);
         }
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    private void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String commandName = request.getParameter("action");
         Command command = CommandContainer.getCommand(commandName);
 
         String page = command.execute(request, response);
 
         if (page.contains("redirect:")) {
-            response.sendRedirect(page.replace("redirect:", ""));
+            String redirectURL = request.getContextPath() + page.substring("redirect:".length());
+            response.sendRedirect(redirectURL);
         } else {
             request.getRequestDispatcher(page).forward(request, response);
-       }
+        }
     }
 }

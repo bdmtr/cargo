@@ -74,7 +74,6 @@ public class PayCommand extends Command {
             LOGGER.info("Cant pay for " + cargoID + ", not enough balance to pay: " + balance);
         }
 
-
         return "redirect:controller?action=showcargospage";
     }
 }

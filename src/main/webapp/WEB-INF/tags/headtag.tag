@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="Cargo delivery" content="Cargo delivery">
 <meta name="bdmtr" content="Cargo delivery">
-<link rel="icon" href="${pageContext.request.contextPath}/docs/4.1/assets/img/favicons/minibus.png">
+<link rel="icon" href="${pageContext.request.contextPath}/img/minibus.png">
 <title>Cargo delivery</title>
 <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/pricing/">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css"

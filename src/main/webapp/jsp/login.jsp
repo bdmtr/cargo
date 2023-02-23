@@ -15,39 +15,129 @@
     <title><fmt:message key="l.enter.username" bundle="${lang}"/></title>
     <%@include file="header.jsp" %>
     <%@include file="/jsp/nav_guest.jsp" %>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,700,900|Display+Playfair:200,300,400,700">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/aos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+
+    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/aos.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+
 </head>
 <body>
-<div class="container">
-    <div class="card w-50 mx-auto my-5">
-        <div class="card-header text-center"><fmt:message key="l.user.login" bundle="${lang}"/></div>
-        <div class="card-body">
-            <form method="post" action="controller?action=login">
-                <input name="command" value="login" type="hidden">
-                <div class="form-group">
-                    <label><fmt:message key="l.login" bundle="${lang}"/></label>
-                    <input type="text" name="username" id="username" class="form-control" required
-                           placeholder="<fmt:message key="l.enter.username" bundle="${lang}"/>">
+
+
+<div class="site-wrap">
+    <div class="site-mobile-menu">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+    <div class="site-blocks-cover overlay"
+         style="background-image: url(${pageContext.request.contextPath}/img/hero_bg_1.jpg);" data-aos="fade"
+         data-stellar-background-ratio="0.5">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center">
+                <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
+                    <h1 class="text-white font-weight-light mb-5 text-uppercase font-weight-bold"><fmt:message key="l.cargo.delivery" bundle="${lang}"/></h1>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label><fmt:message key="l.password" bundle="${lang}"/></label>
-                    <input type="password" name="password" id="password" class="form-control" required
-                           placeholder="Password">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="card w-50 mx-auto my-5">
+            <div class="card-header text-center"><fmt:message key="l.user.login" bundle="${lang}"/></div>
+            <div class="card-body">
+                <form method="post" action="controller?action=login">
+                    <input name="command" value="login" type="hidden">
+                    <div class="form-group">
+                        <label><fmt:message key="l.login" bundle="${lang}"/></label>
+                        <input type="text" name="username" id="username" class="form-control" required
+                               placeholder="<fmt:message key="l.enter.username" bundle="${lang}"/>">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label><fmt:message key="l.password" bundle="${lang}"/></label>
+                        <input type="password" name="password" id="password" class="form-control" required
+                               placeholder="Password">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary"><fmt:message key="l.login"
+                                                                                   bundle="${lang}"/></button>
+                    </div>
+                    <br>
+                    <div>
+                        <a href="controller?action=registerpage"><fmt:message key="l.register" bundle="${lang}"/></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center">
+                    <h2 class="mb-0 text-primary"><fmt:message key="l.what.we.offer" bundle="${lang}"/></h2>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary"><fmt:message key="l.login"
-                                                                               bundle="${lang}"/></button>
+            </div>
+            <br>
+            <div class="row align-items-stretch">
+                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                    <div class="unit-4 d-flex">
+                        <div class="unit-4-icon mr-4"><span class="text-primary flaticon-travel"></span></div>
+                        <div>
+                            <h3><fmt:message key="l.air.freight" bundle="${lang}"/></h3>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <div>
-                    <a href="controller?action=registerpage"><fmt:message key="l.register" bundle="${lang}"/></a>
+                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                    <div class="unit-4 d-flex">
+                        <div class="unit-4-icon mr-4"><span
+                                class="text-primary flaticon-sea-ship-with-containers"></span></div>
+                        <div>
+                            <h3><fmt:message key="l.ocean.freight" bundle="${lang}"/></h3>
+                        </div>
+                    </div>
                 </div>
-            </form>
+                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                    <div class="unit-4 d-flex">
+                        <div class="unit-4-icon mr-4"><span class="text-primary flaticon-frontal-truck"></span></div>
+                        <div>
+                            <h3><fmt:message key="l.ground.shipping" bundle="${lang}"/></h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted">
+<footer class="text-center text-lg-start bg-light">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <!-- Left -->

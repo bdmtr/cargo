@@ -128,10 +128,10 @@
                     </td>
                     <td>
                         <c:if test="${cargo.invoiceStatus == 'PENDING'}">
-                            <form action="controller?action=invoice" method="post">
-                                <button type="submit" name="invoice_id" class="btn btn-success btn-block"
-                                        value=${cargo.getId()}><fmt:message
-                                        key="l.createInvoice" bundle="${lang}"/></button>
+                            <form action="controller?action=invoice" method="post" target="_blank">
+                                <button type="submit" name="invoice_id" class="btn btn-success btn-block" value=${cargo.getId()}>
+                                    <fmt:message key="l.createInvoice" bundle="${lang}"/>
+                                </button>
                             </form>
                         </c:if>
                     </td>

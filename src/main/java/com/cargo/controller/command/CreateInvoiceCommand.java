@@ -41,11 +41,11 @@ public class CreateInvoiceCommand extends Command {
     }
 
     /**
-     * Creates the invoice PDF and sets it as the response content.
+     * Creates the invoice PDF.
      *
      * @param request  HttpServletRequest to obtain the cargo id
      * @param response HttpServletResponse to set the PDF content as the response
-     * @return String path of the page to redirect
+     * @return empty String
      * @throws IOException  if an input or output error is detected when the servlet is handling the request
      * @throws SQLException if a database access error occurs
      */
@@ -129,13 +129,11 @@ public class CreateInvoiceCommand extends Command {
             document.add(invoice);
             document.add(invoiceTable);
             document.close();
-
-            return Path.PAGE_MANAGER;
         } catch (Exception e) {
             LOGGER.error("Cant build PDF for cargo " + cargo.getId());
 
         }
-        return Path.PAGE_MANAGER;
+        return "";
     }
 
     /**

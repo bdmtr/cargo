@@ -4,12 +4,11 @@ import com.cargo.controller.command.Command;
 import com.cargo.controller.command.CommandContainer;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 /**
  * The Controller class is a servlet that acts as a central point of control for handling HTTP requests.
@@ -41,17 +40,21 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String commandName = request.getParameter("action");
-        Command command = CommandContainer.getCommand(commandName);
+    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            Command command = CommandContainer.getCommand(request.getParameter("action"));
+            String page = command.execute(request, response);
 
-        String page = command.execute(request, response);
+            if (page.contains("redirect:")) {
+                String redirectURL = request.getContextPath() + page.substring("redirect:".length());
+                response.sendRedirect(redirectURL);
+            }
+            else if(!page.isEmpty()) {
+                request.getRequestDispatcher(page).forward(request, response);
+            }
 
-        if (page.contains("redirect:")) {
-            String redirectURL = request.getContextPath() + page.substring("redirect:".length());
-            response.sendRedirect(redirectURL);
-        } else {
-            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e) {
+            LOGGER.error("Failed to process request.", e);
         }
     }
 }

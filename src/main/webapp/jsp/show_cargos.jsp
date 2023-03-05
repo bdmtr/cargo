@@ -64,8 +64,9 @@
 
                     <td>
                         <c:if test="${cargo.invoiceStatus == 'PENDING'}">
-                            <form action="controller?action=invoice" method="post">
-                                <button type="submit" name="invoice_id" class="btn btn-warning btn-block" value=${cargo.getId()}><fmt:message
+                            <form action="controller?action=invoice" method="post" target="_blank">
+                                <input type="hidden" name="invoice_id" value="${cargo.getId()}">
+                                <button type="submit" class="btn btn-warning btn-block"><fmt:message
                                         key="l.createInvoice"
                                         bundle="${lang}"/></button>
                             </form>

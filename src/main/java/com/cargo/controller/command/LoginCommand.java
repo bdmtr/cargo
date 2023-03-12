@@ -1,6 +1,7 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
+import com.cargo.exceptions.InvalidCredentialsException;
 import com.cargo.model.entity.User;
 
 import com.cargo.model.service.UserService;
@@ -39,8 +40,9 @@ public class LoginCommand extends Command {
      * @throws IOException  if there is an I/O error
      * @throws SQLException if a database access error occurs
      */
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, InvalidCredentialsException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -49,33 +51,33 @@ public class LoginCommand extends Command {
         }
 
         HttpSession session = request.getSession();
-        User user = userService.findUserByUsernamePassword(username, password);
 
-        if (user == null) {
+        try {
+            User user = userService.findUserByUsernamePassword(username, password);
+            session.setAttribute("currentUserId", user.getId());
+            session.setAttribute("role", user.getRole().toString());
+            session.setAttribute("currentUser", user);
+            session.setAttribute("session_order", "");
+            session.setAttribute("session_branch_id", "");
+            session.setAttribute("session_date", "");
+            session.setAttribute("balance", user.getBalance());
+            String userRole = String.valueOf(user.getRole());
+
+            if (userRole.equals("MANAGER")) {
+                LOGGER.info("Manager logged: " + username);
+                return "redirect:controller?action=showmanagerpage";
+            }
+
+            if (userRole.equals("USER")) {
+                LOGGER.info("User logged: " + username);
+                return "redirect:controller?action=showcargospage";
+            }
+
+        } catch (Exception e) {
+            LOGGER.info("Invalid credentials " + username + " " + password);
             return Path.PAGE_LOGIN;
         }
 
-        session.setAttribute("currentUserId", user.getId());
-        session.setAttribute("role", user.getRole().toString());
-        session.setAttribute("currentUser", user);
-        session.setAttribute("session_order", "");
-        session.setAttribute("session_branch_id", "");
-        session.setAttribute("session_date", "");
-        session.setAttribute("balance", user.getBalance());
-
-
-        String userRole = String.valueOf(user.getRole());
-
-        if (userRole.equals("MANAGER")) {
-            LOGGER.info("Manager logged: " + username);
-            return "redirect:controller?action=showmanagerpage";
-        }
-
-        if (userRole.equals("USER")) {
-            LOGGER.info("User logged: " + username);
-            return "redirect:controller?action=showcargospage";
-        }
-
-        return "redirect:controller?action=showcargospage";
+        return Path.PAGE_LOGIN;
     }
 }

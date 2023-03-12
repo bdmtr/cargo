@@ -16,5 +16,4 @@ public class ShowErrorPageCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         return Path.PAGE_ERROR404;
     }
-
 }

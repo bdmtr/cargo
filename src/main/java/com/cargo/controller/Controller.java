@@ -7,8 +7,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 
 /**
  * The Controller class is a servlet that acts as a central point of control for handling HTTP requests.
@@ -40,7 +38,7 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void process(HttpServletRequest request, HttpServletResponse response) {
         try {
             Command command = CommandContainer.getCommand(request.getParameter("action"));
             String page = command.execute(request, response);
@@ -48,8 +46,7 @@ public class Controller extends HttpServlet {
             if (page.contains("redirect:")) {
                 String redirectURL = request.getContextPath() + page.substring("redirect:".length());
                 response.sendRedirect(redirectURL);
-            }
-            else if(!page.isEmpty()) {
+            } else if (!page.isEmpty()) {
                 request.getRequestDispatcher(page).forward(request, response);
             }
 

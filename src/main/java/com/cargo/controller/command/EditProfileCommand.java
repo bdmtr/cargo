@@ -50,7 +50,9 @@ public class EditProfileCommand extends Command {
 
         user.setUsername(username);
         user.setFullname(fullname);
-        user.setPassword(password);
+        if (!password.isEmpty()) {
+            user.setPassword(password);
+        }
         userService.updateUserProfile(user);
 
         session.setAttribute("currentUserId", userID);

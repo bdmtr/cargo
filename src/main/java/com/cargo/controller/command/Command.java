@@ -1,6 +1,8 @@
 package com.cargo.controller.command;
 
 
+import com.cargo.exceptions.CommandException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,5 +21,5 @@ public abstract class Command {
      * @throws IOException  if an I/O error occurs
      * @throws SQLException if a database error occurs
      */
-    public abstract String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException;
+    public abstract String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, CommandException;
 }

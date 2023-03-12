@@ -2,9 +2,9 @@ package com.cargo.model.service;
 
 import com.cargo.model.dao.UserDao;
 import com.cargo.model.entity.User;
+import com.cargo.util.PasswordHasher;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class UserService {
     private final UserDao userDao;
@@ -14,9 +14,10 @@ public class UserService {
     }
 
     public void addUser(User user) throws SQLException {
+        String encryptedPassword = PasswordHasher.hash(user.getPassword());
+        user.setPassword(encryptedPassword);
         userDao.addUser(user);
     }
-
 
     public User findUserById(int id) throws SQLException {
         return userDao.findUserById(id);
@@ -27,10 +28,17 @@ public class UserService {
     }
 
     public User findUserByUsernamePassword(String username, String password) throws SQLException {
-        return userDao.findUserByUsernamePassword(username, password);
+        User user = userDao.findUserByUsername(username);
+        if (PasswordHasher.verify(password, user.getPassword())) {
+            return userDao.findUserByUsernamePassword(username, user.getPassword());
+        } else {
+            return null;
+        }
     }
 
     public void updateUserProfile(User user) {
+        String encryptedPassword = PasswordHasher.hash(user.getPassword());
+        user.setPassword(encryptedPassword);
         userDao.updateUserProfile(user);
     }
 

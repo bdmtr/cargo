@@ -28,8 +28,8 @@
                     <input type="text" name="fullname" id="fullname" class="form-control" placeholder="${currentUser.fullname}">
                 </div>
                 <div class="form-group">
-                    <label><fmt:message key="l.password" bundle="${lang}"/><b style="color: red">*</b> </label>
-                    <input type="text" name="password" id="password" class="form-control" placeholder="${currentUser.password}">
+                    <label><fmt:message key="l.password" bundle="${lang}"/><b style="color: red"> Type new password if you want to change it!</b> </label>
+                    <input type="text" name="password" id="password" class="form-control">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary"><fmt:message key="l.Edit.User.Profile" bundle="${lang}"/></button>

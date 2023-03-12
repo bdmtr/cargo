@@ -58,9 +58,9 @@ public class Validator {
             return true;
         }
 
-        if (!password.matches(PASSWORD_REGEX)) {
+    /*    if (!password.matches(PASSWORD_REGEX)) {
             return true;
-        }
+        }*/
 
         return userService.findUserByUsername(username) != null;
     }

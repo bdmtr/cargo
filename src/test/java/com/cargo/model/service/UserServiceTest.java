@@ -1,8 +1,10 @@
 package com.cargo.model.service;
 
+import com.cargo.exceptions.InvalidCredentialsException;
 import com.cargo.model.dao.UserDao;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
+import com.cargo.util.PasswordHasher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,11 +52,16 @@ class UserServiceTest {
     }
 
     @Test
-    void findUserByUsernamePasswordTest() throws SQLException {
-        assertNotNull(userDaoMock);
+    void findUserByUsernamePasswordTest() throws SQLException, InvalidCredentialsException {
+        User testUser = new User("username", PasswordHasher.hash("password"));
+        UserDao userDaoMock = Mockito.mock(UserDao.class);
+        Mockito.when(userDaoMock.findUserByUsername("username")).thenReturn(testUser);
+        Mockito.when(userDaoMock.findUserByUsernamePassword("username", testUser.getPassword())).thenReturn(testUser);
         UserService service = new UserService(userDaoMock);
-        Mockito.when(userDaoMock.findUserByUsernamePassword("username", "password")).thenReturn(testUser);
-        assertEquals(testUser, service.findUserByUsernamePassword("username", "password"));
+        User result = service.findUserByUsernamePassword("username", "password");
+        assertEquals(testUser, result);
+        Mockito.verify(userDaoMock).findUserByUsername("username");
+        Mockito.verify(userDaoMock).findUserByUsernamePassword("username", testUser.getPassword());
     }
 
     @Test

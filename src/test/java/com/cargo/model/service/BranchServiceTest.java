@@ -1,5 +1,6 @@
 package com.cargo.model.service;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.dao.BranchDao;
 import com.cargo.model.entity.Branch;
 import com.cargo.model.enums.City;
@@ -36,7 +37,7 @@ class BranchServiceTest {
     }
 
     @Test
-    void getBranchByIdTest() throws SQLException {
+    void getBranchByIdTest() throws DaoException {
         assertNotNull(branchDaoMock);
         BranchService service = new BranchService(branchDaoMock);
         Mockito.when(branchDaoMock.getBranchById(1)).thenReturn(testBranch);
@@ -44,7 +45,7 @@ class BranchServiceTest {
     }
 
     @Test
-    void getBranchByCityTest() throws SQLException {
+    void getBranchByCityTest() throws DaoException {
         assertNotNull(branchDaoMock);
         BranchService service = new BranchService(branchDaoMock);
         Mockito.when(branchDaoMock.getBranchByCity("KYIV")).thenReturn(testBranch);
@@ -52,7 +53,7 @@ class BranchServiceTest {
     }
 
     @Test
-    void getAllBranchesTest() throws SQLException {
+    void getAllBranchesTest() throws DaoException {
         assertNotNull(branchDaoMock);
         BranchService service = new BranchService(branchDaoMock);
         Mockito.when(branchDaoMock.getAllBranches()).thenReturn(testBranchList);

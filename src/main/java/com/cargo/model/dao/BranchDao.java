@@ -1,5 +1,6 @@
 package com.cargo.model.dao;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.entity.Branch;
 import com.cargo.model.enums.City;
 import com.cargo.util.DataSourceUtil;
@@ -28,7 +29,7 @@ public class BranchDao {
         return instance;
     }
 
-    public List<Branch> getAllBranches() throws SQLException {
+    public List<Branch> getAllBranches() throws DaoException {
         List<Branch> branchList = new ArrayList<>();
 
         try (Connection connection = DataSourceUtil.getConnection();
@@ -44,11 +45,12 @@ public class BranchDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Cant get all branches", e);
+            throw new DaoException(e.getMessage());
         }
         return branchList;
     }
 
-    public Branch getBranchById(int id) throws SQLException {
+    public Branch getBranchById(int id) throws DaoException {
         Branch branch = null;
 
         try (Connection connection = DataSourceUtil.getConnection();
@@ -64,11 +66,12 @@ public class BranchDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Cant get branch by id", e);
+            throw new DaoException(e.getMessage());
         }
         return branch;
     }
 
-    public Branch getBranchByCity(String city) throws SQLException {
+    public Branch getBranchByCity(String city) throws DaoException {
         Branch branch = null;
 
         try (Connection connection = DataSourceUtil.getConnection();
@@ -84,6 +87,7 @@ public class BranchDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Cant get branch by city", e);
+            throw new DaoException(e.getMessage());
         }
         return branch;
     }

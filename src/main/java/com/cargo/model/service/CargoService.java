@@ -1,5 +1,6 @@
 package com.cargo.model.service;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.dao.CargoDao;
 import com.cargo.model.entity.Cargo;
 
@@ -30,7 +31,7 @@ public class CargoService {
         cargoDao.updateCargoProfile(cargo);
     }
 
-    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
+    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException, DaoException {
         return cargoDao.sortByCityDate(offset, noOfRecords, branchCity, order);
     }
 

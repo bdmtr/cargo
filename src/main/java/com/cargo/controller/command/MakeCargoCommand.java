@@ -1,6 +1,7 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.entity.Branch;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.enums.DeliveryStatus;
@@ -44,7 +45,7 @@ public class MakeCargoCommand extends Command {
     /**
      * Handles the creation of a cargo.
      * The method retrieves data from the request parameters such as the cargo type, receiver full name, departure and destination branches, weight, length, height, width.
-     * Then it performs validation for the provided information and calculates the distance and price for the cargo.
+     * Then it performs validation for the provided information and `1calculates the distance and price for the cargo.
      * The method then adds the cargo to the database using the cargoService.
      *
      * @param request  the HTTP request.
@@ -59,21 +60,35 @@ public class MakeCargoCommand extends Command {
 
         String type = request.getParameter("type");
         String receiverFullname = request.getParameter("receiverFullname");
-        int departureBranchId = Integer.parseInt(request.getParameter("departureBranchId"));
-        int destinationBranchId = Integer.parseInt(request.getParameter("destinationBranchId"));
+        int departureBranchId;
+        int destinationBranchId;
+        int weight;
+        int length;
+        int height;
+        int width;
+        Branch originsBranch;
+        Branch destinationsBranch;
 
-        int weight = Integer.parseInt((request.getParameter("weight")));
-        int length = Integer.parseInt((request.getParameter("height")));
-        int height = Integer.parseInt((request.getParameter("length")));
-        int width = Integer.parseInt((request.getParameter("width")));
+        try {
+            departureBranchId = Integer.parseInt(request.getParameter("departureBranchId"));
+            destinationBranchId = Integer.parseInt(request.getParameter("destinationBranchId"));
+            weight = Integer.parseInt((request.getParameter("weight")));
+            length = Integer.parseInt((request.getParameter("height")));
+            height = Integer.parseInt((request.getParameter("length")));
+            width = Integer.parseInt((request.getParameter("width")));
+            originsBranch = branchService.getBranchById(departureBranchId);
+            destinationsBranch = branchService.getBranchById(destinationBranchId);
 
-        if (isIncorrectCargoInfo(type, receiverFullname, departureBranchId,
-                destinationBranchId, String.valueOf(weight), String.valueOf(height), String.valueOf(length), String.valueOf(width))) {
+            if (isIncorrectCargoInfo(type, receiverFullname, departureBranchId,
+                    destinationBranchId, String.valueOf(weight), String.valueOf(height), String.valueOf(length), String.valueOf(width))) {
+                return Path.PAGE_MAKE_CARGO;
+            }
+
+        } catch (DaoException e) {
+            LOGGER.error("Cant create cargo");
             return Path.PAGE_MAKE_CARGO;
         }
 
-        Branch originsBranch = branchService.getBranchById(departureBranchId);
-        Branch destinationsBranch = branchService.getBranchById(destinationBranchId);
         String originsName = String.valueOf(originsBranch.getCity());
         String destinationsName = String.valueOf(destinationsBranch.getCity());
         PriceMaker priceMaker = new PriceMaker();

@@ -1,5 +1,6 @@
 package com.cargo.util;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.dao.BranchDao;
 import com.cargo.model.dao.UserDao;
 import com.cargo.model.service.BranchService;
@@ -81,7 +82,7 @@ public class Validator {
      */
     public static boolean isIncorrectCargoInfo(String type, String receiverFullname, int departureBranchId,
                                                int destinationBranchId, String weight, String height, String length, String width)
-            throws SQLException {
+            throws SQLException, DaoException {
         if (type == null) {
             return true;
         }
@@ -116,7 +117,7 @@ public class Validator {
      * @return true if the cargo info is incorrect, false otherwise
      * @throws SQLException if a database access error occurs or this method is called on a closed connection
      */
-    public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, int weight, int height, int length, int width) throws SQLException {
+    public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, int weight, int height, int length, int width) throws SQLException, DaoException {
 
         if (weight < 1 || height < 1 || length < 1 || width < 1) {
             return true;

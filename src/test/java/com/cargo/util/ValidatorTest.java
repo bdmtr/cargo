@@ -1,5 +1,6 @@
 package com.cargo.util;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.dao.UserDao;
 import com.cargo.model.service.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -50,14 +51,14 @@ class ValidatorTest {
     }
 
     @Test
-    void isIncorrectCargoInfo() throws SQLException {
+    void isIncorrectCargoInfo() throws SQLException, DaoException {
 
         boolean actual = Validator.isIncorrectCargoInfo("user", "", 0, 0, "", "", "", "");
         assertTrue(actual);
     }
 
     @Test
-    void isIncorrectCalculateInfo() throws SQLException {
+    void isIncorrectCalculateInfo() throws SQLException, DaoException {
         boolean actual = Validator.isIncorrectCalculateInfo(0, 0, -1,-1, -1, -1);
         assertTrue(actual);
     }

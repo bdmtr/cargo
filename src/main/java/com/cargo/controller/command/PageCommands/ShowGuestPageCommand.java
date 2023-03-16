@@ -2,6 +2,7 @@ package com.cargo.controller.command.PageCommands;
 
 import com.cargo.controller.Path;
 import com.cargo.controller.command.Command;
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.service.CargoService;
 import org.apache.log4j.Logger;
@@ -42,6 +43,7 @@ public class ShowGuestPageCommand extends Command {
         HttpSession session = request.getSession();
         int page = 1;
         int recordsPerPage = 6;
+        List<Cargo> list;
 
         String searchBranchId = request.getParameter("req_branch_id");
         if (searchBranchId == null || searchBranchId.isEmpty()) {
@@ -60,7 +62,14 @@ public class ShowGuestPageCommand extends Command {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        List<Cargo> list = cargoService.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
+        try {
+            list = cargoService.sortByCityDate((page - 1) * recordsPerPage, recordsPerPage, searchBranchId, searchOrder);
+        } catch (DaoException e) {
+            LOGGER.error("Cant sort cities");
+            return Path.PAGE_LOGIN;
+        }
+
+
         int noOfRecords = cargoService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 

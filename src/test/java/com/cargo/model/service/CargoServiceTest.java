@@ -1,5 +1,6 @@
 package com.cargo.model.service;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.dao.CargoDao;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.entity.User;
@@ -78,7 +79,7 @@ class CargoServiceTest {
     }
 
     @Test
-    void sortByCityDateTest() throws SQLException {
+    void sortByCityDateTest() throws SQLException, DaoException {
         assertNotNull(cargoDaoMock);
         CargoService service = new CargoService(cargoDaoMock);
         Mockito.when(cargoDaoMock.sortByCityDate(1, 10, "KYIV", null)).thenReturn(testCargoList);
@@ -87,7 +88,7 @@ class CargoServiceTest {
     }
 
     @Test
-    void sortByCityDateManagerTest() throws SQLException {
+    void sortByCityDateManagerTest() throws SQLException, DaoException {
         assertNotNull(cargoDaoMock);
         CargoService service = new CargoService(cargoDaoMock);
         Mockito.when(cargoDaoMock.sortByCityDateManager(1, 10, "1", "2023-01-15 03:02:12", "ASC")).thenReturn(testCargoList);

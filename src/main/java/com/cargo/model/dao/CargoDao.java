@@ -1,5 +1,6 @@
 package com.cargo.model.dao;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.entity.Branch;
 import com.cargo.model.entity.Cargo;
 
@@ -88,7 +89,7 @@ public class CargoDao {
             if (rs.next()) {
                 this.noOfRecords = rs.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | DaoException e) {
             LOGGER.error("Cant get all cargo for user by id with limit");
         }
 
@@ -128,7 +129,7 @@ public class CargoDao {
                 cargo.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
                 cargo.setInvoiceStatus(InvoiceStatus.valueOf(rs.getString("invoice_status")));
             }
-        } catch (SQLException e) {
+        } catch (SQLException | DaoException e) {
             LOGGER.error("Cant get cargo by id");
         }
         return cargo;
@@ -225,7 +226,7 @@ public class CargoDao {
      * @return A list of {@link Cargo} objects sorted by their delivery city and date.
      * @throws SQLException If there is a problem executing the SQL query.
      */
-    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException {
+    public List<Cargo> sortByCityDate(int offset, int noOfRecords, String branchCity, String order) throws SQLException, DaoException {
         StringBuilder preQuery = new StringBuilder(SORT_CARGO_BY_CITY);
         String id;
 
@@ -340,7 +341,7 @@ public class CargoDao {
             if (rs.next()) {
                 this.noOfRecords = rs.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | DaoException e) {
             LOGGER.error("Cant sort cargo for manager");
         }
         return list;

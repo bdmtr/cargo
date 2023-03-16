@@ -1,10 +1,10 @@
 package com.cargo.model.service;
 
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.dao.BranchDao;
 
 import com.cargo.model.entity.Branch;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BranchService {
@@ -15,15 +15,15 @@ public class BranchService {
     }
 
 
-    public List<Branch> getAllBranches() throws SQLException {
+    public List<Branch> getAllBranches() throws DaoException {
         return branchDao.getAllBranches();
     }
 
-    public Branch getBranchById(int id) throws SQLException {
+    public Branch getBranchById(int id) throws DaoException {
         return branchDao.getBranchById(id);
     }
 
-    public Branch getBranchByCity(String city) throws SQLException {
+    public Branch getBranchByCity(String city) throws DaoException {
         return branchDao.getBranchByCity(city);
     }
 }

@@ -1,6 +1,5 @@
 package com.cargo.model.service;
 
-import com.cargo.exceptions.InvalidCredentialsException;
 import com.cargo.model.dao.UserDao;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
@@ -52,7 +51,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findUserByUsernamePasswordTest() throws SQLException, InvalidCredentialsException {
+    void findUserByUsernamePasswordTest() throws SQLException{
         User testUser = new User("username", PasswordHasher.hash("password"));
         UserDao userDaoMock = Mockito.mock(UserDao.class);
         Mockito.when(userDaoMock.findUserByUsername("username")).thenReturn(testUser);

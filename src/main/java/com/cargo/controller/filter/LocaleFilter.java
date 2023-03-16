@@ -31,6 +31,9 @@ public class LocaleFilter implements Filter {
     public void init(FilterConfig config) {
     }
 
+    /**
+     * This method is called by the web container to indicate to a filter that it is being taken out of service.
+     */
     public void destroy() {
     }
 

@@ -1,6 +1,7 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
+import com.cargo.exceptions.DaoException;
 import com.cargo.model.entity.Cargo;
 import com.cargo.model.service.BranchService;
 import com.cargo.model.service.CargoService;
@@ -56,8 +57,17 @@ public class CreateInvoiceCommand extends Command {
         int senderId = cargo.getUser().getId();
         String sender = userService.findUserById(senderId).getFullname();
         String type = cargo.getType();
-        String cityDeparture = String.valueOf(branchService.getBranchById(cargo.getDepartureBranch().getId()).getCity());
-        String cityDestination = String.valueOf(branchService.getBranchById(cargo.getDestinationBranch().getId()).getCity());
+        String cityDeparture;
+        String cityDestination;
+
+        try {
+            cityDeparture = String.valueOf(branchService.getBranchById(cargo.getDepartureBranch().getId()).getCity());
+            cityDestination = String.valueOf(branchService.getBranchById(cargo.getDestinationBranch().getId()).getCity());
+        } catch (DaoException e) {
+            LOGGER.error("Cant get branches for creating invoice");
+            return Path.PAGE_ERROR404;
+        }
+
         Timestamp ts = cargo.getCreationDate();
         Date date = new Date();
         date.setTime(ts.getTime());

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cargo.controller.Path;
-import com.cargo.exceptions.InvalidCredentialsException;
 import com.cargo.model.entity.User;
 import com.cargo.model.enums.Role;
 import com.cargo.model.service.UserService;
@@ -42,7 +41,7 @@ class LoginCommandTest {
     }
 
     @Test
-    void testExecuteWhenUserIsNotFound() throws IOException, SQLException, InvalidCredentialsException {
+    void testExecuteWhenUserIsNotFound() throws IOException, SQLException{
         when(request.getParameter("username")).thenReturn("user");
         when(request.getParameter("password")).thenReturn("pass");
         when(request.getSession()).thenReturn(session);
@@ -54,7 +53,7 @@ class LoginCommandTest {
     }
 
     @Test
-    void testExecuteWhenUserIsFoundAndRoleIsManager() throws IOException, SQLException, InvalidCredentialsException {
+    void testExecuteWhenUserIsFoundAndRoleIsManager() throws IOException, SQLException {
         when(request.getParameter("username")).thenReturn("user");
         when(request.getParameter("password")).thenReturn("pass");
         when(request.getSession()).thenReturn(session);

@@ -1,7 +1,6 @@
 package com.cargo.controller.command;
 
 import com.cargo.controller.Path;
-import com.cargo.exceptions.InvalidCredentialsException;
 import com.cargo.model.entity.User;
 
 import com.cargo.model.service.UserService;
@@ -42,7 +41,7 @@ public class LoginCommand extends Command {
      */
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, InvalidCredentialsException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 

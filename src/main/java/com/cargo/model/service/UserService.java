@@ -13,7 +13,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public void addUser(User user) throws SQLException {
+    public void addUser(User user)  {
         String encryptedPassword = PasswordHasher.hash(user.getPassword());
         user.setPassword(encryptedPassword);
         userDao.addUser(user);
@@ -23,11 +23,11 @@ public class UserService {
         return userDao.findUserById(id);
     }
 
-    public User findUserByUsername(String username) throws SQLException {
+    public User findUserByUsername(String username) {
         return userDao.findUserByUsername(username);
     }
 
-    public User findUserByUsernamePassword(String username, String password) throws SQLException {
+    public User findUserByUsernamePassword(String username, String password) {
         User user = userDao.findUserByUsername(username);
         if (PasswordHasher.verify(password, user.getPassword())) {
             return userDao.findUserByUsernamePassword(username, user.getPassword());

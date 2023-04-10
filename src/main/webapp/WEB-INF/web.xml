@@ -19,6 +19,7 @@
         <welcome-file>jsp/login.jsp</welcome-file>
     </welcome-file-list>
 
+
     <error-page>
         <error-code>404</error-code>
         <location>/jsp/error404.jsp</location>
@@ -93,7 +94,5 @@
     <listener>
         <listener-class>com.cargo.controller.listeners.SessionListener</listener-class>
     </listener>
-
-
 </web-app>
 

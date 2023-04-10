@@ -39,7 +39,7 @@ public class UserDao {
      * @param user the User to add
      * @throws SQLException if there's an error in executing the query
      */
-    public void addUser(User user) throws SQLException {
+    public void addUser(User user){
         try (
                 Connection connection = DataSourceUtil.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
@@ -95,7 +95,7 @@ public class UserDao {
      * @return the User with the specified username or null if there is no User with the specified username
      * @throws SQLException if a database access error occurs or this method is called on a closed connection
      */
-    public User findUserByUsername(String username) throws SQLException {
+    public User findUserByUsername(String username) {
         User user = null;
         try (
                 Connection connection = DataSourceUtil.getConnection();
@@ -127,7 +127,7 @@ public class UserDao {
      * @return the User with the specified username and password or null if there is no User with the specified username and password
      * @throws SQLException if a database access error occurs or this method is called on a closed connection
      */
-    public User findUserByUsernamePassword(String username, String password) throws SQLException {
+    public User findUserByUsernamePassword(String username, String password) {
         ResultSet resultSet = null;
         User user = null;
         try (Connection connection = DataSourceUtil.getConnection();

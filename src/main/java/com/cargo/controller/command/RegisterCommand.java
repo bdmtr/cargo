@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
 import static com.cargo.controller.Path.PAGE_REGISTER;
 
@@ -41,10 +40,9 @@ public class RegisterCommand extends Command {
      * @param request  the HttpServletRequest object that contains the request the client has made of the servlet
      * @param response the HttpServletResponse object that contains the response the servlet sends to the client
      * @return the login page if the registration process is ok
-     * @throws SQLException if a database error occurs
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String username = request.getParameter("username");
         String fullname = request.getParameter("fullname");
@@ -59,7 +57,6 @@ public class RegisterCommand extends Command {
         user.setRole(Role.USER);
 
         if (Validator.isIncorrectRegisterInfo(username, fullname, email, password)) {
-
             LOGGER.warn("Registration failed");
             return PAGE_REGISTER;
         }

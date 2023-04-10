@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS `cargo`;
+
+CREATE TABLE `cargo` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) COLLATE utf8_bin NOT NULL,
+  `user_id` int NOT NULL,
+  `receiver_fullname` varchar(50) COLLATE utf8_bin NOT NULL,
+  `departure_branch_id` int NOT NULL,
+  `destination_branch_id` int NOT NULL,
+  `price` int NOT NULL,
+  `weight` int NOT NULL,
+  `length` int NOT NULL,
+  `height` int NOT NULL,
+  `width` int NOT NULL,
+  `creation_date` timestamp NOT NULL,
+  `delivery_date` timestamp NOT NULL,
+  `delivery_status` varchar(25) COLLATE utf8_bin NOT NULL,
+  `invoice_status` varchar(25) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `order_fk0` (`user_id`),
+  KEY `order_fk1` (`departure_branch_id`),
+  KEY `order_fk2` (`destination_branch_id`),
+  CONSTRAINT `order_fk0` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `order_fk1` FOREIGN KEY (`departure_branch_id`) REFERENCES `branch` (`id`),
+  CONSTRAINT `order_fk2` FOREIGN KEY (`destination_branch_id`) REFERENCES `branch` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100068 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `cargo` VALUES (100022,'Magic Ring',5,'Sauron',4,3,100,22,22,33,4,'2023-01-15 01:02:12','2023-01-16 01:02:12','DELIVERED','PENDING'),(100023,'Lightsaber',19,'Dart Sid',3,3,45,2,12,12,22,'2023-01-15 21:51:51','2023-01-16 21:51:51','TRANSIT','PENDING'),(100024,'Gold',19,'Dwarfs',4,3,100,22,22,22,222,'2023-01-16 17:56:14','2023-01-17 17:56:14','RECEIVED','PAYED'),(100025,'Swords',19,'Conan the Barbarian',3,3,100,112,100,22,22,'2023-01-16 17:56:54','2023-01-17 17:56:54','DECLINED','PENDING'),(100026,'Playstation 3',5,'Tom Sawyer',3,4,977,7,33,44,63,'2023-01-17 07:55:51','2023-01-18 07:55:51','TRANSIT','PENDING'),(100027,'Nintendo 3DS',5,'Huckleberry Finn',2,4,100,3,50,50,20,'2023-01-17 07:58:13','2023-01-18 07:58:13','TRANSIT','PAYED'),(100028,'Documents',5,'Huckleberry Finn',4,4,88,1,20,20,20,'2023-01-17 07:58:51','2023-01-18 07:58:51','TRANSIT','PAYED'),(100029,'Stuff',5,'Huckleberry Finn',1,4,99,20,100,120,120,'2023-01-17 07:59:36','2023-01-18 07:59:36','TRANSIT','PAYED'),(100030,'Games',5,'Tom Bob',3,1,622,22,50,45,2,'2023-01-17 08:00:08','2023-01-18 08:00:08','TRANSIT','PAYED'),(100031,'Коробки',5,'Федро Сумкінс',3,3,333,7,50,333,3,'2023-01-17 08:00:40','2023-01-18 08:00:40','TRANSIT','PAYED'),(100032,'Коробки',5,'Саурон',1,3,623,7,33,45,55,'2023-01-17 08:01:38','2023-01-18 08:01:38','RECEIVED','PENDING'),(100033,'Some things',5,'Фродо Сумкинс',1,1,11,43,3,3,444,'2023-01-17 08:02:56','2023-01-18 08:02:56','TRANSIT','PAYED'),(100034,'Перстень',5,'Більбо Беггінс',2,4,900,1,12,12,10,'2023-01-17 08:04:01','2023-01-18 08:04:01','TRANSIT','PENDING'),(100035,'Admin things',19,'Sauron',2,4,220,22,23,56,12,'2023-01-17 08:06:12','2023-01-18 08:06:12','TRANSIT','PENDING'),(100036,'Коробки',29,'Fedir Borovko',4,3,42,22,12,22,22,'2023-01-17 08:07:17','2023-01-18 08:07:17','TRANSIT','PENDING'),(100037,'Some things',29,'Fullname Receiver',3,4,52,2,20,20,20,'2023-01-17 08:07:46','2023-01-18 08:07:46','RECEIVED','PENDING'),(100038,'Stuff',29,'Huckleberry Finn',1,2,620,1,12,12,12,'2023-01-17 08:08:06','2023-01-18 08:08:06','TRANSIT','PENDING'),(100039,'Nothing',29,'Тест Прайсович',2,2,780,15,50,55,55,'2023-01-17 08:08:55','2023-01-18 08:08:55','TRANSIT','PENDING'),(100040,'Cargo',29,'Bilbo Bagins',3,1,880,22,50,45,55,'2023-01-17 08:09:20','2023-01-18 08:09:20','TRANSIT','PENDING'),(100041,'Золото',29,'Том Боб',1,2,100,55,100,122,122,'2023-01-17 08:09:53','2023-01-18 08:09:53','TRANSIT','PAYED'),(100042,'Some things',29,'Фродо Сумкинс',3,2,666,7,122,20,122,'2023-01-17 08:10:41','2023-01-18 08:10:41','TRANSIT','PENDING'),(100043,'Plastic Soldiers',30,'Балрог Барогович',4,3,100,20,22,33,44,'2023-01-19 00:27:29','2023-01-20 00:27:29','TRANSIT','PAYED'),(100044,'Скарби',30,'Мордред',4,3,576,5,100,50,50,'2023-01-19 00:28:12','2023-01-20 00:28:12','TRANSIT','PENDING'),(100045,'Всевластя',30,'Саурон',4,2,100,1,20,20,20,'2023-01-19 00:29:05','2023-01-20 00:29:05','TRANSIT','PENDING'),(100046,'Горлум',30,'Горлум',2,4,700,3,12,12,12,'2023-01-19 00:29:29','2023-01-20 00:29:29','TRANSIT','PENDING'),(100047,'Ектоплазма',30,'Білл Мюррей',2,1,203,22,100,100,92,'2023-01-19 00:30:59','2023-01-20 00:30:59','TRANSIT','PENDING'),(100048,'Валіза синя, з ручкою',5,'Федір Боровко',3,3,337,10,40,70,20,'2023-01-19 15:47:39','2023-01-20 15:47:39','TRANSIT','PENDING'),(100049,'TV game',5,'Tom Bombadil',3,4,714,7,70,20,20,'2023-01-19 15:49:43','2023-01-20 15:49:43','TRANSIT','PENDING'),(100050,'Slaves',29,'Athdog the Destroyer',3,3,720,8,100,30,30,'2023-01-19 15:51:44','2023-01-20 15:51:44','TRANSIT','PAYED'),(100051,'Boxes',29,'Tom Jerry',2,3,100,22,70,70,70,'2023-01-19 15:52:17','2023-01-20 15:52:17','TRANSIT','PENDING'),(100052,'Some things',5,'Bilbo Bagins',1,3,176,22,1,22,22,'2023-01-19 16:51:56','2023-01-20 16:51:56','TRANSIT','PENDING'),(100053,'Swords',5,'Elf Army',3,3,940,30,70,30,30,'2023-01-20 03:03:08','2023-01-21 03:03:08','TRANSIT','PENDING'),(100054,'Some things',5,'тест прайсович',3,1,100,123,12,1,22,'2023-01-21 18:06:48','2023-01-22 18:06:48','TRANSIT','PAYED'),(100055,'Some things',5,'Fedir Borovko',2,1,277,1,1,22,22,'2023-01-22 11:29:05','2023-01-23 11:29:05','TRANSIT','PAYED'),(100065,'test',5,'test',1,4,360,12,123,123,12,'2023-02-02 22:45:09','2023-02-03 22:45:09','TRANSIT','PAYED'),(100066,'Коробки',5,'Fedir Borovko',4,1,3720,123,123,123,123,'2023-02-22 22:58:34','2023-02-23 22:58:34','TRANSIT','PENDING'),(100067,'Cargo',5,'тест прайсович',3,1,60,1,1,123,1,'2023-03-05 20:46:26','2023-03-06 20:46:26','TRANSIT','PENDING');

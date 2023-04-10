@@ -37,7 +37,7 @@ public class Validator {
      * @return {@code true} if the information is incorrect, {@code false} otherwise.
      * @throws SQLException If a database error occurs while checking the information.
      */
-    public static boolean isIncorrectRegisterInfo(String username, String fullName, String email, String password) throws SQLException {
+    public static boolean isIncorrectRegisterInfo(String username, String fullName, String email, String password) {
         UserService userService = new UserService(UserDao.getInstance());
 
         if (username == null || username.isEmpty()) {
@@ -78,11 +78,10 @@ public class Validator {
      * @param length              The length of the cargo.
      * @param width               The width of the cargo.
      * @return <code>true</code> if the cargo information is incorrect, <code>false</code> otherwise.
-     * @throws SQLException If a database error occurs while fetching the branches.
      */
     public static boolean isIncorrectCargoInfo(String type, String receiverFullname, int departureBranchId,
                                                int destinationBranchId, String weight, String height, String length, String width)
-            throws SQLException, DaoException {
+            throws DaoException {
         if (type == null) {
             return true;
         }
@@ -117,7 +116,7 @@ public class Validator {
      * @return true if the cargo info is incorrect, false otherwise
      * @throws SQLException if a database access error occurs or this method is called on a closed connection
      */
-    public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, int weight, int height, int length, int width) throws SQLException, DaoException {
+    public static boolean isIncorrectCalculateInfo(int departureBranchId, int destinationBranchId, int weight, int height, int length, int width) throws DaoException {
 
         if (weight < 1 || height < 1 || length < 1 || width < 1) {
             return true;

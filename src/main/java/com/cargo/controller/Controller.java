@@ -2,7 +2,6 @@ package com.cargo.controller;
 
 import com.cargo.controller.command.Command;
 import com.cargo.controller.command.CommandContainer;
-import com.cargo.exceptions.DaoException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServlet;

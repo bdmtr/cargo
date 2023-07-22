@@ -20,8 +20,6 @@ destinations).
 
 Passwords are hashed with BCrypt algorithm.
 
-![Image alt](https://github.com/bdmtr/cargo/blob/master/schm.png)
-
 ![Image alt](https://github.com/bdmtr/cargo/blob/master/scr1.png)
 
 ![Image alt](https://github.com/bdmtr/cargo/blob/master/scr2.png)

@@ -1,4 +1,4 @@
-<h1>Cargo Delivery</h1>
+<h1>Cargo Delivery Management Service</h1>
 <h2>EPAM OnlineUA Java Program 2022</h2>
 
 The website of the cargo delivery company contains information about the directions of delivery, as well as tariffs (tariffs depend on the distance, weight and dimensions of the cargo). To calculate shipping, Google Matrix API is implemented.
